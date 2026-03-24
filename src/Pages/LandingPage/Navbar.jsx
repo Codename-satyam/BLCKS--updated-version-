@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Navbar() {
   return (
     <div className="fixed top-0 left-0 w-full z-50">
@@ -15,9 +17,9 @@ export default function Navbar() {
         {/* Center Links */}
         <div className="flex justify-center gap-10 text-[15px]">
 
-          <a href="#" className="navlink">
+          <Link to="/" className="navlink">
             Home
-          </a>
+          </Link>
 
           <a href="#" className="navlink">
             Features
@@ -27,9 +29,9 @@ export default function Navbar() {
             Pricing
           </a>
 
-          <a href="#" className="navlink">
+          <Link to="/contact" className="navlink">
             Contact
-          </a>
+          </Link>
 
         </div>
 

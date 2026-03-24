@@ -17,6 +17,7 @@ function Homepage() {
 
   return (
     <section
+      id="home"
       className="relative min-h-screen overflow-hidden"
       style={{ fontFamily: '"Bungee", cursive' }}
     >
