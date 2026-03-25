@@ -129,7 +129,8 @@ function Homepage() {
           </p>
 
           <button 
-            className={`mt-[40px] px-8 py-4 text-[16px] md:text-[18px] bg-transparent border-2 border-cyan-400 text-cyan-400 cursor-pointer transition-all duration-[800ms] ease-out hover:bg-cyan-400 hover:text-black hover:shadow-[0_0_20px_rgba(0,255,255,0.6)] uppercase tracking-widest delay-[400ms] ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[30px]"}`}
+            className={`mt-[40px] px-8 py-4 text-[16px] md:text-[18px] bg-transparent border-2 border-cyan-400 text-cyan-400 cursor-pointer transition-all duration-[800ms] ease-out hover:bg-cyan-400 hover:text-black hover:shadow-[0_0_20px_rgba(0,255,255,0.6)] uppercase tracking-widest delay-[400ms] ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[30px]"}`} 
+            onClick={() => window.location.href = "/builder"}
           >
             Initialize Build _
           </button>

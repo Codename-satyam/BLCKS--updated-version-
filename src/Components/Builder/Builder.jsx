@@ -136,10 +136,10 @@ export default function Builder() {
             </header>
 
             {/* IDE WORKSPACE */}
-            <div className="flex-1 flex overflow-hidden relative z-10">
+            <div className="flex-1 min-h-0 flex flex-col md:flex-row overflow-hidden relative z-10">
                 
                 {/* LEFT PANEL: SECTION REGISTRY */}
-                <aside className="w-full md:w-[340px] shrink-0 flex flex-col border-r border-cyan-900/60 bg-black/40 backdrop-blur-lg z-20 transition-all">
+                <aside className="w-full md:w-[340px] md:shrink-0 max-h-[48vh] md:max-h-none flex flex-col border-r border-cyan-900/60 bg-black/40 backdrop-blur-lg z-20 transition-all">
                     <div className="p-4 border-b border-cyan-900/30 bg-black/20">
                         <h2 className="text-sm tracking-[0.2em] text-cyan-500 flex items-center gap-2">
                             <span className="block w-4 h-px bg-cyan-500"></span>
@@ -210,7 +210,7 @@ export default function Builder() {
                 </aside>
 
                 {/* RIGHT PANEL: LIVE CANVAS */}
-                <section className="flex-1 relative flex flex-col min-w-0 bg-[#020202]">
+                <section className="flex-1 min-h-0 relative flex flex-col min-w-0 bg-[#020202]">
                     {/* Interactive Canvas Background */}
                     <div className="absolute inset-0 pointer-events-none opacity-[0.04] z-0" 
                          style={{ 
@@ -280,7 +280,7 @@ export default function Builder() {
                                                 )}
                                             </div>
 
-                                            <div className="flex items-center gap-2 opacity-0 group-hover/canvas-item:opacity-100 focus-within:opacity-100 transition-opacity">
+                                            <div className="flex items-center gap-2 opacity-100 md:opacity-0 md:group-hover/canvas-item:opacity-100 md:focus-within:opacity-100 transition-opacity">
                                                 <button
                                                     onClick={() => setActiveEditId(isActive ? null : section.id)}
                                                     className={`text-[9px] uppercase tracking-widest border px-3 py-1.5 transition-colors ${
