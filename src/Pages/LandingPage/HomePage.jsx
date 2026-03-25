@@ -79,7 +79,38 @@ function Homepage() {
         <h1 className="text-5xl md:text-5xl lg:text-8xl leading-relaxed mb-8" style={{
           textShadow: "0 0 10px rgba(0,255,255,0.5), 0 0 40px rgba(0,255,255,0.2)",
         }}>
-          Welcome To BLCKS
+          Welcome To <span class="text-indigo-600 
+    drop-shadow-[2px_2px_0px_#000] 
+    [text-shadow:4px_4px_0px_#4338ca,8px_8px_0px_#000]">
+            B
+          </span>
+
+          <span class="text-rose-500 
+    drop-shadow-[2px_2px_0px_#000] 
+    [text-shadow:4px_4px_0px_#e11d48,8px_8px_0px_#000]">
+            L
+          </span>
+
+          <span class="text-amber-400 
+    drop-shadow-[2px_2px_0px_#000] 
+    [text-shadow:4px_4px_0px_#d97706,8px_8px_0px_#000]">
+            O
+          </span>
+          <span class="text-blue-400
+          drop-shadow-[2px_2px_0px_#000]
+          [text-shadow:4px_4px_0px_#3b82f6,8px_8px_0px_#000]">
+            C
+          </span>
+          <span class="text-violet-500
+          drop-shadow-[2px_2px_0px_#000]
+          [text-shadow:4px_4px_0px_#8b5cf6,8px_8px_0px_#000]">
+            K
+          </span>
+          <span class="text-green-500
+          drop-shadow-[2px_2px_0px_#000]
+          [text-shadow:4px_4px_0px_#10b981,8px_8px_0px_#000]">
+            S
+          </span>
         </h1>
         <p className="text-xs md:text-sm text-gray-400 max-w-md leading-loose">
           Build. Launch. Create. Knowledge. Share.

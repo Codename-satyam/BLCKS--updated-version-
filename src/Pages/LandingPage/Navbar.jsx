@@ -21,16 +21,19 @@ export default function Navbar() {
             Home
           </Link>
 
-          <a href="#" className="navlink">
-            Features
-          </a>
+          <Link to="/builder" className="navlink">
+            Build
+          </Link>
 
           <a href="#" className="navlink">
-            Pricing
+            Components
           </a>
 
           <Link to="/contact" className="navlink">
             Contact
+          </Link>
+          <Link to='/about' className="navlink">
+            About
           </Link>
 
         </div>
@@ -38,7 +41,7 @@ export default function Navbar() {
         {/* User Area */}
         <div className="flex justify-end items-center gap-4 text-[15px]">
 
-          <button className="login-btn">
+          <button className="login-btn" style={{ hover: { cursor: "pointer" } }} onClick={() => window.location.href = "/login"}>
             Login
           </button>
 
