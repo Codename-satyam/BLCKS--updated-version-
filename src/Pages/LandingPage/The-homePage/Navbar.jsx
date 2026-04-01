@@ -25,9 +25,9 @@ export default function Navbar() {
             Build
           </Link>
 
-          <a href="#" className="navlink">
+          <Link to="/components" className="navlink">
             Components
-          </a>
+          </Link>
 
           <Link to="/contact" className="navlink">
             Contact

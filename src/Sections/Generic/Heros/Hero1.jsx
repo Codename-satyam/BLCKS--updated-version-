@@ -51,7 +51,7 @@ export default function Hero1({ content = {}, editor }) {
 						className="mt-8 border border-cyan-500 bg-black/50 px-4 py-2 text-cyan-400 text-center"
 					/>
 				) : (
-					<button className="mt-8 border border-cyan-400 text-cyan-400 px-6 py-3 hover:bg-cyan-400 hover:text-black transition-colors">
+				<button className="mt-8 border border-cyan-400 text-cyan-400 px-6 py-3 hover:bg-cyan-400 hover:text-black transition-colors">
 						{buttonLabel}
 					</button>
 				)}

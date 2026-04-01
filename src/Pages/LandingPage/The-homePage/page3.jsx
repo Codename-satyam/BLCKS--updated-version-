@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 
 // Using placeholder strings for the example; replace with your actual import paths
-import box1 from "../../assets/Images/box1.jpg";
-import box2 from "../../assets/Images/box2.jpg";
-import box3 from "../../assets/Images/box3.jpg";
-import box4 from "../../assets/Images/box4.jpg";
-import box5 from "../../assets/Images/box5.jpg";
-import box6 from "../../assets/Images/box6.jpg";
-import box7 from "../../assets/Images/box7.jpg";
-import box8 from "../../assets/Images/box8.jpg";
-import box9 from "../../assets/Images/box9.jpg";
-import box10 from "../../assets/Images/box10.jpg";
+import box1 from "../../../assets/Images/box1.jpg";
+import box2 from "../../../assets/Images/box2.jpg";
+import box3 from "../../../assets/Images/box3.jpg";
+import box4 from "../../../assets/Images/box4.jpg";
+import box5 from "../../../assets/Images/box5.jpg";
+import box6 from "../../../assets/Images/box6.jpg";
+import box7 from "../../../assets/Images/box7.jpg";
+import box8 from "../../../assets/Images/box8.jpg";
+import box9 from "../../../assets/Images/box9.jpg";
+import box10 from "../../../assets/Images/box10.jpg";
 
 const projects = [
   { id: 1, src: box1, title: "Modern Architecture", desc: "A deep dive into minimalist structural design and glass facades." },
@@ -105,7 +105,7 @@ function MainPage2() {
       `}</style>
 
       <section 
-        className="relative w-full max-w-[100vw] min-h-screen py-[60px] overflow-hidden bg-black text-white box-border perspective-[1000px]"
+        className="relative w-full max-w-[100vw] min-h-screen py-15 overflow-hidden bg-black text-white box-border perspective-[1000px]"
         style={{ fontFamily: '"Bungee", cursive' }}
       >
         {/* ================= NEW IMMERSIVE BACKGROUND ================= */}
@@ -159,15 +159,15 @@ function MainPage2() {
           </div>
 
           {/* TOP LANE CAROUSEL */}
-          <div className="relative w-full overflow-visible mb-[50px] box-border group/carousel before:content-[''] before:absolute before:top-0 before:left-0 before:w-[15vw] before:h-full before:z-[5] before:pointer-events-none before:bg-gradient-to-r before:from-black before:to-transparent after:content-[''] after:absolute after:top-0 after:right-0 after:w-[15vw] after:h-full after:z-[5] after:pointer-events-none after:bg-gradient-to-l after:from-black after:to-transparent">
+          <div className="relative w-full overflow-visible mb-12.5 box-border group/carousel before:content-[''] before:absolute before:top-0 before:left-0 before:w-[15vw] before:h-full before:z-5 before:pointer-events-none before:bg-linear-to-r before:from-black before:to-transparent after:content-[''] after:absolute after:top-0 after:right-0 after:w-[15vw] after:h-full after:z-5 after:pointer-events-none after:bg-linear-to-l after:from-black after:to-transparent">
             <div 
-              className="flex gap-[60px] w-max overflow-visible animate-scroll-left group-hover/carousel:[animation-play-state:paused]" 
+              className="flex gap-15 w-max overflow-visible animate-scroll-left group-hover/carousel:paused" 
               style={{ transform: `translateX(${offset}px)` }}
             >
               {[...projects, ...projects].map((project, i) => (
                 <div 
                   key={`top-${i}`} 
-                  className="group/item carousel-item relative shrink-0 w-[280px] h-[320px] rounded-sm border border-cyan-900/50 bg-black cursor-pointer z-[1] box-border transition-all duration-[400ms] ease-out hover:scale-[1.15] hover:-translate-y-4 hover:border-cyan-400 hover:shadow-[0_0_40px_rgba(0,255,255,0.5)] hover:z-30 overflow-hidden"
+                  className="group/item carousel-item relative shrink-0 w-70 h-80 rounded-sm border border-cyan-900/50 bg-black cursor-pointer z-1 box-border transition-all duration-400 ease-out hover:scale-[1.15] hover:-translate-y-4 hover:border-cyan-400 hover:shadow-[0_0_40px_rgba(0,255,255,0.5)] hover:z-30 overflow-hidden"
                   onClick={() => setSelectedProject(project)}
                 >
                   <img 
@@ -176,7 +176,7 @@ function MainPage2() {
                     className="w-full h-full object-cover img-pulse opacity-60 transition-all duration-500 ease-out group-hover/item:scale-125 group-hover/item:opacity-100" 
                   />
                   {/* Cyberpunk Hover Overlay */}
-                  <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center opacity-0 transition-opacity duration-300 ease-out text-cyan-400 border-[2px] border-transparent group-hover/item:border-cyan-400 group-hover/item:opacity-100">
+                  <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center opacity-0 transition-opacity duration-300 ease-out text-cyan-400 border-2 border-transparent group-hover/item:border-cyan-400 group-hover/item:opacity-100">
                     <span className="text-xs tracking-[0.3em] mb-2 opacity-80">&gt; DATA.READ</span>
                     <span className="text-2xl font-bold tracking-wider drop-shadow-[0_0_10px_rgba(0,255,255,0.8)]">EXECUTE</span>
                   </div>
@@ -186,15 +186,15 @@ function MainPage2() {
           </div>
 
           {/* BOTTOM LANE CAROUSEL */}
-          <div className="relative w-full overflow-visible mb-10 box-border group/carousel before:content-[''] before:absolute before:top-0 before:left-0 before:w-[15vw] before:h-full before:z-[5] before:pointer-events-none before:bg-gradient-to-r before:from-black before:to-transparent after:content-[''] after:absolute after:top-0 after:right-0 after:w-[15vw] after:h-full after:z-[5] after:pointer-events-none after:bg-gradient-to-l after:from-black after:to-transparent">
+          <div className="relative w-full overflow-visible mb-10 box-border group/carousel before:content-[''] before:absolute before:top-0 before:left-0 before:w-[15vw] before:h-full before:z-5 before:pointer-events-none before:bg-linear-to-r before:from-black before:to-transparent after:content-[''] after:absolute after:top-0 after:right-0 after:w-[15vw] after:h-full after:z-5 after:pointer-events-none after:bg-linear-to-l after:from-black after:to-transparent">
             <div 
-              className="flex gap-[60px] w-max overflow-visible animate-scroll-right group-hover/carousel:[animation-play-state:paused]" 
+              className="flex gap-15 w-max overflow-visible animate-scroll-right group-hover/carousel:paused" 
               style={{ transform: `translateX(${-offset}px)` }}
             >
               {[...projects, ...projects].map((project, i) => (
                 <div 
                   key={`bottom-${i}`} 
-                  className="group/item carousel-item relative shrink-0 w-[280px] h-[320px] rounded-sm border border-cyan-900/50 bg-black cursor-pointer z-[1] box-border transition-all duration-[400ms] ease-out hover:scale-[1.15] hover:-translate-y-4 hover:border-cyan-400 hover:shadow-[0_0_40px_rgba(0,255,255,0.5)] hover:z-30 overflow-hidden"
+                  className="group/item carousel-item relative shrink-0 w-70 h-80 rounded-sm border border-cyan-900/50 bg-black cursor-pointer z-1 box-border transition-all duration-400 ease-out hover:scale-[1.15] hover:-translate-y-4 hover:border-cyan-400 hover:shadow-[0_0_40px_rgba(0,255,255,0.5)] hover:z-30 overflow-hidden"
                   onClick={() => setSelectedProject(project)}
                 >
                   <img 
@@ -202,7 +202,7 @@ function MainPage2() {
                     alt={project.title} 
                     className="w-full h-full object-cover img-pulse opacity-60 transition-all duration-500 ease-out group-hover/item:scale-125 group-hover/item:opacity-100" 
                   />
-                  <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center opacity-0 transition-opacity duration-300 ease-out text-cyan-400 border-[2px] border-transparent group-hover/item:border-cyan-400 group-hover/item:opacity-100">
+                  <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center opacity-0 transition-opacity duration-300 ease-out text-cyan-400 border-2 border-transparent group-hover/item:border-cyan-400 group-hover/item:opacity-100">
                     <span className="text-xs tracking-[0.3em] mb-2 opacity-80">&gt; DATA.READ</span>
                     <span className="text-2xl font-bold tracking-wider drop-shadow-[0_0_10px_rgba(0,255,255,0.8)]">EXECUTE</span>
                   </div>
@@ -218,7 +218,7 @@ function MainPage2() {
           ========================================================= */}
       {selectedProject && (
         <div 
-          className="fixed inset-0 bg-black/90 backdrop-blur-[10px] z-[10000] flex items-center justify-center p-5 opacity-0 animate-fade-in" 
+          className="fixed inset-0 bg-black/90 backdrop-blur-[10px] z-10000 flex items-center justify-center p-5 opacity-0 animate-fade-in" 
           style={{ fontFamily: '"Bungee", cursive' }}
           onClick={() => setSelectedProject(null)}
         >
@@ -226,7 +226,7 @@ function MainPage2() {
           <div className="absolute inset-0 pointer-events-none opacity-[0.05]" style={{ background: "repeating-linear-gradient(0deg, transparent, transparent 2px, #fff 2px, #fff 4px)" }}></div>
           
           <div 
-            className="bg-black/90 border border-cyan-500 text-white w-full max-w-[1100px] rounded-none relative overflow-hidden shadow-[0_0_80px_rgba(0,255,255,0.2)] box-border z-10" 
+            className="bg-black/90 border border-cyan-500 text-white w-full max-w-275 rounded-none relative overflow-hidden shadow-[0_0_80px_rgba(0,255,255,0.2)] box-border z-10" 
             onClick={(e) => e.stopPropagation()}
           >
             {/* Terminal-style close button */}
@@ -243,7 +243,7 @@ function MainPage2() {
                 <img 
                   src={selectedProject.src} 
                   alt={selectedProject.title} 
-                  className="w-full h-[350px] md:h-[550px] object-cover opacity-70 transition-all duration-700 ease-out group-hover:scale-105 group-hover:opacity-100 grayscale-[40%] group-hover:grayscale-0" 
+                  className="w-full h-87.5 md:h-137.5 object-cover opacity-70 transition-all duration-700 ease-out group-hover:scale-105 group-hover:opacity-100 grayscale-40 group-hover:grayscale-0" 
                 />
               </div>
               <div className="p-8 md:p-12 flex flex-col justify-center relative">
@@ -257,15 +257,15 @@ function MainPage2() {
                     SYS.DATA.READ // BLOCK_{selectedProject.id}
                   </p>
                   <h3 
-                    className="text-[2.2rem] md:text-[2.8rem] mb-[20px] leading-none"
+                    className="text-[2.2rem] md:text-[2.8rem] mb-5 leading-none"
                     style={{ textShadow: "0 0 15px rgba(0,255,255,0.4)" }}
                   >
                     {selectedProject.title}
                   </h3>
-                  <p className="text-[1rem] md:text-[1.1rem] leading-loose text-gray-400 mb-[35px] font-sans">
+                  <p className="text-[1rem] md:text-[1.1rem] leading-loose text-gray-400 mb-8.75 font-sans">
                     {selectedProject.desc}
                   </p>
-                  <div className="flex flex-col gap-3 text-[0.85rem] mb-[40px] text-gray-500 tracking-[0.1em]">
+                  <div className="flex flex-col gap-3 text-[0.85rem] mb-10 text-gray-500 tracking-widest">
                     <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-cyan-500 rounded-full"></div><strong className="text-cyan-400">CLIENT:</strong> UNKNOWN_ENTITY</span>
                     <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-purple-500 rounded-full"></div><strong className="text-cyan-400">YEAR:</strong> 2024.CYCLE</span>
                   </div>

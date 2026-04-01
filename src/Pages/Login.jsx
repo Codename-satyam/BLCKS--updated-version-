@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import FloatingLines from "../assets/LightBackground/LightBackground"; // Adjust path as needed
+import React, { useState, useEffect, Suspense } from "react";
+const FloatingLines = React.lazy(() => import("../assets/LightBackground/LightBackground"));
 
 const AuthPage = () => {
     // State to toggle between Login and Register views
@@ -24,17 +24,19 @@ const AuthPage = () => {
         >
             {/* ================= BACKGROUND ELEMENTS ================= */}
             {/* 1. Floating Lines Interactive Background */}
-            <div className="absolute inset-0 z-0 opacity-60">
-                <FloatingLines 
-                    enabledWaves={["top","middle","bottom"]}
-                    lineCount={5}
-                    lineDistance={5}
+            <Suspense Fallback={null}>
+                <div className="absolute inset-0 z-0 opacity-60">
+                    <FloatingLines 
+                        enabledWaves={["top","middle","bottom"]}
+                        lineCount={5}
+                        lineDistance={5}
                     bendRadius={5}
                     bendStrength={-0.5}
                     interactive={true}
                     parallax={true}
                 />
             </div>
+            </Suspense>
 
             {/* 2. Brand Glows to anchor the lines */}
             <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-cyan-600 opacity-20 blur-[150px] pointer-events-none z-0"></div>

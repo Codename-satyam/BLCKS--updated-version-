@@ -1,4 +1,4 @@
-import CardSwap, { Card } from "../../assets/CardSwap/CardSwap.jsx";
+import CardSwap, { Card } from "../../../assets/CardSwap/CardSwap.jsx";
 
 const Page4 = () => {
     return (

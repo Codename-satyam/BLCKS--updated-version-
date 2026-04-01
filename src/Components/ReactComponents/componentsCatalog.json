@@ -1,0 +1,74 @@
+[
+  {
+    "id": "bg-grid-neon",
+    "name": "Neon Grid Background",
+    "category": "backgrounds",
+    "description": "Subtle animated grid glow for hero and app shells.",
+    "tags": ["grid", "ambient", "loop"],
+    "importCode": "import NeonGridBackground from '@/components/backgrounds/NeonGridBackground';",
+    "previewType": "background"
+  },
+  {
+    "id": "bg-rolling-window",
+    "name": "Rolling Window Background",
+    "category": "backgrounds",
+    "description": "Horizontally sweeping light bars with depth blur.",
+    "tags": ["motion", "cinematic", "hero"],
+    "importCode": "import RollingWindowBackground from '@/components/backgrounds/RollingWindowBackground';",
+    "previewType": "rolling"
+  },
+  {
+    "id": "header-terminal",
+    "name": "Terminal Header",
+    "category": "headers",
+    "description": "Navigation bar styled like a futuristic command deck.",
+    "tags": ["navbar", "layout", "topbar"],
+    "importCode": "import TerminalHeader from '@/components/headers/TerminalHeader';",
+    "previewType": "header"
+  },
+  {
+    "id": "header-glass-neon",
+    "name": "Glass Neon Header",
+    "category": "headers",
+    "description": "Semi-transparent neon border header for landing pages.",
+    "tags": ["glass", "navigation", "neon"],
+    "importCode": "import GlassNeonHeader from '@/components/headers/GlassNeonHeader';",
+    "previewType": "header"
+  },
+  {
+    "id": "anim-typeglow",
+    "name": "Type Glow Text",
+    "category": "animations",
+    "description": "Typing-style text reveal with glow pulses.",
+    "tags": ["text", "typing", "cta"],
+    "importCode": "import TypeGlowText from '@/components/animations/TypeGlowText';",
+    "previewType": "type"
+  },
+  {
+    "id": "anim-scanline",
+    "name": "Scanline Sweep",
+    "category": "animations",
+    "description": "Vertical scan sweep for section separators and cards.",
+    "tags": ["overlay", "fx", "transition"],
+    "importCode": "import ScanlineSweep from '@/components/animations/ScanlineSweep';",
+    "previewType": "scan"
+  },
+  {
+    "id": "text-hologram-title",
+    "name": "Hologram Title",
+    "category": "texts",
+    "description": "Split-shadow heading with neon cyan accent.",
+    "tags": ["title", "hero", "branding"],
+    "importCode": "import HologramTitle from '@/components/text/HologramTitle';",
+    "previewType": "text"
+  },
+  {
+    "id": "text-flicker-caption",
+    "name": "Flicker Caption",
+    "category": "texts",
+    "description": "Caption text with glitch flicker effect.",
+    "tags": ["caption", "microcopy", "fx"],
+    "importCode": "import FlickerCaption from '@/components/text/FlickerCaption';",
+    "previewType": "text"
+  }
+]

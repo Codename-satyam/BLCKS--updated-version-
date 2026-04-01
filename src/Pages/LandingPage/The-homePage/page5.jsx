@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import TargetCursor from "../../assets/TargetCursor/TargetCursor"; // Adjust path as needed
+import TargetCursor from "../../../assets/TargetCursor/TargetCursor"; // Adjust path as needed
 
 const WhyUs = () => {
     const [visible, setVisible] = useState(false);
@@ -127,7 +127,7 @@ const WhyUs = () => {
                     <button className="cursor-target relative px-10 py-5 bg-transparent border-2 border-cyan-500 text-cyan-400 uppercase tracking-[0.2em] text-sm md:text-base transition-all duration-300 hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_30px_rgba(0,255,255,0.6)] font-bold overflow-hidden group">
                         <span className="relative z-10">Initialize Setup _</span>
                         {/* Hover glitch effect line */}
-                        <div className="absolute top-1/2 left-[-100%] w-[200%] h-[2px] bg-white opacity-0 group-hover:opacity-50 group-hover:animate-[scan_1s_linear_infinite] pointer-events-none"></div>
+                        <div className="absolute top-1/2 -left-full w-[200%] h-0.5 bg-white opacity-0 group-hover:opacity-50 group-hover:animate-[scan_1s_linear_infinite] pointer-events-none"></div>
                     </button>
                 </div>
 
