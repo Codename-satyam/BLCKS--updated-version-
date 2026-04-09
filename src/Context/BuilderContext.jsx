@@ -10,22 +10,13 @@ const initialSectionContent = sectionRegistry.reduce((acc, section) => {
 }, {});
 
 const defaultDesignSettings = {
-    // Background
-    bgMode: "solid",           // "solid" | "gradient"
+    bgMode: "solid",
     bgColor: "#020202",
     bgGradient: "linear-gradient(135deg, #0891b2 0%, #7c3aed 100%)",
-
-    // Text
     textColor: "#ffffff",
     textOpacity: 100,
-
-    // Font
-    fontFamily: "mono",        // "mono" | "sans" | "serif" | "display"
-
-    // Accent
+    fontFamily: "mono",
     accentColor: "#00e5ff",
-
-    // Legacy compat
     bgGradientEnabled: false,
     gradientValue: "linear-gradient(135deg, #0891b2 0%, #7c3aed 100%)",
 };
@@ -38,12 +29,12 @@ export const FONT_MAP = {
 };
 
 export const GRADIENT_PRESETS = [
-    { name: "Deep Space",     value: "linear-gradient(135deg, #091e2e 0%, #0a1628 100%)" },
-    { name: "Cyan-Purple",    value: "linear-gradient(135deg, #0891b2 0%, #7c3aed 100%)" },
-    { name: "Nebula",         value: "linear-gradient(135deg, #1a0533 0%, #05111a 100%)" },
-    { name: "Forest Dark",    value: "linear-gradient(135deg, #0f1a0f 0%, #0a1a0a 100%)" },
-    { name: "Ember",          value: "linear-gradient(135deg, #1a0a00 0%, #0d0500 100%)" },
-    { name: "Violet Night",   value: "linear-gradient(135deg, #13001f 0%, #00101a 100%)" },
+    { name: "Deep Space",   value: "linear-gradient(135deg, #091e2e 0%, #0a1628 100%)" },
+    { name: "Cyan-Purple",  value: "linear-gradient(135deg, #0891b2 0%, #7c3aed 100%)" },
+    { name: "Nebula",       value: "linear-gradient(135deg, #1a0533 0%, #05111a 100%)" },
+    { name: "Forest Dark",  value: "linear-gradient(135deg, #0f1a0f 0%, #0a1a0a 100%)" },
+    { name: "Ember",        value: "linear-gradient(135deg, #1a0a00 0%, #0d0500 100%)" },
+    { name: "Violet Night", value: "linear-gradient(135deg, #13001f 0%, #00101a 100%)" },
 ];
 
 export const ACCENT_PRESETS = [
@@ -59,11 +50,13 @@ export function BuilderProvider({ children, initialSetup }) {
     const [selectedSectionIds, setSelectedSectionIds] = useState(
         initialSetup?.preloadSections || []
     );
-    const [sectionContent, setSectionContent] = useState(initialSectionContent);
-    const [designSettings, setDesignSettings] = useState(defaultDesignSettings);
-    const [activeEditId, setActiveEditId] = useState(null);
+    const [sectionContent, setSectionContent]     = useState(initialSectionContent);
+    const [designSettings, setDesignSettings]     = useState(defaultDesignSettings);
+    const [activeEditId, setActiveEditId]         = useState(null);
+    const [isPreviewOpen, setIsPreviewOpen]       = useState(false);
+    const [previewViewport, setPreviewViewport]   = useState("desktop"); // "desktop" | "tablet" | "mobile"
 
-    // ── Derived: selected sections with content ────────────────────────────
+    // ── Derived ──────────────────────────────────────────────────────────
     const selectedSections = useMemo(() => {
         return selectedSectionIds
             .map((id) => {
@@ -103,7 +96,7 @@ export function BuilderProvider({ children, initialSetup }) {
         setSelectedSectionIds((ids) => {
             if (sourceId === targetId) return ids;
             const from = ids.indexOf(sourceId);
-            const to = ids.indexOf(targetId);
+            const to   = ids.indexOf(targetId);
             if (from === -1 || to === -1) return ids;
             const next = [...ids];
             next.splice(from, 1);
@@ -116,6 +109,7 @@ export function BuilderProvider({ children, initialSetup }) {
         setSelectedSectionIds([]);
         setSectionContent(initialSectionContent);
         setActiveEditId(null);
+        setIsPreviewOpen(false);
     }, []);
 
     // ── Content mutations ─────────────────────────────────────────────────
@@ -138,6 +132,10 @@ export function BuilderProvider({ children, initialSetup }) {
         setDesignSettings((prev) => ({ ...prev, ...updates }));
     }, []);
 
+    // ── Preview ───────────────────────────────────────────────────────────
+    const openPreview  = useCallback(() => setIsPreviewOpen(true),  []);
+    const closePreview = useCallback(() => setIsPreviewOpen(false), []);
+
     // ── Checklist ────────────────────────────────────────────────────────
     const checklistItems = useMemo(() => [
         { id: "navbar",   label: "Navbar",           completed: selectedSectionIds.some((id) => id.startsWith("navbar")) },
@@ -148,7 +146,7 @@ export function BuilderProvider({ children, initialSetup }) {
         { id: "footer",   label: "Footer",           completed: selectedSectionIds.some((id) => id.startsWith("footer")) },
     ], [selectedSectionIds]);
 
-    const completedCount = checklistItems.filter((i) => i.completed).length;
+    const completedCount    = checklistItems.filter((i) => i.completed).length;
     const checklistProgress = `${completedCount}/${checklistItems.length}`;
 
     // ── Resolved style helpers ────────────────────────────────────────────
@@ -159,13 +157,10 @@ export function BuilderProvider({ children, initialSetup }) {
     const resolvedFont = FONT_MAP[designSettings.fontFamily] || FONT_MAP.mono;
 
     const contextValue = {
-        // Design
         designSettings,
         updateDesignSettings,
         resolvedBackground,
         resolvedFont,
-
-        // Sections
         sectionRegistry,
         selectedSections,
         addSection,
@@ -175,14 +170,15 @@ export function BuilderProvider({ children, initialSetup }) {
         resetTemplate,
         updateSectionField,
         updateSectionContent,
-
-        // Active edit
         activeEditId,
         setActiveEditId,
-
-        // Checklist
         checklistItems,
         checklistProgress,
+        isPreviewOpen,
+        openPreview,
+        closePreview,
+        previewViewport,
+        setPreviewViewport,
     };
 
     return (

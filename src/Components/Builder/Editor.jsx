@@ -1,6 +1,29 @@
 import { useState, useRef } from "react";
 import { useBuilder, FONT_MAP } from "../../Context/BuilderContext";
 
+const TEMPLATE_ACCENT_CSS = `
+    .builder-template-surface {
+        font-family: var(--builder-font) !important;
+    }
+
+    .builder-template-surface [class*="text-cyan-"] {
+        color: var(--builder-accent) !important;
+    }
+
+    .builder-template-surface [class*="border-cyan-"] {
+        border-color: var(--builder-accent) !important;
+    }
+
+    .builder-template-surface [class*="hover:text-cyan-"]:hover {
+        color: var(--builder-accent) !important;
+    }
+
+    .builder-template-surface [class*="hover:bg-cyan-"]:hover {
+        background-color: var(--builder-accent) !important;
+        color: #020202 !important;
+    }
+`;
+
 // ── Per-section editable fields definition ────────────────────────────────────
 export const SECTION_FIELDS = {
     navbar1:   [
@@ -288,62 +311,7 @@ function SectionPreview({ sectionId, content, designSettings }) {
     return <div style={{ padding: 20, fontSize: 12, color: "#444", fontFamily: "sans-serif" }}>[{sectionId}] section</div>;
 }
 
-// ── Inline edit panel ─────────────────────────────────────────────────────────
-function EditPanel({ section, onFieldChange, onClose }) {
-    const fields = SECTION_FIELDS[section.id] || [];
-    const content = section.content || {};
 
-    return (
-        <div className="border-t border-cyan-900/40 bg-[#040404]">
-            {/* Panel header */}
-            <div className="px-5 py-3 border-b border-cyan-900/20 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                    <span className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
-                    <span className="text-[9px] font-mono tracking-[0.2em] text-cyan-400">CONTENT EDITOR</span>
-                    <span className="text-[9px] font-mono text-cyan-800">— {section.title}</span>
-                </div>
-                <button
-                    onClick={onClose}
-                    className="text-[9px] font-mono tracking-widest border border-cyan-700/50 bg-cyan-950/40 text-cyan-400 px-3 py-1 hover:bg-cyan-400 hover:text-black transition-all"
-                >
-                    ✓ SAVE
-                </button>
-            </div>
-
-            {/* Fields grid */}
-            <div className="p-5 grid grid-cols-2 gap-x-6 gap-y-4 md:grid-cols-3">
-                {fields.map((field) => {
-                    const value = content[field.key] !== undefined ? content[field.key] : field.default;
-                    const isWide = field.type === "textarea";
-                    return (
-                        <div key={field.key} className={`flex flex-col gap-1.5 ${isWide ? "col-span-2 md:col-span-3" : ""}`}>
-                            <label className="text-[8px] font-mono tracking-[0.18em] text-cyan-800 uppercase">
-                                {field.label}
-                            </label>
-                            {field.type === "textarea" ? (
-                                <textarea
-                                    value={value}
-                                    rows={3}
-                                    onChange={(e) => onFieldChange(field.key, e.target.value)}
-                                    className="bg-black border border-cyan-900/40 focus:border-cyan-500 text-cyan-200 text-[11px] font-sans px-3 py-2 outline-none resize-none transition-colors placeholder-cyan-900/50"
-                                    placeholder={field.default}
-                                />
-                            ) : (
-                                <input
-                                    type="text"
-                                    value={value}
-                                    onChange={(e) => onFieldChange(field.key, e.target.value)}
-                                    className="bg-black border border-cyan-900/40 focus:border-cyan-500 text-cyan-200 text-[11px] font-mono px-3 py-2 outline-none transition-colors"
-                                    placeholder={field.default}
-                                />
-                            )}
-                        </div>
-                    );
-                })}
-            </div>
-        </div>
-    );
-}
 
 // ── Main Editor ───────────────────────────────────────────────────────────────
 export default function Editor() {
@@ -355,6 +323,7 @@ export default function Editor() {
         updateSectionField,
         designSettings,
         resolvedBackground,
+        resolvedFont,
         activeEditId,
         setActiveEditId,
     } = useBuilder();
@@ -409,11 +378,22 @@ export default function Editor() {
         background: resolvedBackground || designSettings.bgColor,
     };
 
+    const textOpacityScale = Math.max(0.2, Math.min(1, (designSettings.textOpacity || 100) / 100));
+    const sectionContentStyle = {
+        "--builder-accent": designSettings.accentColor || "#00e5ff",
+        "--builder-font": resolvedFont || FONT_MAP.mono,
+        fontFamily: resolvedFont || FONT_MAP.mono,
+        color: designSettings.textColor || "#ffffff",
+        opacity: textOpacityScale,
+    };
+
     return (
         <section
             className="flex-1 min-h-0 flex flex-col overflow-hidden transition-all duration-500"
             style={bgStyle}
         >
+            <style>{TEMPLATE_ACCENT_CSS}</style>
+
             {/* Dot grid overlay */}
             <div
                 className="absolute inset-0 pointer-events-none z-0 opacity-[0.03]"
@@ -452,7 +432,7 @@ export default function Editor() {
 
                         return (
                             <article
-                                key={section.id}
+                                key={`${section.id}-${index}`}
                                 draggable
                                 onDragStart={(e) => handleSectionDragStart(e, section.id)}
                                 onDragOver={(e) => handleSectionDragOver(e, section.id)}
@@ -526,12 +506,11 @@ export default function Editor() {
                                     className="relative overflow-hidden cursor-pointer group/preview"
                                     style={{
                                         background: "transparent",
-                                        color: designSettings.textColor,
                                         opacity: isActive ? 1 : undefined,
                                     }}
                                     onClick={() => { if (!isActive) setActiveEditId(section.id); }}
                                 >
-                                    <div className={isActive ? "" : "pointer-events-none"}>
+                                    <div className={`builder-template-surface ${isActive ? "" : "pointer-events-none"}`} style={sectionContentStyle}>
                                         {/* If section has a React Component use it, otherwise render preview */}
                                         {section.Component ? (
                                             <section.Component
@@ -560,14 +539,7 @@ export default function Editor() {
                                     )}
                                 </div>
 
-                                {/* Inline edit panel */}
-                                {isActive && (
-                                    <EditPanel
-                                        section={section}
-                                        onFieldChange={(key, val) => updateSectionField(section.id, key, val)}
-                                        onClose={() => setActiveEditId(null)}
-                                    />
-                                )}
+
                             </article>
                         );
                     })}
