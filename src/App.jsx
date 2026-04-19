@@ -12,6 +12,7 @@ const Footer = lazy(() => import("./Pages/LandingPage/The-homePage/Footer"));
 const Contact = lazy(() => import("./Pages/Contact/Contact"));
 const About = lazy(() => import("./Pages/LandingPage/About"));
 const Login = lazy(() => import("./Pages/Login"));
+const BuilderLanding = lazy(() => import("./Pages/BuilderLanding"));
 const Builder = lazy(() => import("./Components/Builder/Builder"));
 const ReactComponents = lazy(() => import("./Components/ReactComponents/ReactComponents"));
 const PlatformSelector = lazy(() => import("./Components/PlatformSelector/PlatformSelector"));
@@ -50,7 +51,7 @@ export default function App() {
   const location = useLocation();
 
   // Hide navbar on full-screen utility pages
-  const shouldShowNavbar = !["/builder", "/components", "/react-components"].some(route => 
+  const shouldShowNavbar = !["/builder", "/components", "/react-components", "/builder-landing"].some(route => 
     location.pathname.startsWith(route)
   );
 
@@ -78,6 +79,9 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/components" element={<ReactComponents />} />
+          
+          {/* Builder Landing - Idea Selection */}
+          <Route path="/builder-landing" element={<BuilderLanding />} />
           
           {/* Builder - Platform Selection */}
           <Route

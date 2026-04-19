@@ -1,10 +1,10 @@
 import { useBuilder, GRADIENT_PRESETS, ACCENT_PRESETS, FONT_MAP } from "../../Context/BuilderContext";
 
 const FONT_LABELS = {
-    mono:    "Monospace  — Courier New",
-    sans:    "Sans-serif — Segoe UI",
-    serif:   "Serif      — Georgia",
-    display: "Display    — Impact",
+    mono:    "MONOSPACE",
+    sans:    "SANS-SERIF",
+    serif:   "SERIF",
+    display: "DISPLAY",
 };
 
 export default function DesignPanel() {
@@ -32,33 +32,38 @@ export default function DesignPanel() {
     const completionPct  = Math.round((completedCount / checklistItems.length) * 100);
 
     return (
-        <aside className="hidden lg:flex lg:flex-col w-[240px] shrink-0 border-l border-cyan-900/40 bg-black/50 backdrop-blur-lg overflow-hidden">
-            {/* Header */}
-            <div className="px-4 py-3 border-b border-cyan-900/30 bg-black/30 shrink-0">
-                <h2 className="text-[9px] font-mono tracking-[0.3em] text-cyan-400 flex items-center gap-2 font-bold">
-                    <span className="block w-3 h-px bg-cyan-400" />
-                    THEME_EDITOR
+        <aside className="hidden lg:flex lg:flex-col w-[320px] shrink-0 border-l-4 border-white bg-black font-mono text-white selection:bg-fuchsia-500 selection:text-black overflow-hidden z-20">
+            
+            {/* ── HEADER ───────────────────────────────────────────── */}
+            <div className="px-6 py-4 border-b-4 border-white bg-black shrink-0 flex flex-col gap-1">
+                <h2 className="text-xl font-black uppercase tracking-widest text-white flex items-center gap-3">
+                    <span className="block w-4 h-4 bg-lime-400 shadow-[2px_2px_0px_0px_white]" />
+                    THEME_EDTR
                 </h2>
-                <p className="text-[8px] text-slate-600 mt-1.5">Customize component styling</p>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-2 border-t-2 border-white/20 pt-2">
+                    Override Global Styles
+                </p>
             </div>
 
-            {/* Scrollable body */}
-            <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-6 [scrollbar-width:thin] [scrollbar-color:#0891b230_#000]">
+            {/* ── SCROLLABLE BODY ──────────────────────────────────── */}
+            <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-10 [scrollbar-width:none]">
 
                 {/* ── BACKGROUND ─────────────────────────────────────── */}
-                <section className="flex flex-col gap-3 border-b border-white/[0.04] pb-5">
-                    <h3 className="text-[8px] font-mono tracking-[0.25em] text-cyan-600 uppercase">Background</h3>
+                <section className="flex flex-col gap-4">
+                    <h3 className="text-sm font-black tracking-widest bg-white text-black px-3 py-1 inline-block self-start uppercase">
+                        Background
+                    </h3>
 
                     {/* Mode toggle */}
-                    <div className="flex gap-1.5">
+                    <div className="flex gap-3">
                         {["solid", "gradient"].map((mode) => (
                             <button
                                 key={mode}
                                 onClick={() => update({ bgMode: mode })}
-                                className={`flex-1 text-[9px] font-mono py-1.5 border transition-all capitalize tracking-widest
+                                className={`flex-1 text-xs font-black py-2 border-2 transition-all uppercase tracking-widest
                                     ${bgMode === mode
-                                        ? "border-cyan-500 bg-cyan-950/60 text-cyan-300"
-                                        : "border-cyan-900/30 bg-black text-slate-600 hover:border-cyan-800 hover:text-slate-400"
+                                        ? "border-lime-400 bg-lime-400 text-black shadow-[4px_4px_0px_0px_white] translate-x-[2px] translate-y-[2px]"
+                                        : "border-white bg-black text-white hover:border-lime-400 hover:text-lime-400 hover:shadow-[4px_4px_0px_0px_#a3e635] hover:-translate-y-1 hover:-translate-x-1"
                                     }`}
                             >
                                 {mode}
@@ -68,87 +73,87 @@ export default function DesignPanel() {
 
                     {/* Solid color picker */}
                     {bgMode === "solid" && (
-                        <div className="flex flex-col gap-2">
-                            <label className="text-[8px] font-mono text-slate-600">Color</label>
-                            <div className="flex items-center gap-2">
-                                <input
-                                    type="color"
-                                    value={bgColor}
-                                    onChange={(e) => update({ bgColor: e.target.value })}
-                                    className="w-10 h-8 bg-transparent border border-cyan-900/40 cursor-pointer p-0.5"
-                                />
-                                <span className="text-[10px] font-mono text-slate-500">{bgColor}</span>
+                        <div className="flex items-center gap-4 bg-zinc-900 border-2 border-white p-3">
+                            <input
+                                type="color"
+                                value={bgColor}
+                                onChange={(e) => update({ bgColor: e.target.value })}
+                                className="w-12 h-12 bg-black border-2 border-white cursor-pointer p-0.5 [&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch]:border-none"
+                            />
+                            <div className="flex flex-col">
+                                <span className="text-xs font-bold text-slate-400 uppercase">Hex</span>
+                                <span className="text-lg font-black tracking-wider">{bgColor}</span>
                             </div>
                         </div>
                     )}
 
                     {/* Gradient presets */}
                     {bgMode === "gradient" && (
-                        <div className="flex flex-col gap-2">
-                            <label className="text-[8px] font-mono text-slate-600">Gradient Presets</label>
-                            <div className="flex flex-col gap-1.5">
-                                {GRADIENT_PRESETS.map((preset) => (
-                                    <button
-                                        key={preset.name}
-                                        onClick={() => update({ bgGradient: preset.value })}
-                                        className={`w-full h-8 border transition-all text-left flex items-center px-2
-                                            ${bgGradient === preset.value
-                                                ? "border-cyan-400 shadow-[0_0_8px_rgba(0,229,255,0.3)]"
-                                                : "border-cyan-900/30 hover:border-cyan-700"
-                                            }`}
-                                        style={{ backgroundImage: preset.value }}
-                                    >
-                                        <span className="text-[8px] font-mono bg-black/70 px-1.5 py-0.5 text-slate-300 backdrop-blur-sm">
-                                            {preset.name}
-                                        </span>
-                                    </button>
-                                ))}
-                            </div>
+                        <div className="flex flex-col gap-3">
+                            {GRADIENT_PRESETS.map((preset) => (
+                                <button
+                                    key={preset.name}
+                                    onClick={() => update({ bgGradient: preset.value })}
+                                    className={`w-full h-12 border-2 transition-all flex items-center justify-center
+                                        ${bgGradient === preset.value
+                                            ? "border-white shadow-[4px_4px_0px_0px_white] translate-x-[2px] translate-y-[2px]"
+                                            : "border-zinc-700 hover:border-white hover:shadow-[4px_4px_0px_0px_white] hover:-translate-y-1 hover:-translate-x-1"
+                                        }`}
+                                    style={{ backgroundImage: preset.value }}
+                                >
+                                    <span className="text-xs font-black bg-black border-2 border-white px-3 py-1 uppercase tracking-widest text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                                        {preset.name}
+                                    </span>
+                                </button>
+                            ))}
                         </div>
                     )}
                 </section>
 
                 {/* ── TYPOGRAPHY ─────────────────────────────────────── */}
-                <section className="flex flex-col gap-3 border-b border-white/[0.04] pb-5">
-                    <h3 className="text-[8px] font-mono tracking-[0.25em] text-cyan-600 uppercase">Typography</h3>
+                <section className="flex flex-col gap-4">
+                    <h3 className="text-sm font-black tracking-widest bg-white text-black px-3 py-1 inline-block self-start uppercase">
+                        Typography
+                    </h3>
 
-                    <div className="flex flex-col gap-1.5">
-                        <label className="text-[8px] font-mono text-slate-600">Heading Font</label>
+                    {/* Font Selector */}
+                    <div className="flex flex-col gap-3">
                         {Object.keys(FONT_LABELS).map((key) => (
                             <button
                                 key={key}
                                 onClick={() => update({ fontFamily: key })}
-                                className={`w-full text-left text-[9px] px-2.5 py-2 border transition-all
+                                className={`w-full text-left px-4 py-3 border-2 transition-all flex justify-between items-center
                                     ${fontFamily === key
-                                        ? "border-cyan-500 bg-cyan-950/40 text-cyan-300"
-                                        : "border-slate-800 bg-black/50 text-slate-600 hover:border-slate-600 hover:text-slate-400"
+                                        ? "border-fuchsia-500 bg-fuchsia-500 text-black shadow-[4px_4px_0px_0px_white] translate-x-[2px] translate-y-[2px]"
+                                        : "border-zinc-700 bg-black text-white hover:border-white hover:shadow-[4px_4px_0px_0px_white] hover:-translate-y-1 hover:-translate-x-1"
                                     }`}
                                 style={{ fontFamily: FONT_MAP[key] }}
                             >
-                                {FONT_LABELS[key]}
+                                <span className="font-bold text-sm tracking-widest">{FONT_LABELS[key]}</span>
+                                {fontFamily === key && <span className="text-lg font-black">✓</span>}
                             </button>
                         ))}
                     </div>
 
-                    {/* Text color */}
-                    <div className="flex flex-col gap-1.5">
-                        <label className="text-[8px] font-mono text-slate-600">Text Color</label>
-                        <div className="flex items-center gap-2">
-                            <input
-                                type="color"
-                                value={textColor}
-                                onChange={(e) => update({ textColor: e.target.value })}
-                                className="w-10 h-8 bg-transparent border border-cyan-900/40 cursor-pointer p-0.5"
-                            />
-                            <span className="text-[10px] font-mono text-slate-500">{textColor}</span>
+                    {/* Text Color */}
+                    <div className="flex items-center gap-4 bg-zinc-900 border-2 border-white p-3 mt-2">
+                        <input
+                            type="color"
+                            value={textColor}
+                            onChange={(e) => update({ textColor: e.target.value })}
+                            className="w-10 h-10 bg-black border-2 border-white cursor-pointer p-0.5 [&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch]:border-none"
+                        />
+                        <div className="flex flex-col flex-1">
+                            <span className="text-xs font-bold text-slate-400 uppercase">Text Color</span>
+                            <span className="text-sm font-black tracking-wider">{textColor}</span>
                         </div>
                     </div>
 
-                    {/* Opacity */}
-                    <div className="flex flex-col gap-1.5">
-                        <div className="flex justify-between items-center">
-                            <label className="text-[8px] font-mono text-slate-600">Text Opacity</label>
-                            <span className="text-[9px] font-mono text-cyan-500">{textOpacity}%</span>
+                    {/* Opacity Slider */}
+                    <div className="flex flex-col gap-2 bg-black border-2 border-zinc-700 p-3 mt-2">
+                        <div className="flex justify-between items-center border-b-2 border-zinc-800 pb-2 mb-2">
+                            <span className="text-xs font-bold text-slate-400 uppercase">Opacity</span>
+                            <span className="text-sm font-black text-white">{textOpacity}%</span>
                         </div>
                         <input
                             type="range"
@@ -156,93 +161,81 @@ export default function DesignPanel() {
                             max="100"
                             value={textOpacity}
                             onChange={(e) => update({ textOpacity: parseInt(e.target.value) })}
-                            className="w-full accent-cyan-500 h-1"
+                            className="w-full h-2 bg-zinc-800 appearance-none cursor-pointer accent-fuchsia-500"
                         />
                     </div>
                 </section>
 
                 {/* ── ACCENT COLOR ───────────────────────────────────── */}
-                <section className="flex flex-col gap-3 border-b border-white/[0.04] pb-5">
-                    <h3 className="text-[8px] font-mono tracking-[0.25em] text-cyan-600 uppercase">Accent Color</h3>
+                <section className="flex flex-col gap-4">
+                    <h3 className="text-sm font-black tracking-widest bg-white text-black px-3 py-1 inline-block self-start uppercase">
+                        Accent Color
+                    </h3>
 
-                    {/* Preset swatches */}
-                    <div className="grid grid-cols-3 gap-1.5">
+                    {/* Preset Swatches */}
+                    <div className="grid grid-cols-4 gap-3">
                         {ACCENT_PRESETS.map((preset) => (
                             <button
                                 key={preset.name}
                                 onClick={() => update({ accentColor: preset.value })}
                                 title={preset.name}
-                                className={`h-7 border text-[8px] font-mono transition-all
+                                className={`h-12 border-2 transition-all
                                     ${accentColor === preset.value
-                                        ? "border-white/80 scale-105 shadow-[0_0_10px_rgba(255,255,255,0.3)]"
-                                        : "border-transparent hover:border-white/30"
+                                        ? "border-white shadow-[4px_4px_0px_0px_white] scale-110 z-10"
+                                        : "border-zinc-800 hover:border-white hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_white]"
                                     }`}
-                                style={{ background: preset.value, color: preset.value === "#ffffff" ? "#000" : "#000" }}
+                                style={{ background: preset.value }}
                             />
                         ))}
                     </div>
 
-                    {/* Custom color */}
-                    <div className="flex items-center gap-2">
+                    {/* Custom Accent */}
+                    <div className="flex items-center gap-4 bg-zinc-900 border-2 border-white p-3 mt-2">
                         <input
                             type="color"
                             value={accentColor}
                             onChange={(e) => update({ accentColor: e.target.value })}
-                            className="w-10 h-8 bg-transparent border border-cyan-900/40 cursor-pointer p-0.5"
+                            className="w-10 h-10 bg-black border-2 border-white cursor-pointer p-0.5 [&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch]:border-none"
                         />
                         <div className="flex flex-col">
-                            <span className="text-[8px] font-mono text-slate-600">Custom</span>
-                            <span className="text-[10px] font-mono text-slate-400">{accentColor}</span>
+                            <span className="text-xs font-bold text-slate-400 uppercase">Custom</span>
+                            <span className="text-sm font-black tracking-wider">{accentColor}</span>
                         </div>
                     </div>
 
-                    {/* Live accent preview */}
-                    <div className="border border-white/[0.06] p-3 flex flex-col gap-2" style={{ borderLeftColor: accentColor, borderLeftWidth: 2 }}>
-                        <div className="text-[8px] font-mono text-slate-600">Preview</div>
-                        <div style={{ color: accentColor }} className="text-[11px] font-mono tracking-widest">ACCENT.ACTIVE</div>
-                        <button
-                            style={{ borderColor: accentColor, color: accentColor, background: "transparent" }}
-                            className="w-full text-[9px] font-mono py-1.5 border tracking-widest transition-none"
-                        >
-                            CTA Button
-                        </button>
-                    </div>
+                    {/* Live Preview Button */}
+                    <button
+                        style={{ backgroundColor: accentColor, color: "#000", borderColor: "#fff" }}
+                        className="w-full py-4 mt-2 border-4 font-black text-lg tracking-widest uppercase hover:-translate-y-1 hover:-translate-x-1 shadow-[6px_6px_0px_0px_white] transition-all"
+                    >
+                        CTA Button
+                    </button>
                 </section>
 
                 {/* ── BUILD CHECKLIST ────────────────────────────────── */}
-                <section className="flex flex-col gap-3 border-b border-white/[0.04] pb-5">
-                    <div className="flex items-center justify-between">
-                        <h3 className="text-[8px] font-mono tracking-[0.25em] text-cyan-600 uppercase">Build Checklist</h3>
-                        <span className="text-[9px] font-mono text-cyan-500">{checklistProgress}</span>
+                <section className="flex flex-col gap-4">
+                    <div className="flex items-end justify-between border-b-4 border-zinc-800 pb-2">
+                        <h3 className="text-sm font-black tracking-widest bg-white text-black px-3 py-1 uppercase">
+                            Checklist
+                        </h3>
+                        <span className="text-lg font-black">{checklistProgress}</span>
                     </div>
 
-                    {/* Progress bar */}
-                    <div className="w-full h-1 bg-cyan-950 overflow-hidden">
-                        <div
-                            className="h-full bg-cyan-400 transition-all duration-700"
-                            style={{ width: `${completionPct}%` }}
-                        />
-                    </div>
-
-                    {/* Items */}
-                    <div className="flex flex-col gap-1.5">
+                    <div className="flex flex-col gap-3">
                         {checklistItems.map((item) => (
                             <div
                                 key={item.id}
-                                className={`flex items-center gap-2.5 px-2.5 py-1.5 border text-[10px] font-sans transition-all
+                                className={`flex items-center gap-4 p-3 border-2 transition-all
                                     ${item.completed
-                                        ? "border-green-800/40 bg-green-950/20"
-                                        : "border-slate-800/40 bg-transparent"
+                                        ? "border-lime-400 bg-lime-400/10 opacity-70"
+                                        : "border-zinc-700 bg-black"
                                     }`}
                             >
-                                <div className={`w-3 h-3 border flex items-center justify-center flex-shrink-0 transition-all
-                                    ${item.completed
-                                        ? "border-green-500 bg-green-500"
-                                        : "border-slate-700"
-                                    }`}>
-                                    {item.completed && <span className="text-black text-[7px] font-bold">✓</span>}
+                                <div className={`w-6 h-6 border-2 flex items-center justify-center shrink-0
+                                    ${item.completed ? "border-lime-400 bg-lime-400 text-black" : "border-white"}`}>
+                                    {item.completed && <span className="font-black text-sm">✓</span>}
                                 </div>
-                                <span className={item.completed ? "text-green-400 line-through" : "text-slate-500"}>
+                                <span className={`text-xs font-bold tracking-widest uppercase ${item.completed ? "line-through text-lime-400" : "text-white"}`}>
                                     {item.label}
                                 </span>
                             </div>
@@ -250,34 +243,37 @@ export default function DesignPanel() {
                     </div>
                 </section>
 
-                {/* ── STATS ──────────────────────────────────────────── */}
-                <section className="flex flex-col gap-2 border-b border-white/[0.04] pb-5">
-                    <h3 className="text-[8px] font-mono tracking-[0.25em] text-cyan-600 uppercase">Project Stats</h3>
-                    <div className="bg-cyan-950/20 border border-cyan-900/30 p-3 flex flex-col gap-2">
-                        {[
-                            { label: "Sections Added",   value: selectedSections.length },
-                            { label: "Build Completion", value: `${completionPct}%` },
-                            { label: "Checklist Done",   value: `${checklistProgress}` },
-                        ].map(({ label, value }) => (
-                            <div key={label} className="flex justify-between items-center">
-                                <span className="text-[9px] font-sans text-slate-600">{label}</span>
-                                <span className="text-[10px] font-mono text-cyan-400 font-bold">{value}</span>
-                            </div>
-                        ))}
+                {/* ── STATS & TIP ────────────────────────────────────── */}
+                <section className="flex flex-col gap-4 mb-8">
+                    {/* Stats Box */}
+                    <div className="border-4 border-white bg-black p-4 shadow-[6px_6px_0px_0px_#3b82f6]">
+                        <h3 className="text-xs font-black tracking-widest text-blue-500 uppercase mb-3 border-b-2 border-blue-500 pb-2">System_Stats</h3>
+                        <div className="flex flex-col gap-2">
+                            {[
+                                { label: "SECTIONS", value: selectedSections.length },
+                                { label: "PROGRESS", value: `${completionPct}%` },
+                            ].map(({ label, value }) => (
+                                <div key={label} className="flex justify-between items-center">
+                                    <span className="text-xs font-bold text-slate-400">{label}</span>
+                                    <span className="text-sm font-black text-white">{value}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Tip Box */}
+                    <div className="border-4 border-fuchsia-500 bg-black p-4 shadow-[6px_6px_0px_0px_#d946ef]">
+                        <p className="text-xs font-black text-fuchsia-500 tracking-widest mb-2 border-b-2 border-fuchsia-500 pb-2">SYS.TIP</p>
+                        <p className="text-xs font-bold text-white leading-relaxed uppercase">
+                            {selectedSections.length === 0
+                                ? "Inject sections from the library immediately."
+                                : checklistItems.some((i) => !i.completed)
+                                ? `Required: Add a [${checklistItems.find((i) => !i.completed)?.label}] module.`
+                                : "Systems nominal. Ready for export procedure."}
+                        </p>
                     </div>
                 </section>
 
-                {/* ── TIP ────────────────────────────────────────────── */}
-                <section className="bg-purple-950/20 border border-purple-900/30 p-3">
-                    <p className="text-[8px] font-mono text-purple-500 tracking-widest mb-2">DESIGN TIP</p>
-                    <p className="text-[10px] font-sans text-slate-500 leading-relaxed">
-                        {selectedSections.length === 0
-                            ? "Start by injecting sections from the library on the left."
-                            : checklistItems.some((i) => !i.completed)
-                            ? `Add a ${checklistItems.find((i) => !i.completed)?.label} to strengthen the page.`
-                            : "All key sections are present. Consider reviewing your accent color before exporting."}
-                    </p>
-                </section>
             </div>
         </aside>
     );

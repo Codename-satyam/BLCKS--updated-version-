@@ -21,7 +21,7 @@ export default function Navbar() {
             Home
           </Link>
 
-          <Link to="/builder" className="navlink">
+          <Link to="/builder-landing" className="navlink">
             Build
           </Link>
 

@@ -7,625 +7,466 @@ import "./components/animations.css";
 
 // ─── Copy to Clipboard Hook ──────────────────────────────────────────────────
 function useCopyToClipboard() {
-  const [copied, setCopied] = useState(false);
-  const copy = async (text) => {
-    await navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-  return { copied, copy };
+    const [copied, setCopied] = useState(false);
+    const copy = async (text) => {
+        await navigator.clipboard.writeText(text);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
+    return { copied, copy };
 }
 
 // ─── Component Preview Renderer ──────────────────────────────────────────────
 function PreviewRenderer({ componentId }) {
-  const componentMap = {
-    "bg-grid-neon": () => (
-      <NeonGridBackground className="min-h-[400px]">
-        <div className="flex items-center justify-center h-full">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold text-cyan-300 mb-2">Neon Grid</h2>
-            <p className="text-gray-400">Ambient grid background effect</p>
-          </div>
-        </div>
-      </NeonGridBackground>
-    ),
-    "bg-rolling-window": () => (
-      <RollingWindowBackground className="h-[400px]">
-        <div className="flex items-center justify-center h-full">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold text-cyan-300 mb-2">Rolling Window</h2>
-            <p className="text-gray-400">Sweeping light bar animation</p>
-          </div>
-        </div>
-      </RollingWindowBackground>
-    ),
-    "header-terminal": () => (
-      <TerminalHeader
-        brand="SYSTEM.NAV"
-        links={[
-          { label: "Home", href: "#" },
-          { label: "About", href: "#" },
-          { label: "Services", href: "#" },
-        ]}
-        cta="Deploy"
-      />
-    ),
-    "header-glass-neon": () => (
-      <GlassNeonHeader
-        brand="GLASS.CO"
-        links={[
-          { label: "Work", href: "#" },
-          { label: "Studio", href: "#" },
-        ]}
-        cta="Book Call"
-      />
-    ),
-    "anim-typeglow": () => (
-      <div className="flex items-center justify-center min-h-[200px] bg-gradient-to-br from-[#1a1a24] to-[#09090b] rounded-lg">
-        <div className="text-center">
-          <TypeGlowText text="System Initializing..." className="mb-4 justify-center" />
-          <p className="text-gray-500 text-xs mt-4">Type glow animation effect</p>
-        </div>
-      </div>
-    ),
-    "anim-scanline": () => (
-      <ScanlineSweep className="rounded-lg bg-gradient-to-br from-[#1a1a24] to-[#09090b] min-h-[300px] flex items-center justify-center">
-        <div className="text-center">
-          <h3 className="text-2xl font-bold text-cyan-300 mb-2">Scanline Active</h3>
-          <p className="text-gray-400">Vertical sweep effect overlay</p>
-        </div>
-      </ScanlineSweep>
-    ),
-    "text-hologram-title": () => (
-      <div className="flex items-center justify-center min-h-[300px]">
-        <HologramTitle as="h2" className="text-5xl text-center">
-          System Override
-        </HologramTitle>
-      </div>
-    ),
-    "text-flicker-caption": () => (
-      <div className="flex items-center justify-center min-h-[200px] bg-[#0a0a0d] rounded-lg">
-        <FlickerCaption>
-          ■ system ready — all nodes online ■
-        </FlickerCaption>
-      </div>
-    ),
-  };
+    const componentMap = {
+        "bg-grid-neon": () => (
+            <NeonGridBackground className="min-h-[400px] w-full h-full absolute inset-0">
+                <div className="flex items-center justify-center h-full relative z-10">
+                    <h2 className="text-5xl md:text-7xl font-black text-lime-400 uppercase tracking-widest bg-black/80 border-4 border-lime-400 p-8 shadow-[8px_8px_0px_0px_#a3e635]">
+                        GRID_ACTIVE
+                    </h2>
+                </div>
+            </NeonGridBackground>
+        ),
+        "bg-rolling-window": () => (
+            <RollingWindowBackground className="min-h-[400px] w-full h-full absolute inset-0">
+                <div className="flex items-center justify-center h-full relative z-10">
+                    <h2 className="text-5xl md:text-7xl font-black text-fuchsia-500 uppercase tracking-widest bg-black/80 border-4 border-fuchsia-500 p-8 shadow-[8px_8px_0px_0px_#d946ef]">
+                        SWEEP_SEQ
+                    </h2>
+                </div>
+            </RollingWindowBackground>
+        ),
+        "header-terminal": () => (
+            <div className="w-full">
+                <TerminalHeader
+                    brand="SYS.NAV"
+                    links={[
+                        { label: "INDEX", href: "#" },
+                        { label: "DATA", href: "#" },
+                    ]}
+                    cta="EXECUTE"
+                />
+            </div>
+        ),
+        "header-glass-neon": () => (
+            <div className="w-full">
+                <GlassNeonHeader
+                    brand="GLASS.IO"
+                    links={[
+                        { label: "WORK", href: "#" },
+                        { label: "CORE", href: "#" },
+                    ]}
+                    cta="INIT"
+                />
+            </div>
+        ),
+        "anim-typeglow": () => (
+            <div className="flex items-center justify-center min-h-[300px] w-full bg-black border-4 border-white">
+                <TypeGlowText text="SYS.INIT()" className="text-4xl md:text-6xl font-black uppercase text-white" />
+            </div>
+        ),
+        "anim-scanline": () => (
+            <ScanlineSweep className="bg-black min-h-[400px] w-full flex items-center justify-center border-4 border-cyan-400">
+                <h3 className="text-7xl font-black text-cyan-400 uppercase tracking-widest bg-black p-6 border-4 border-cyan-400 shadow-[8px_8px_0px_0px_#22d3ee]">
+                    SCAN
+                </h3>
+            </ScanlineSweep>
+        ),
+        "text-hologram-title": () => (
+            <div className="flex items-center justify-center min-h-[400px] w-full bg-black border-4 border-white shadow-[12px_12px_0px_0px_#fff]">
+                <HologramTitle as="h2" className="text-7xl font-black uppercase tracking-tighter">
+                    OVERRIDE
+                </HologramTitle>
+            </div>
+        ),
+        "text-flicker-caption": () => (
+            <div className="flex items-center justify-center min-h-[300px] w-full bg-black border-4 border-orange-500 shadow-[8px_8px_0px_0px_#f97316]">
+                <FlickerCaption className="text-orange-500 font-black text-3xl uppercase tracking-widest">
+                    [NODES_ONLINE]
+                </FlickerCaption>
+            </div>
+        ),
+    };
 
-  const renderer = componentMap[componentId];
-  if (!renderer) {
-    return (
-      <div className="flex items-center justify-center min-h-[400px] text-gray-500">
-        Preview not available
-      </div>
-    );
-  }
+    const renderer = componentMap[componentId];
+    if (!renderer) {
+        return (
+            <div className="flex items-center justify-center min-h-[400px] w-full border-4 border-dashed border-red-500 bg-red-500/10 text-red-500 font-black text-2xl uppercase tracking-widest">
+                ERR: COMP_NOT_FOUND
+            </div>
+        );
+    }
 
-  return renderer();
+    return renderer();
 }
 
 // ─── Left Sidebar Navigation ─────────────────────────────────────────────────
 function Sidebar({ activeItem, setActiveItem }) {
-  const groupedByCategory = componentsCatalog.reduce((acc, comp) => {
-    if (!acc[comp.category]) acc[comp.category] = [];
-    acc[comp.category].push(comp);
-    return acc;
-  }, {});
+    const groupedByCategory = componentsCatalog.reduce((acc, comp) => {
+        if (!acc[comp.category]) acc[comp.category] = [];
+        acc[comp.category].push(comp);
+        return acc;
+    }, {});
 
-  const categories = Object.entries(groupedByCategory).map(([id, items]) => ({
-    id,
-    label: id.charAt(0).toUpperCase() + id.slice(1),
-    items
-  }));
+    const categories = Object.entries(groupedByCategory).map(([id, items]) => ({
+        id,
+        label: id.toUpperCase(),
+        items
+    }));
 
-  return (
-    <aside className="w-72 shrink-0 border-r border-white/10 bg-[#09090b] overflow-y-auto hidden lg:block pb-10 sticky top-[57px] max-h-[calc(100vh-57px)]">
-      <div className="py-6 px-4">
-        {/* Getting Started Section */}
-        <div className="mb-8">
-          <h4 className="mb-3 px-2 text-xs font-semibold uppercase tracking-wider text-gray-500">Navigation</h4>
-          <button
-            onClick={() => setActiveItem(null)}
-            className={`w-full text-left px-3 py-2 text-sm rounded-md transition-all relative group
-              ${!activeItem ? "text-white bg-gradient-to-r from-cyan-500/20 to-transparent border border-cyan-500/30" : "text-gray-400 hover:text-gray-200 hover:bg-white/5"}`}
-          >
-            {!activeItem && <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-cyan-400 rounded-r-full" />}
-            <span className="flex items-center gap-2">
-              <span className="text-cyan-400">⊙</span> Component Index
-            </span>
-          </button>
-        </div>
-
-        {/* Component Categories */}
-        {categories.map((cat) => (
-          <div key={cat.id} className="mb-8">
-            <h4 className="mb-3 px-2 text-xs font-semibold uppercase tracking-wider text-gray-500">{cat.label}</h4>
-            <ul className="space-y-1">
-              {cat.items.map((item) => {
-                const isActive = activeItem?.id === item.id;
-                return (
-                  <li key={item.id}>
+    return (
+        <aside className="w-[320px] shrink-0 border-r-4 border-white bg-black overflow-y-auto hidden lg:block pb-10 sticky top-[72px] max-h-[calc(100vh-72px)] [scrollbar-width:none]">
+            <div className="p-6">
+                <div className="mb-8">
                     <button
-                      onClick={() => setActiveItem(item)}
-                      className={`w-full text-left px-3 py-2 text-sm rounded-md transition-all relative group
-                        ${isActive ? "text-white bg-gradient-to-r from-cyan-500/20 to-transparent border border-cyan-500/30" : "text-gray-400 hover:text-gray-200 hover:bg-white/5"}`}
+                        onClick={() => setActiveItem(null)}
+                        className={`w-full text-left px-4 py-3 text-sm font-black uppercase tracking-widest transition-all border-4 
+                            ${!activeItem 
+                                ? "border-lime-400 bg-lime-400 text-black shadow-[4px_4px_0px_0px_white] -translate-y-1" 
+                                : "border-zinc-800 text-white hover:border-white hover:shadow-[4px_4px_0px_0px_white] hover:-translate-y-1"}`}
                     >
-                      {isActive && <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-cyan-400 rounded-r-full" />}
-                      <span className="flex items-center gap-2">
-                        {isActive ? <span className="text-cyan-400">◆</span> : <span className="text-gray-600">◇</span>}
-                        {item.name}
-                      </span>
+                        [ OVERVIEW ]
                     </button>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </aside>
-  );
+                </div>
+
+                {categories.map((cat) => (
+                    <div key={cat.id} className="mb-8">
+                        <h4 className="mb-3 px-2 text-xs font-black uppercase tracking-widest text-zinc-500 border-b-2 border-zinc-800 pb-2">
+                            {cat.label}
+                        </h4>
+                        <ul className="space-y-2 mt-4">
+                            {cat.items.map((item) => {
+                                const isActive = activeItem?.id === item.id;
+                                return (
+                                    <li key={item.id}>
+                                        <button
+                                            onClick={() => setActiveItem(item)}
+                                            className={`w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest transition-all border-2
+                                                ${isActive 
+                                                    ? "border-fuchsia-500 bg-fuchsia-500/20 text-fuchsia-500 shadow-[4px_4px_0px_0px_#d946ef] -translate-y-1 translate-x-1" 
+                                                    : "border-transparent text-zinc-400 hover:border-white hover:text-white hover:-translate-y-1"}`}
+                                        >
+                                            {isActive ? "▶ " : "■ "}{item.name}
+                                        </button>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </div>
+                ))}
+            </div>
+        </aside>
+    );
 }
 
 // ─── Top Navbar ──────────────────────────────────────────────────────────────
 function TopNav() {
-  return (
-    <header className="sticky top-0 z-40 w-full border-b border-white/10 bg-[#09090b]/80 backdrop-blur-md">
-      <div className="flex items-center justify-between px-6 py-4 max-w-full">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-400 to-cyan-600">
-            <span className="text-white font-bold text-sm">&lt;/&gt;</span>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-white font-bold tracking-tight">React Component Library</span>
-            <span className="text-xs text-cyan-400">Premium UI Components</span>
-          </div>
-        </div>
-        <div className="flex items-center gap-8">
-          <nav className="hidden md:flex items-center gap-8 text-sm text-gray-400">
-            <a href="#" className="hover:text-cyan-400 transition">Docs</a>
-            <a href="#" className="hover:text-cyan-400 transition">Showcase</a>
-            <a href="#" className="hover:text-cyan-400 transition">GitHub</a>
-          </nav>
-        </div>
-      </div>
-    </header>
-  );
+    return (
+        <header className="sticky top-0 z-40 w-full border-b-4 border-white bg-black">
+            <div className="flex items-center justify-between px-6 py-4">
+                <div className="flex items-center gap-4">
+                    <div className="flex items-center justify-center w-10 h-10 border-4 border-white bg-lime-400 shadow-[4px_4px_0px_0px_white]">
+                        <span className="text-black font-black text-xl">/</span>
+                    </div>
+                    <div className="flex flex-col">
+                        <span className="text-white font-black text-xl uppercase tracking-widest leading-none">LIB.UI</span>
+                        <span className="text-xs text-lime-400 font-bold tracking-widest uppercase mt-1">Modules</span>
+                    </div>
+                </div>
+
+                <nav className="hidden md:flex items-center gap-6 text-sm font-black uppercase tracking-widest text-white">
+                    <a href="#" className="border-b-4 border-transparent hover:border-fuchsia-500 pb-1 transition-colors">DOCS</a>
+                    <a href="#" className="border-b-4 border-transparent hover:border-lime-400 pb-1 transition-colors">SHOWCASE</a>
+                    <a href="#" className="border-b-4 border-transparent hover:border-cyan-400 pb-1 transition-colors">REPO</a>
+                </nav>
+            </div>
+        </header>
+    );
 }
 
 // ─── Component Grid Card (Index View) ────────────────────────────────────────
 function MinimalCard({ item, onClick }) {
-  return (
-    <div 
-      onClick={() => onClick(item)}
-      className="group cursor-pointer rounded-xl border border-white/10 bg-gradient-to-b from-[#0f0f12] to-[#09090b] overflow-hidden hover:border-cyan-500/50 transition-all flex flex-col hover:shadow-lg hover:shadow-cyan-500/20 transform hover:-translate-y-1"
-    >
-      {/* Preview Area */}
-      <div className="h-32 w-full bg-gradient-to-br from-[#111113] to-[#0a0a0d] relative flex items-center justify-center overflow-hidden border-b border-white/5">
-        <div className="absolute inset-0 opacity-30">
-          {item.previewType === "background" && (
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(0,229,255,0.1),transparent_50%)]" />
-          )}
-          {item.previewType === "rolling" && (
-            <div
-              className="absolute inset-0"
-              style={{
-                background: 'linear-gradient(90deg, transparent 0%, rgba(0,229,255,0.15) 35%, transparent 70%)',
-                animation: 'rollX 5s linear infinite',
-              }}
-            />
-          )}
-          {item.previewType === "header" && (
-            <div className="absolute top-0 w-full h-8 bg-[radial-gradient(circle_at_50%_0%,rgba(0,229,255,0.2),transparent_80%)]" />
-          )}
-          {item.previewType === "type" && (
-            <div className="text-cyan-400 font-mono text-xs opacity-70">█ Typing...</div>
-          )}
-          {item.previewType === "scan" && (
-            <div className="absolute h-1 w-full bg-gradient-to-b from-cyan-400/50 to-transparent top-1/3" />
-          )}
-          {item.previewType === "text" && (
-            <div className="text-2xl font-bold text-cyan-400/70" style={{textShadow: '0 0 20px rgba(0,229,255,0.5)'}}>
-              Text
+    return (
+        <div 
+            onClick={() => onClick(item)}
+            className="group cursor-pointer border-4 border-zinc-800 bg-black overflow-hidden hover:border-lime-400 transition-all flex flex-col hover:shadow-[8px_8px_0px_0px_#a3e635] hover:-translate-y-2 hover:-translate-x-2"
+        >
+            <div className="p-4 border-b-4 border-inherit bg-zinc-900 group-hover:bg-lime-400 transition-colors">
+                <span className="text-black font-black text-xs uppercase tracking-widest bg-white px-2 py-1 shadow-[2px_2px_0px_0px_#000]">
+                    {item.category}
+                </span>
             </div>
-          )}
+            
+            <div className="p-6 flex-1 flex flex-col">
+                <h3 className="text-xl font-black text-white uppercase tracking-widest mb-2">{item.name}</h3>
+                <p className="text-xs font-bold text-zinc-500 uppercase flex-1 leading-relaxed">{item.description}</p>
+                
+                <div className="mt-6 flex flex-wrap gap-2">
+                    {item.tags?.slice(0, 2).map(tag => (
+                        <span key={tag} className="text-[10px] font-black px-2 py-1 border-2 border-zinc-700 text-zinc-400 uppercase">
+                            {tag}
+                        </span>
+                    ))}
+                </div>
+            </div>
         </div>
-        <span className="text-gray-500 text-xs font-mono relative z-10 px-2 py-1 bg-black/50 rounded border border-white/10">{item.category}</span>
-      </div>
-      {/* Text Area */}
-      <div className="p-4 border-t border-white/5 flex-1 flex flex-col">
-        <h3 className="text-sm font-semibold text-white group-hover:text-cyan-400 transition">{item.name}</h3>
-        <p className="text-xs text-gray-500 mt-1 leading-relaxed flex-1">{item.description?.substring(0, 60)}</p>
-        <div className="mt-3 flex flex-wrap gap-1">
-          {item.tags?.slice(0, 2).map(tag => (
-            <span key={tag} className="text-xs px-2 py-0.5 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 rounded-full">
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 // ─── Component Detail View ───────────────────────────────────────────────────
-function DetailView({ item, onBack }) {
-  const [tab, setTab] = useState("preview");
-  const { copied, copy } = useCopyToClipboard();
+function DetailView({ item }) {
+    const [tab, setTab] = useState("preview");
+    const { copied, copy } = useCopyToClipboard();
 
-  return (
-    <div className="max-w-5xl animate-in fade-in duration-300">
-      {/* Header */}
-      <div className="mb-8">
-        <button
-          onClick={onBack}
-          className="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 text-sm mb-4 transition"
-        >
-          ← Back to Components
-        </button>
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex-1">
-            <h1 className="text-4xl font-bold text-white tracking-tight mb-2">{item.name}</h1>
-            <p className="text-gray-400 text-base leading-relaxed">{item.description}</p>
-            <div className="flex flex-wrap gap-2 mt-4">
-              {item.tags?.map(tag => (
-                <span key={tag} className="text-xs px-3 py-1 bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 rounded-full">
-                  {tag}
-                </span>
-              ))}
+    return (
+        <div className="w-full flex flex-col xl:flex-row gap-8 animate-in fade-in duration-300">
+            
+            {/* Left/Center Column: Main Content */}
+            <div className="flex-1 min-w-0 flex flex-col">
+                
+                {/* Component Title */}
+                <div className="mb-8 border-b-4 border-zinc-800 pb-6">
+                    <h1 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter mb-4">{item.name}</h1>
+                    <p className="text-zinc-400 font-bold uppercase text-sm md:text-base leading-relaxed">{item.description}</p>
+                </div>
+
+                {/* Toolbar (Preview/Code toggles & Copy actions) */}
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+                    <div className="flex gap-2">
+                        <button 
+                            onClick={() => setTab("preview")}
+                            className={`px-5 py-2 text-xs font-black uppercase tracking-widest border-4 transition-all
+                                ${tab === "preview" 
+                                    ? "border-white bg-white text-black shadow-[4px_4px_0px_0px_#fff] -translate-y-1" 
+                                    : "border-zinc-800 text-zinc-500 hover:border-white hover:text-white"
+                                }`}
+                        >
+                            [ PREVIEW ]
+                        </button>
+                        <button 
+                            onClick={() => setTab("code")}
+                            className={`px-5 py-2 text-xs font-black uppercase tracking-widest border-4 transition-all
+                                ${tab === "code" 
+                                    ? "border-white bg-white text-black shadow-[4px_4px_0px_0px_#fff] -translate-y-1" 
+                                    : "border-zinc-800 text-zinc-500 hover:border-white hover:text-white"
+                                }`}
+                        >
+                            [ CODE ]
+                        </button>
+                    </div>
+
+                    <div className="flex gap-3">
+                        <button className="p-2 border-4 border-zinc-800 text-zinc-500 hover:border-fuchsia-500 hover:text-fuchsia-500 hover:shadow-[4px_4px_0px_0px_#d946ef] hover:-translate-y-1 transition-all">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="square" strokeLinejoin="miter">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                        </button>
+                        <button 
+                            onClick={() => copy(item.import)}
+                            className="px-4 py-2 border-4 border-zinc-800 text-white font-black uppercase tracking-widest hover:border-lime-400 hover:bg-lime-400 hover:text-black hover:shadow-[4px_4px_0px_0px_#a3e635] hover:-translate-y-1 transition-all flex items-center gap-2"
+                        >
+                            {copied ? "COPIED ✓" : "COPY PROMPT"}
+                        </button>
+                    </div>
+                </div>
+
+                {/* Large Preview / Code Area */}
+                <div className="border-4 border-white bg-black shadow-[12px_12px_0px_0px_white] min-h-[500px] flex flex-col relative overflow-hidden mb-12">
+                    {tab === "preview" && (
+                        <div className="flex-1 w-full h-full flex items-center justify-center relative p-8">
+                            <PreviewRenderer componentId={item.id} />
+                        </div>
+                    )}
+
+                    {tab === "code" && (
+                        <div className="flex-1 w-full p-6 overflow-hidden flex flex-col bg-zinc-950">
+                            <div className="flex justify-between items-center mb-4 border-b-4 border-zinc-800 pb-4">
+                                <span className="font-black text-white uppercase tracking-widest">SOURCE.TSX</span>
+                                <button onClick={() => copy(item.source)} className="text-xs font-black text-lime-400 border-2 border-lime-400 px-3 py-1 hover:bg-lime-400 hover:text-black uppercase">
+                                    {copied ? "✓" : "COPY"}
+                                </button>
+                            </div>
+                            <pre className="text-xs md:text-sm text-zinc-400 font-mono overflow-auto [scrollbar-width:none] flex-1">
+                                <code>{item.source}</code>
+                            </pre>
+                        </div>
+                    )}
+                </div>
+
+                {/* Customize / Props Section (Below Preview) */}
+                <div className="border-t-4 border-zinc-800 pt-12">
+                    <h2 className="text-3xl font-black text-white uppercase tracking-widest mb-8">
+                        CUSTOMIZE
+                    </h2>
+                    {item.props && item.props.length > 0 ? (
+                        <div className="overflow-x-auto border-4 border-zinc-800 p-1 bg-black">
+                            <table className="w-full text-left font-mono text-sm">
+                                <thead>
+                                    <tr className="border-b-4 border-zinc-800 bg-zinc-900">
+                                        <th className="px-4 py-3 text-white uppercase">PROP</th>
+                                        <th className="px-4 py-3 text-white uppercase">TYPE</th>
+                                        <th className="px-4 py-3 text-white uppercase hidden md:table-cell">DEFAULT</th>
+                                        <th className="px-4 py-3 text-white uppercase">DESC</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {item.props.map((prop, idx) => (
+                                        <tr key={idx} className="border-b-2 border-zinc-900 hover:bg-zinc-900 transition-colors">
+                                            <td className="px-4 py-4 text-lime-400 font-black">{prop.property}</td>
+                                            <td className="px-4 py-4 text-fuchsia-500 font-bold">{prop.type}</td>
+                                            <td className="px-4 py-4 text-zinc-500 font-bold hidden md:table-cell">{prop.default}</td>
+                                            <td className="px-4 py-4 text-zinc-400 text-xs uppercase">{prop.description}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    ) : (
+                        <div className="border-4 border-zinc-800 p-8 bg-zinc-900 text-center">
+                            <span className="text-zinc-500 font-black uppercase tracking-widest">SYS.NO_PROPS_AVAILABLE</span>
+                        </div>
+                    )}
+                </div>
             </div>
-          </div>
-          <div className="flex gap-2 flex-wrap justify-end">
-            <button 
-              onClick={() => copy(item.import)}
-              className="p-2 text-gray-400 hover:text-cyan-400 border border-white/10 hover:border-cyan-500/50 rounded-md bg-[#18181b] hover:bg-cyan-500/10 transition flex items-center gap-2"
-            >
-              {copied ? "✓ Copied" : "📋 Copy Import"}
-            </button>
-            <button className="px-4 py-2 text-sm font-medium text-white border border-white/10 rounded-md bg-[#18181b] hover:bg-white/5 flex items-center gap-2 transition">
-              ♡ Save
-            </button>
-          </div>
-        </div>
-      </div>
 
-      {/* Tabs */}
-      <div className="flex items-center gap-1 mb-6 border-b border-white/10 pb-4 sticky top-20 bg-[#09090b] z-10">
-        <button 
-          onClick={() => setTab("preview")}
-          className={`px-4 py-2.5 text-sm font-medium rounded-t-md transition flex items-center gap-2 ${
-            tab === "preview" 
-              ? "bg-cyan-500/20 text-cyan-300 border-b-2 border-cyan-400" 
-              : "text-gray-400 hover:text-gray-200"
-          }`}
-        >
-          ⊙ Preview
-        </button>
-        <button 
-          onClick={() => setTab("code")}
-          className={`px-4 py-2.5 text-sm font-medium rounded-t-md transition flex items-center gap-2 ${
-            tab === "code" 
-              ? "bg-cyan-500/20 text-cyan-300 border-b-2 border-cyan-400" 
-              : "text-gray-400 hover:text-gray-200"
-          }`}
-        >
-          &lt;/&gt; Code
-        </button>
-        <button 
-          onClick={() => setTab("usage")}
-          className={`px-4 py-2.5 text-sm font-medium rounded-t-md transition flex items-center gap-2 ${
-            tab === "usage" 
-              ? "bg-cyan-500/20 text-cyan-300 border-b-2 border-cyan-400" 
-              : "text-gray-400 hover:text-gray-200"
-          }`}
-        >
-          📖 Usage
-        </button>
-      </div>
+            {/* Right Column: Sidebar (Promo & Sponsors) */}
+            <div className="w-full xl:w-[360px] shrink-0 flex flex-col gap-8">
+                
+                {/* PRO Promo Box */}
+                <div className="border-4 border-fuchsia-500 bg-black p-6 shadow-[8px_8px_0px_0px_#d946ef] flex flex-col relative overflow-hidden">
+                    {/* Decorative Background Element */}
+                    <div className="absolute -right-10 -top-10 w-32 h-32 bg-fuchsia-500/20 rounded-full blur-2xl pointer-events-none" />
+                    
+                    <span className="bg-fuchsia-500 text-black font-black px-2 py-1 text-xs uppercase tracking-widest mb-4 self-start">
+                        PRO_TIER
+                    </span>
+                    <h3 className="text-2xl font-black text-white uppercase tracking-widest mb-2 leading-none">
+                        GET REACT BITS PRO
+                    </h3>
+                    <p className="text-xs font-bold text-zinc-400 uppercase mb-8 leading-relaxed">
+                        85+ COMPONENTS, 100+ BLOCKS & 5 TEMPLATES TO SHIP MEMORABLE PRODUCTS FASTER.
+                    </p>
+                    <button className="w-full bg-fuchsia-500 text-black font-black uppercase tracking-widest py-4 border-4 border-fuchsia-500 hover:bg-black hover:text-fuchsia-500 transition-colors shadow-[4px_4px_0px_0px_black] hover:shadow-[4px_4px_0px_0px_white]">
+                        EXPLORE PRO →
+                    </button>
+                </div>
 
-      {/* Preview Section */}
-      {tab === "preview" && (
-        <div className="mb-12">
-          <div className="w-full rounded-xl border border-white/10 bg-gradient-to-br from-[#1a1a24] via-[#0f0f15] to-[#09090b] overflow-hidden p-8">
-            <PreviewRenderer componentId={item.id} />
-          </div>
-        </div>
-      )}
+                {/* Sponsors / Dependencies Box */}
+                <div className="border-4 border-zinc-800 bg-black p-6">
+                    <div className="flex justify-between items-end mb-6 border-b-4 border-zinc-800 pb-2">
+                        <h3 className="text-sm font-black text-white uppercase tracking-widest">SPONSORS</h3>
+                        <a href="#" className="text-[10px] font-bold text-zinc-500 hover:text-lime-400 uppercase transition-colors">BECOME A SPONSOR ↗</a>
+                    </div>
+                    
+                    <div className="flex flex-col gap-4">
+                        <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">DIAMOND</span>
+                        
+                        <div className="border-2 border-zinc-700 p-4 hover:border-lime-400 transition-colors cursor-pointer group flex items-center gap-4 bg-zinc-900">
+                            <div className="w-8 h-8 bg-zinc-800 border-2 border-zinc-600 flex items-center justify-center group-hover:border-lime-400 transition-colors">
+                                <span className="text-white font-black text-xs">S</span>
+                            </div>
+                            <div>
+                                <p className="text-sm font-black text-white uppercase group-hover:text-lime-400 transition-colors">Shadcnblocks.com</p>
+                                <p className="text-[10px] font-bold text-zinc-500 uppercase">2000+ extra Shadcn UI blocks</p>
+                            </div>
+                        </div>
 
-      {/* Code Section */}
-      {tab === "code" && (
-        <div className="mb-12">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-semibold text-gray-300">Source Code</h3>
-            <button 
-              onClick={() => copy(item.source)}
-              className="text-xs px-3 py-1.5 bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 rounded hover:bg-cyan-500/30 transition"
-            >
-              {copied ? "✓ Copied" : "Copy Code"}
-            </button>
-          </div>
-          <div className="w-full rounded-xl border border-white/10 bg-[#111113] p-6 overflow-x-auto">
-            <pre className="text-xs text-gray-300 font-mono leading-relaxed whitespace-pre-wrap break-words">
-              <code>{item.source}</code>
-            </pre>
-          </div>
-        </div>
-      )}
+                        <div className="border-2 border-zinc-700 p-4 hover:border-lime-400 transition-colors cursor-pointer group flex items-center gap-4 bg-zinc-900">
+                            <div className="w-8 h-8 bg-zinc-800 border-2 border-zinc-600 flex items-center justify-center group-hover:border-lime-400 transition-colors">
+                                <span className="text-white font-black text-xs">✦</span>
+                            </div>
+                            <div>
+                                <p className="text-sm font-black text-white uppercase group-hover:text-lime-400 transition-colors">shadcnstudio.com</p>
+                                <p className="text-[10px] font-bold text-zinc-500 uppercase">shadcn blocks & templates</p>
+                            </div>
+                        </div>
 
-      {/* Usage Section */}
-      {tab === "usage" && (
-        <div className="mb-12">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-semibold text-gray-300">Usage Example</h3>
-            <button 
-              onClick={() => copy(item.usage || item.import)}
-              className="text-xs px-3 py-1.5 bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 rounded hover:bg-cyan-500/30 transition"
-            >
-              {copied ? "✓ Copied" : "Copy Example"}
-            </button>
-          </div>
-          <div className="w-full rounded-xl border border-white/10 bg-[#111113] p-6 overflow-x-auto">
-            <pre className="text-xs text-gray-300 font-mono leading-relaxed whitespace-pre-wrap break-words">
-              <code>{item.usage || item.import}</code>
-            </pre>
-          </div>
-        </div>
-      )}
+                        <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest mt-4">PLATINUM</span>
+                        <div className="border-2 border-zinc-700 p-4 hover:border-fuchsia-500 transition-colors cursor-pointer group flex justify-center bg-zinc-900">
+                            <span className="text-xl font-black text-white group-hover:text-fuchsia-500 uppercase tracking-tighter">TAILARK</span>
+                        </div>
+                    </div>
+                </div>
 
-      {/* Import Section */}
-      <div className="mb-12 p-6 rounded-xl border border-cyan-500/30 bg-cyan-500/10 backdrop-blur-sm">
-        <h3 className="text-sm font-semibold text-cyan-300 mb-3 flex items-center gap-2">
-          📦 Installation
-        </h3>
-        <div className="space-y-3">
-          <div>
-            <p className="text-xs text-gray-400 mb-2">Import Statement:</p>
-            <div className="bg-[#0a0a0d] border border-white/10 rounded p-3 flex items-center justify-between group">
-              <code className="text-xs font-mono text-cyan-300 overflow-x-auto flex-1 pr-3">{item.import}</code>
-              <button 
-                onClick={() => copy(item.import)}
-                className="text-xs px-2 py-1 bg-cyan-500/20 text-cyan-300 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap ml-2"
-              >
-                {copied ? "✓" : "Copy"}
-              </button>
             </div>
-          </div>
         </div>
-      </div>
-
-      {/* Dependencies Section */}
-      {item.dependencies && item.dependencies.length > 0 && (
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-            🔗 Dependencies
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {item.dependencies.map(dep => (
-              <div key={dep} className="px-4 py-3 bg-[#18181b] border border-white/10 rounded-lg font-mono text-sm text-cyan-400 flex items-center gap-2">
-                <span className="text-gray-500">→</span> {dep}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Props Section */}
-      {item.props && item.props.length > 0 && (
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-            ⚙️ Component Props
-          </h2>
-          <div className="overflow-x-auto border border-white/10 rounded-xl bg-[#09090b]">
-            <table className="w-full text-left text-sm border-collapse">
-              <thead>
-                <tr className="border-b border-white/10 bg-white/5">
-                  <th className="px-4 py-4 text-gray-400 font-semibold">Property</th>
-                  <th className="px-4 py-4 text-gray-400 font-semibold">Type</th>
-                  <th className="px-4 py-4 text-gray-400 font-semibold">Default</th>
-                  <th className="px-4 py-4 text-gray-400 font-semibold">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {item.props.map((prop, idx) => (
-                  <tr key={idx} className="border-b border-white/5 last:border-0 hover:bg-white/5 transition">
-                    <td className="px-4 py-4 text-cyan-400 font-mono text-xs font-semibold">{prop.property}</td>
-                    <td className="px-4 py-4 text-emerald-400 font-mono text-xs">{prop.type}</td>
-                    <td className="px-4 py-4 text-gray-300 font-mono text-xs bg-black/50 rounded py-2 px-3 border border-white/5 inline-block">{prop.default}</td>
-                    <td className="px-4 py-4 text-gray-400 leading-relaxed text-sm">{prop.description}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
-
-      {/* Tags Section */}
-      {item.tags && item.tags.length > 0 && (
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-            🏷️ Tags
-          </h2>
-          <div className="flex flex-wrap gap-2">
-            {item.tags.map(tag => (
-              <span key={tag} className="px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-cyan-500/10 border border-cyan-500/40 rounded-full text-sm text-cyan-300 font-medium">
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-// ─── Featured Components Section ─────────────────────────────────────────────
-function FeaturedSection() {
-  const featured = componentsCatalog.slice(0, 3);
-  return (
-    <div className="mb-16">
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h2 className="text-3xl font-bold text-white mb-2">✨ Featured Components</h2>
-          <p className="text-gray-400">Start with our most popular components</p>
-        </div>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {featured.map(item => (
-          <div key={item.id} className="group rounded-lg border border-white/10 bg-gradient-to-b from-cyan-500/10 to-[#09090b] overflow-hidden hover:border-cyan-500/50 transition p-6">
-            <div className="flex items-start justify-between mb-3">
-              <div className="text-2xl">⭐</div>
-              <span className="text-xs px-2 py-1 bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 rounded-full">{item.category}</span>
-            </div>
-            <h3 className="font-semibold text-white mb-2">{item.name}</h3>
-            <p className="text-sm text-gray-400 mb-4">{item.description}</p>
-            <div className="flex flex-wrap gap-1">
-              {item.tags?.slice(0, 3).map(tag => (
-                <span key={tag} className="text-xs px-2 py-0.5 bg-white/5 text-gray-400 rounded">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ─── Getting Started Section ─────────────────────────────────────────────────
-function GettingStartedSection() {
-  const steps = [
-    {
-      icon: "📦",
-      title: "Copy Import",
-      description: "Click the copy button to get the import statement"
-    },
-    {
-      icon: "🔧",
-      title: "Paste Component",
-      description: "Add the component code to your project"
-    },
-    {
-      icon: "⚡",
-      title: "Customize",
-      description: "Modify props and styles to match your design"
-    },
-    {
-      icon: "🚀",
-      title: "Deploy",
-      description: "Use the component in your production app"
-    }
-  ];
-
-  return (
-    <div className="mb-16 py-12 px-8 rounded-2xl border border-white/10 bg-gradient-to-r from-cyan-500/10 via-[#09090b] to-purple-500/10 backdrop-blur-sm">
-      <div className="mb-8 text-center">
-        <h2 className="text-3xl font-bold text-white mb-2">🚀 Getting Started</h2>
-        <p className="text-gray-400 max-w-2xl mx-auto">Browse premium React components, copy the code, and integrate them into your project instantly</p>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {steps.map((step, idx) => (
-          <div key={idx} className="relative">
-            <div className="text-4xl mb-3">{step.icon}</div>
-            <h3 className="font-semibold text-white mb-2 text-lg">{step.title}</h3>
-            <p className="text-sm text-gray-400">{step.description}</p>
-            {idx < steps.length - 1 && (
-              <div className="hidden lg:block absolute -right-3 top-8 text-gray-600">→</div>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+    );
 }
 
 // ─── Main Application Layout ─────────────────────────────────────────────────
 export default function ShowcaseApp() {
-  const [activeItem, setActiveItem] = useState(null);
-  const [search, setSearch] = useState("");
+    const [activeItem, setActiveItem] = useState(null);
+    const [search, setSearch] = useState("");
 
-  const filteredComponents = useMemo(() => {
-    if (!search) return componentsCatalog;
-    return componentsCatalog.filter(c => 
-      c.name.toLowerCase().includes(search.toLowerCase()) ||
-      c.description?.toLowerCase().includes(search.toLowerCase()) ||
-      c.tags?.some(tag => tag.toLowerCase().includes(search.toLowerCase()))
+    const filteredComponents = useMemo(() => {
+        if (!search) return componentsCatalog;
+        return componentsCatalog.filter(c => 
+            c.name.toLowerCase().includes(search.toLowerCase()) ||
+            c.category.toLowerCase().includes(search.toLowerCase())
+        );
+    }, [search]);
+
+    return (
+        <div className="min-h-screen bg-black text-white font-mono flex flex-col overflow-hidden selection:bg-white selection:text-black">
+            
+            {/* Brutalist Grid Background */}
+            <div className="fixed inset-0 pointer-events-none z-0 opacity-20"
+                style={{ 
+                    backgroundImage: "linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)", 
+                    backgroundSize: "40px 40px" 
+                }} 
+            />
+
+            <TopNav />
+            
+            <div className="flex flex-1 overflow-hidden relative z-10 w-full max-w-[1920px] mx-auto">
+                {!activeItem && <Sidebar activeItem={activeItem} setActiveItem={setActiveItem} />}
+                
+                <main className="flex-1 overflow-y-auto p-6 lg:p-12 [scrollbar-width:none]">
+                    <div className="max-w-[1600px] mx-auto">
+                        {!activeItem ? (
+                            <>
+                                {/* Search Header */}
+                                <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 border-b-4 border-white pb-6">
+                                    <div>
+                                        <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-2">COMPONENTS</h1>
+                                        <p className="text-lime-400 font-black uppercase tracking-widest border-2 border-lime-400 inline-block px-3 py-1 bg-black">
+                                            {filteredComponents.length} MODULES
+                                        </p>
+                                    </div>
+                                    <input 
+                                        type="text" 
+                                        placeholder="SEARCH..." 
+                                        value={search}
+                                        onChange={(e) => setSearch(e.target.value)}
+                                        className="bg-black border-4 border-white px-4 py-3 text-lg font-black uppercase tracking-widest focus:border-fuchsia-500 outline-none w-full md:w-80 shadow-[6px_6px_0px_0px_white] focus:shadow-[6px_6px_0px_0px_#d946ef] transition-all placeholder:text-zinc-600"
+                                    />
+                                </div>
+
+                                {/* Grid */}
+                                {filteredComponents.length > 0 ? (
+                                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+                                        {filteredComponents.map(item => (
+                                            <MinimalCard 
+                                                key={item.id} 
+                                                item={item} 
+                                                onClick={setActiveItem}
+                                            />
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div className="border-4 border-dashed border-red-500 bg-black p-12 text-center">
+                                        <p className="text-3xl font-black text-red-500 uppercase tracking-widest">NULL_QUERY</p>
+                                    </div>
+                                )}
+                            </>
+                        ) : (
+                            <DetailView item={activeItem} onBack={() => setActiveItem(null)} />
+                        )}
+                    </div>
+                </main>
+            </div>
+        </div>
     );
-  }, [search]);
-
-  const handleBack = () => setActiveItem(null);
-
-  return (
-    <div className="min-h-screen bg-[#09090b] text-white font-sans flex flex-col overflow-hidden">
-      <TopNav />
-      <div className="flex flex-1 overflow-hidden">
-        {!activeItem && <Sidebar activeItem={activeItem} setActiveItem={setActiveItem} />}
-        
-        <main className="flex-1 overflow-y-auto">
-          <div className="max-w-7xl mx-auto px-6 py-12 lg:px-12">
-            {!activeItem ? (
-              <>
-                {/* Getting Started */}
-                <GettingStartedSection />
-
-                {/* Featured Components */}
-                <FeaturedSection />
-
-                {/* All Components */}
-                <div>
-                  <div className="flex items-center justify-between mb-8 sticky top-0 bg-[#09090b] py-4 z-20">
-                    <div>
-                      <h2 className="text-3xl font-bold text-white mb-1">All Components</h2>
-                      <p className="text-gray-400 text-sm">{filteredComponents.length} components available</p>
-                    </div>
-                    <div className="flex gap-3">
-                      <input 
-                        type="text" 
-                        placeholder="Search components..." 
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        className="bg-[#18181b] border border-white/10 rounded-lg py-2.5 px-4 text-sm focus:border-cyan-500/50 outline-none w-64 transition placeholder-gray-600"
-                      />
-                      <select className="bg-[#18181b] border border-white/10 rounded-lg py-2.5 px-4 text-sm text-gray-300 outline-none focus:border-cyan-500/50 transition">
-                        <option>Filter by Category</option>
-                        <option>Backgrounds</option>
-                        <option>Animations</option>
-                        <option>Headers</option>
-                        <option>Text</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  {filteredComponents.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                      {filteredComponents.map(item => (
-                        <MinimalCard 
-                          key={item.id} 
-                          item={item} 
-                          onClick={setActiveItem}
-                        />
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="text-center py-20">
-                      <p className="text-gray-400 text-lg">No components found matching your search</p>
-                      <button 
-                        onClick={() => setSearch("")}
-                        className="mt-4 text-cyan-400 hover:text-cyan-300 transition text-sm"
-                      >
-                        Clear search
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </>
-            ) : (
-              <DetailView item={activeItem} onBack={handleBack} />
-            )}
-          </div>
-        </main>
-      </div>
-    </div>
-  );
 }

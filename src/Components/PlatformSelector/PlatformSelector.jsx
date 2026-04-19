@@ -1,198 +1,88 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 export default function PlatformSelector() {
-	const navigate = useNavigate();
-	const [hoveredPlatform, setHoveredPlatform] = useState(null);
+    const navigate = useNavigate();
 
-	const platforms = [
-		{
-			id: "generic",
-			name: "Generic Templates",
-			description: "Create versatile, multi-purpose websites with our collection of generic templates. Perfect for landing pages, business sites, and more.",
-			icon: "🎨",
-			features: [
-				"Professional Navbars",
-				"Hero Sections",
-				"Feature Sections",
-				"Pricing Tables",
-				"Service Pages",
-				"Flexible Layouts",
-			],
-			color: "from-blue-600 to-cyan-500",
-			accentColor: "#00e5ff",
-		},
-		{
-			id: "portfolio",
-			name: "Portfolio Templates",
-			description: "Showcase your work with professional portfolio templates. Ideal for freelancers, designers, developers, and creative professionals.",
-			icon: "👤",
-			features: [
-				"Portfolio Navbars",
-				"Hero Sections",
-				"Project Showcase",
-				"Skills Display",
-				"Experience Sections",
-				"Contact Footers",
-			],
-			color: "from-purple-600 to-pink-500",
-			accentColor: "#10b981",
-		},
-	];
+    const platforms = [
+        {
+            id: "generic",
+            name: "GENERIC",
+            subtitle: "ALL-PURPOSE SITES",
+            icon: "✦",
+            // Acid Green / Lime theme
+            colorTheme: "border-lime-400 hover:bg-lime-400 shadow-[12px_12px_0px_0px_#a3e635] hover:shadow-[6px_6px_0px_0px_#a3e635]",
+        },
+        {
+            id: "portfolio",
+            name: "PORTFOLIO",
+            subtitle: "SHOWCASE WORK",
+            icon: "☻",
+            // Hot Magenta / Fuchsia theme
+            colorTheme: "border-fuchsia-500 hover:bg-fuchsia-500 shadow-[12px_12px_0px_0px_#d946ef] hover:shadow-[6px_6px_0px_0px_#d946ef]",
+        },
+    ];
 
-	const handleSelectPlatform = (platformId) => {
-		navigate(`/builder/${platformId}`);
-	};
+    const handleSelectPlatform = (platformId) => {
+        navigate(`/builder/${platformId}`);
+    };
 
-	return (
-		<div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center px-6 py-12">
-			<div className="w-full max-w-6xl">
-				{/* Header */}
-				<div className="text-center mb-16">
-					<h1 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight">
-						Choose Your Platform
-					</h1>
-					<p className="text-lg md:text-xl text-slate-400">
-						Select the template type that best fits your project needs
-					</p>
-				</div>
+    return (
+        <div className="min-h-screen w-full bg-black flex flex-col items-center justify-center p-6 md:p-12 selection:bg-white selection:text-black text-white">
+            <div className="w-full max-w-6xl">
+                
+                {/* Dark Brutalist Header */}
+                <div className="mb-12 border-b-4 md:border-b-8 border-white pb-6">
+                    <h1 className="text-6xl md:text-9xl font-black uppercase tracking-tighter leading-none">
+                        Select <br />
+                        <span className="text-black" style={{ WebkitTextStroke: '2px white' }}>Platform</span>
+                    </h1>
+                </div>
 
-				{/* Platform Cards Grid */}
-				<div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-					{platforms.map((platform) => (
-						<div
-							key={platform.id}
-							className="relative group"
-							onMouseEnter={() => setHoveredPlatform(platform.id)}
-							onMouseLeave={() => setHoveredPlatform(null)}
-						>
-							{/* Card Background */}
-							<div
-								className={`
-									absolute inset-0 bg-gradient-to-br ${platform.color}
-									rounded-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-xl
-								`}
-							/>
+                {/* Platform Cards Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mt-16">
+                    {platforms.map((platform) => (
+                        <div
+                            key={platform.id}
+                            onClick={() => handleSelectPlatform(platform.id)}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                    handleSelectPlatform(platform.id);
+                                }
+                            }}
+                            className={`
+                                group relative w-full bg-black border-4 p-8 md:p-12
+                                cursor-pointer transition-all duration-150 ease-in-out outline-none
+                                hover:translate-x-[6px] hover:translate-y-[6px] hover:text-black
+                                focus:translate-x-[12px] focus:translate-y-[12px] focus:shadow-none
+                                ${platform.colorTheme}
+                            `}
+                        >
+                            {/* Icon */}
+                            <div className="text-7xl md:text-9xl mb-8 transition-transform origin-left group-hover:scale-110">
+                                {platform.icon}
+                            </div>
 
-							{/* Card */}
-							<div
-								className={`
-									relative p-8 md:p-10 rounded-xl border-2 border-slate-800 bg-slate-900/50 backdrop-blur-lg
-									transition-all duration-300 cursor-pointer
-									${hoveredPlatform === platform.id ? "border-opacity-100 scale-105" : "border-opacity-50 hover:border-opacity-75"}
-									${hoveredPlatform === platform.id ? "shadow-2xl" : "shadow-lg"}
-								`}
-								onClick={() => handleSelectPlatform(platform.id)}
-								role="button"
-								tabIndex={0}
-								onKeyDown={(e) => {
-									if (e.key === "Enter" || e.key === " ") {
-										handleSelectPlatform(platform.id);
-									}
-								}}
-							>
-								{/* Icon */}
-								<div
-									className={`
-										text-5xl md:text-7xl mb-6 inline-block p-4 rounded-lg
-										transition-transform duration-300
-										${hoveredPlatform === platform.id ? "scale-110" : ""}
-									`}
-									style={{
-										backgroundColor: `${platform.accentColor}20`,
-									}}
-								>
-									{platform.icon}
-								</div>
+                            {/* Text Content */}
+                            <div>
+                                <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight mb-2">
+                                    {platform.name}
+                                </h2>
+                                <p className="font-mono font-bold text-lg md:text-xl border-t-4 border-current pt-4 uppercase">
+                                    {platform.subtitle}
+                                </p>
+                            </div>
 
-								{/* Title */}
-								<h2
-									className="text-2xl md:text-3xl font-bold text-white mb-3 tracking-tight"
-									style={{ color: platform.accentColor }}
-								>
-									{platform.name}
-								</h2>
+                            {/* Action Arrow */}
+                            <div className="absolute top-8 right-8 text-4xl md:text-6xl transition-transform group-hover:translate-x-4">
+                                →
+                            </div>
+                        </div>
+                    ))}
+                </div>
 
-								{/* Description */}
-								<p className="text-slate-400 mb-8 text-sm md:text-base leading-relaxed">
-									{platform.description}
-								</p>
-
-								{/* Features List */}
-								<div className="space-y-2 mb-8">
-									{platform.features.map((feature, idx) => (
-										<div key={idx} className="flex items-center gap-3">
-											<div
-												className="w-2 h-2 rounded-full"
-												style={{ backgroundColor: platform.accentColor }}
-											/>
-											<span className="text-slate-300 text-sm">{feature}</span>
-										</div>
-									))}
-								</div>
-
-								{/* Button */}
-								<button
-									className={`
-										w-full py-3 px-6 font-bold rounded-lg transition-all duration-300 text-center
-										uppercase tracking-wider text-sm
-										${hoveredPlatform === platform.id
-											? "shadow-lg scale-105"
-											: "shadow-md"
-										}
-									`}
-									style={{
-										backgroundColor: platform.accentColor,
-										color: "#000",
-									}}
-									onMouseDown={(e) => {
-										e.preventDefault();
-										handleSelectPlatform(platform.id);
-									}}
-								>
-									Start Building →
-								</button>
-
-								{/* Gradient Line */}
-								<div
-									className={`
-										absolute bottom-0 left-0 right-0 h-1 rounded-b-xl
-										transition-opacity duration-300
-										${hoveredPlatform === platform.id ? "opacity-100" : "opacity-0"}
-									`}
-									style={{
-										background: `linear-gradient(90deg, ${platform.accentColor}, transparent)`,
-									}}
-								/>
-							</div>
-						</div>
-					))}
-				</div>
-
-				{/* Info Section */}
-				<div className="mt-16 p-8 rounded-lg bg-slate-900/30 border border-slate-800">
-					<h3 className="text-lg font-bold text-white mb-4">How It Works</h3>
-					<div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-slate-400 text-sm">
-						<div className="flex gap-3">
-							<span className="font-bold text-cyan-400 text-lg">1</span>
-							<p>Choose your platform type (Generic or Portfolio)</p>
-						</div>
-						<div className="flex gap-3">
-							<span className="font-bold text-cyan-400 text-lg">2</span>
-							<p>Select and customize components from the sidebar</p>
-						</div>
-						<div className="flex gap-3">
-							<span className="font-bold text-cyan-400 text-lg">3</span>
-							<p>Export your code and deploy your website</p>
-						</div>
-					</div>
-				</div>
-
-				{/* Footer Note */}
-				<div className="mt-8 text-center text-slate-500 text-sm">
-					<p>You can always switch platforms when creating a new project</p>
-				</div>
-			</div>
-		</div>
-	);
+            </div>
+        </div>
+    );
 }

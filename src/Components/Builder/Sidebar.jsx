@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import React, { useMemo, useState, useRef } from "react";
 import { useBuilder } from "../../Context/BuilderContext";
 
 // ── Static signage per section ────────────────────────────────────────────────
@@ -6,23 +6,55 @@ const SIGNAGE = {
     navbar1:   { word: "FRAME", color: "cyan" },
     navbar2:   { word: "BOLD",  color: "cyan" },
     navbar3:   { word: "GLIDE", color: "cyan" },
+    navbar4:   { word: "SLEEK", color: "cyan" },
+    navbar5:   { word: "SWIFT", color: "cyan" },
+    navbar6:   { word: "SLICK", color: "cyan" },
     hero1:     { word: "HERO",  color: "purple" },
     hero2:     { word: "PULSE", color: "purple" },
     hero3:     { word: "SPARK", color: "purple" },
+    hero4:     { word: "EPIC",  color: "purple" },
+    hero5:     { word: "GRAND", color: "purple" },
     features1: { word: "GRID",  color: "teal" },
     features2: { word: "LIST",  color: "teal" },
     features3: { word: "CARDS", color: "teal" },
     pricing1:  { word: "PLAN",  color: "orange" },
     pricing2:  { word: "DEAL",  color: "orange" },
     pricing3:  { word: "TIER",  color: "orange" },
+    pricing4:  { word: "VALUE", color: "orange" },
     workpage1: { word: "CASE",  color: "pink" },
     workpage2: { word: "PORT",  color: "pink" },
     workpage3: { word: "TIME",  color: "pink" },
     workpage4: { word: "GRID",  color: "pink" },
+    workpage5: { word: "FLOW",  color: "pink" },
+    workpage6: { word: "TRACK", color: "pink" },
     footer1:   { word: "WRAP",  color: "gray" },
     footer2:   { word: "COLS",  color: "gray" },
     footer3:   { word: "CTA",   color: "gray" },
-    // Portfolio signage
+    testimonials1: { word: "VOICE", color: "cyan" },
+    testimonials2: { word: "QUOTE", color: "cyan" },
+    testimonials3: { word: "PROOF", color: "cyan" },
+    cta1:      { word: "CALL",  color: "orange" },
+    cta2:      { word: "OFFER", color: "orange" },
+    cta3:      { word: "PUSH",  color: "orange" },
+    stats1:    { word: "METRIC", color: "yellow" },
+    stats2:    { word: "DATA",  color: "yellow" },
+    stats3:    { word: "DIGIT", color: "yellow" },
+    gallery1:  { word: "VISUAL", color: "green" },
+    gallery2:  { word: "GRID",  color: "green" },
+    gallery3:  { word: "FILTER", color: "green" },
+    faq1:      { word: "QUERY",  color: "amber" },
+    faq2:      { word: "ANSWER", color: "amber" },
+    faq3:      { word: "EXPAND", color: "amber" },
+    newsletter1: { word: "MAIL", color: "emerald" },
+    newsletter2: { word: "SUBS", color: "emerald" },
+    newsletter3: { word: "JOIN", color: "emerald" },
+    timeline1: { word: "EVENT", color: "slate" },
+    timeline2: { word: "PHASE", color: "slate" },
+    timeline3: { word: "MILE",  color: "slate" },
+    comparison1: { word: "VS",    color: "lime" },
+    comparison2: { word: "MATCH", color: "lime" },
+    comparison3: { word: "SPEC",  color: "lime" },
+    // Portfolio
     "portfolio-navbar1":   { word: "PROF", color: "cyan" },
     "portfolio-navbar2":   { word: "SLEEK", color: "cyan" },
     "portfolio-navbar3":   { word: "FLOW", color: "cyan" },
@@ -44,39 +76,46 @@ const SIGNAGE = {
     "portfolio-template4": { word: "READY", color: "gray" },
 };
 
-const COLOR_MAP = {
-    cyan:   { bg: "bg-cyan-950/50",   border: "border-cyan-700/60",   text: "text-cyan-400",   btn: "border-cyan-700/50 text-cyan-400 hover:bg-cyan-400 hover:text-black" },
-    purple: { bg: "bg-purple-950/50", border: "border-purple-700/60", text: "text-purple-400", btn: "border-purple-700/50 text-purple-400 hover:bg-purple-400 hover:text-black" },
-    teal:   { bg: "bg-teal-950/50",   border: "border-teal-700/60",   text: "text-teal-400",   btn: "border-teal-700/50 text-teal-400 hover:bg-teal-400 hover:text-black" },
-    orange: { bg: "bg-orange-950/50", border: "border-orange-700/60", text: "text-orange-400", btn: "border-orange-700/50 text-orange-400 hover:bg-orange-400 hover:text-black" },
-    pink:   { bg: "bg-pink-950/50",   border: "border-pink-700/60",   text: "text-pink-400",   btn: "border-pink-700/50 text-pink-400 hover:bg-pink-400 hover:text-black" },
-    gray:   { bg: "bg-slate-900/50",  border: "border-slate-700/60",  text: "text-slate-400",  btn: "border-slate-600/50 text-slate-400 hover:bg-slate-400 hover:text-black" },
+// Simplified Brutalist Color Map
+const THEME_COLORS = {
+    cyan:   { hex: "#22d3ee", bg: "bg-cyan-400", border: "border-cyan-400", text: "text-cyan-400" },
+    purple: { hex: "#d946ef", bg: "bg-fuchsia-500", border: "border-fuchsia-500", text: "text-fuchsia-500" },
+    teal:   { hex: "#2dd4bf", bg: "bg-teal-400", border: "border-teal-400", text: "text-teal-400" },
+    orange: { hex: "#f97316", bg: "bg-orange-500", border: "border-orange-500", text: "text-orange-500" },
+    pink:   { hex: "#ec4899", bg: "bg-pink-500", border: "border-pink-500", text: "text-pink-500" },
+    gray:   { hex: "#ffffff", bg: "bg-white", border: "border-white", text: "text-white" },
+    yellow: { hex: "#eab308", bg: "bg-yellow-400", border: "border-yellow-400", text: "text-yellow-400" },
+    green:  { hex: "#22c55e", bg: "bg-green-500", border: "border-green-500", text: "text-green-500" },
+    amber:  { hex: "#f59e0b", bg: "bg-amber-500", border: "border-amber-500", text: "text-amber-500" },
+    emerald: { hex: "#10b981", bg: "bg-emerald-500", border: "border-emerald-500", text: "text-emerald-500" },
+    slate:  { hex: "#64748b", bg: "bg-slate-600", border: "border-slate-600", text: "text-slate-400" },
+    lime:   { hex: "#84cc16", bg: "bg-lime-400", border: "border-lime-400", text: "text-lime-400" },
 };
 
 export default function SideBar() {
-    const { sectionRegistry, selectedSections, addSection, removeSection, moveSection, designSettings } = useBuilder();
-    const railRefs = useRef({});
+    const { sectionRegistry = [], selectedSections = [], addSection, removeSection, moveSection } = useBuilder();
     const [searchQuery, setSearchQuery] = useState("");
+    const [hoveredSection, setHoveredSection] = useState(null);
+    const previewRef = useRef(null);
+    const sidebarRef = useRef(null);
 
-    const selectedIds = selectedSections.map((s) => s.id);
+    const selectedIds = (selectedSections || []).map((s) => s?.id).filter(Boolean);
 
     const groupedRegistry = useMemo(() => {
         const query = searchQuery.toLowerCase().trim();
-        return sectionRegistry.reduce((groups, section) => {
-            if (query && !section.title.toLowerCase().includes(query) && !section.group.toLowerCase().includes(query)) {
+        const registry = sectionRegistry || [];
+        
+        return registry.reduce((groups, section) => {
+            if (!section) return groups;
+            if (query && !section.title?.toLowerCase().includes(query) && !section.group?.toLowerCase().includes(query)) {
                 return groups;
             }
-            if (!groups[section.group]) groups[section.group] = [];
-            groups[section.group].push(section);
+            const groupKey = section.group || "other";
+            if (!groups[groupKey]) groups[groupKey] = [];
+            groups[groupKey].push(section);
             return groups;
         }, {});
     }, [sectionRegistry, searchQuery]);
-
-    const scrollRail = (groupName, direction) => {
-        const el = railRefs.current[groupName];
-        if (!el) return;
-        el.scrollBy({ left: direction * 160, behavior: "smooth" });
-    };
 
     const writeDragData = (event, sectionId) => {
         event.dataTransfer.setData("application/x-builder-section", JSON.stringify({ source: "registry", sectionId }));
@@ -84,167 +123,169 @@ export default function SideBar() {
         event.dataTransfer.effectAllowed = "copy";
     };
 
-    const accent = designSettings.accentColor || "#00e5ff";
-    const totalSections = sectionRegistry.length;
-    const addedCount = selectedIds.length;
+    const handleHoverEnter = (e, section) => {
+        setHoveredSection(section);
+    };
+
+    const handleHoverLeave = () => {
+        setHoveredSection(null);
+    };
+
+    const getTheme = (color) => {
+        const theme = THEME_COLORS[color];
+        if (!theme) {
+            console.warn(`Missing theme color: ${color}, using gray fallback`);
+            return THEME_COLORS["gray"];
+        }
+        return theme;
+    };
 
     return (
-        <aside className="w-[200px] md:w-[215px] shrink-0 flex flex-col border-r border-cyan-900/40 bg-black/50 backdrop-blur-lg z-20">
-            {/* Header */}
-            <div className="px-4 py-3 border-b border-cyan-900/30 bg-black/30 shrink-0">
-                <h2 className="text-[9px] font-mono tracking-[0.25em] text-cyan-500 flex items-center gap-2 mb-3">
-                    <span className="block w-3 h-px bg-cyan-500" />
-                    COMPONENT_LIB
+        <aside className="w-[320px] shrink-0 flex flex-col border-r-4 border-white bg-black z-20 font-mono text-white selection:bg-lime-400 selection:text-black" ref={sidebarRef}>
+            
+            {/* ── HEADER & SEARCH ──────────────────────────────────── */}
+            <div className="p-6 border-b-4 border-white bg-black shrink-0 relative">
+                {/* Decorative lines */}
+                <div className="absolute top-0 right-0 w-8 h-8 border-b-4 border-l-4 border-lime-400" />
+                
+                <h2 className="text-2xl font-black uppercase tracking-widest flex items-center gap-3 mb-6">
+                    LIB.SYS
                 </h2>
-                {/* Search */}
+                
                 <input
                     type="text"
-                    placeholder="Search component..."
+                    placeholder="QUERY MODULES..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    aria-label="Search components"
-                    className="w-full bg-black/60 border border-cyan-900/40 text-cyan-300 placeholder-cyan-900 text-[10px] font-mono px-2.5 py-1.5 outline-none focus:border-cyan-600 focus:ring-1 focus:ring-cyan-600/50 transition-colors"
+                    className="w-full bg-black border-4 border-white text-white placeholder:text-zinc-600 text-sm font-black px-4 py-3 outline-none focus:border-lime-400 focus:shadow-[4px_4px_0px_0px_#a3e635] transition-all uppercase tracking-widest"
                 />
-                {/* Stats */}
-                <div className="flex items-center justify-between mt-2 px-1">
-                    <span className="text-[9px] text-cyan-800 font-mono">{selectedIds.length === 0 ? "NO_SELECT" : "SELECTED"}</span>
-                    <span className="text-[9px] font-mono" style={{ color: accent }}>
-                        {selectedIds.length === 0 ? "0" : selectedIds.length}
-                    </span>
-                </div>
             </div>
 
-            {/* Groups */}
-            <div className="flex-1 overflow-y-auto py-3 flex flex-col gap-5 [scrollbar-width:thin] [scrollbar-color:#0891b230_#000]">
+            {/* ── VERTICAL MODULE FEED ─────────────────────────────── */}
+            <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-8 [scrollbar-width:none]">
                 {Object.entries(groupedRegistry).map(([groupName, sections]) => (
-                    <div key={groupName} className="px-3 flex flex-col gap-2">
-                        {/* Group header */}
-                        <div className="flex items-center justify-between">
-                            <span className="text-[8px] font-mono tracking-[0.2em] text-cyan-800 uppercase">
-                                [{groupName}]
-                            </span>
-                            <div className="flex gap-1">
-                                <button
-                                    onClick={() => scrollRail(groupName, -1)}
-                                    className="w-5 h-5 text-[10px] border border-cyan-900/40 bg-cyan-950/20 text-cyan-600 hover:text-cyan-300 hover:border-cyan-600 transition-colors flex items-center justify-center font-mono"
-                                >←</button>
-                                <button
-                                    onClick={() => scrollRail(groupName, 1)}
-                                    className="w-5 h-5 text-[10px] border border-cyan-900/40 bg-cyan-950/20 text-cyan-600 hover:text-cyan-300 hover:border-cyan-600 transition-colors flex items-center justify-center font-mono"
-                                >→</button>
-                            </div>
+                    <div key={groupName} className="flex flex-col gap-4">
+                        
+                        {/* Huge Group Header */}
+                        <div className="border-b-4 border-zinc-800 pb-2 mb-2">
+                            <h3 className="text-xl font-black tracking-widest text-white uppercase">
+                                {groupName}
+                            </h3>
                         </div>
 
-                        {/* Horizontal scroll rail */}
-                        <div
-                            ref={(el) => { railRefs.current[groupName] = el; }}
-                            className="flex gap-2 overflow-x-auto pb-1 snap-x snap-mandatory [scrollbar-width:none]"
-                        >
+                        {/* Vertically Stacked Cards instead of Horizontal Scroll */}
+                        <div className="flex flex-col gap-4">
                             {sections.map((section) => {
-                                const isAdded = selectedIds.includes(section.id);
-                                const sig = SIGNAGE[section.id] || { word: "MOD", color: "cyan" };
-                                const col = COLOR_MAP[sig.color];
+                                try {
+                                    if (!section) return null;
+                                    
+                                    const isAdded = selectedIds.includes(section.id);
+                                    const sig = SIGNAGE[section.id] || { word: "MOD", color: "gray" };
+                                    const theme = getTheme(sig?.color || "gray");
 
-                                return (
-                                    <article
-                                        key={section.id}
-                                        draggable={!isAdded}
-                                        onDragStart={(e) => {
-                                            if (isAdded) { e.preventDefault(); return; }
+                                    return (
+                                        <article
+                                            key={section.id}
+                                            draggable={!isAdded}
+                                            onDragStart={(e) => {
+                                                if (isAdded) { e.preventDefault(); return; }
                                             writeDragData(e, section.id);
                                         }}
+                                        onMouseEnter={(e) => !isAdded && handleHoverEnter(e, section)}
+                                        onMouseLeave={handleHoverLeave}
                                         className={`
-                                            relative shrink-0 w-[130px] snap-start border flex flex-col gap-2 p-2.5 transition-all duration-200
+                                            group flex flex-col border-4 transition-all duration-150 bg-black
                                             ${isAdded
-                                                ? "border-slate-800 bg-slate-950/30 opacity-40 cursor-not-allowed grayscale"
-                                                : `${col.border} bg-black/60 hover:bg-cyan-950/20 hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(0,229,255,0.1)] cursor-grab active:cursor-grabbing`
+                                                ? "border-zinc-800 opacity-50 cursor-not-allowed grayscale border-dashed"
+                                                : `${theme.border} cursor-grab active:cursor-grabbing hover:-translate-y-1 hover:-translate-x-1`
                                             }
                                         `}
+                                        style={!isAdded ? { boxShadow: `6px 6px 0px 0px ${theme.hex}` } : {}}
                                     >
-                                        {/* Word badge */}
-                                        <div className={`px-1.5 py-0.5 border text-center ${col.bg} ${col.border}`}>
-                                            <span className={`text-[10px] font-mono tracking-widest font-bold ${col.text}`}>
+                                        <div className="flex justify-between items-start p-3 border-b-4 border-inherit">
+                                            <p className="text-sm font-black uppercase leading-tight pr-2">
+                                                {section.title}
+                                            </p>
+                                            <span className={`text-xs font-black tracking-widest px-2 py-1 uppercase bg-black border-2 border-inherit ${theme.text}`}>
                                                 {sig.word}
                                             </span>
                                         </div>
 
-                                        {/* Title */}
-                                        <p className="text-[10px] text-white/80 leading-tight font-sans flex-1">
-                                            {section.title}
-                                        </p>
-
-                                        {/* Add button */}
                                         <button
                                             onClick={() => addSection(section.id)}
                                             disabled={isAdded}
-                                            aria-label={isAdded ? `${section.title} selected` : `Select ${section.title}`}
                                             className={`
-                                                w-full text-[8px] font-mono py-1.5 border uppercase tracking-widest font-semibold transition-all duration-200
+                                                w-full py-3 text-xs font-black uppercase tracking-widest transition-all
                                                 ${isAdded
-                                                    ? "border-green-800/50 text-green-600 bg-green-950/20 cursor-not-allowed"
-                                                    : col.btn
+                                                    ? "bg-zinc-900 text-zinc-600"
+                                                    : `bg-black ${theme.text} hover:${theme.bg} hover:text-black`
                                                 }
                                             `}
                                         >
-                                            {isAdded ? "✓ SELECTED" : "+ SELECT"}
+                                            {isAdded ? "STATUS: INJECTED" : "+ INJECT MODULE"}
                                         </button>
                                     </article>
-                                );
+                                    );
+                                } catch (err) {
+                                    console.error(`Error rendering section:`, err, section?.id);
+                                    return null;
+                                }
                             })}
                         </div>
                     </div>
                 ))}
 
                 {Object.keys(groupedRegistry).length === 0 && (
-                    <div className="px-4 py-8 text-center">
-                        <p className="text-[10px] text-cyan-900 font-mono">NO MATCHES</p>
-                        <p className="text-[9px] text-slate-700 mt-1 font-sans">Try a different search</p>
+                    <div className="py-12 text-center border-4 border-dashed border-red-500 bg-red-500/10">
+                        <p className="text-xl font-black text-red-500 uppercase">NULL RESULTS</p>
                     </div>
                 )}
             </div>
 
-            {/* Selected Components Panel */}
+            {/* ── BOTTOM ACTIVE PAYLOAD PANEL ──────────────────────── */}
             {selectedSections.length > 0 && (
-                <div className="border-t border-cyan-900/40 bg-black/50 p-3 shrink-0">
-                    <div className="text-[8px] font-mono tracking-[0.25em] text-cyan-500 mb-2 flex items-center gap-2">
-                        <span className="block w-2 h-px bg-cyan-500" />
-                        SELECTED ({selectedSections.length})
+                <div className="border-t-4 border-white bg-black shrink-0 relative z-10 shadow-[0_-10px_0_0_rgba(0,0,0,1)]">
+                    
+                    {/* Collapsible-style Header (Always open for now, but styled like a hardware drawer) */}
+                    <div className="bg-white text-black p-3 flex items-center justify-between">
+                        <span className="font-black text-sm uppercase tracking-widest">Active Payload</span>
+                        <span className="bg-black text-white font-black px-2">{selectedSections.length}</span>
                     </div>
-                    <div className="space-y-1.5 max-h-[200px] overflow-y-auto [scrollbar-width:thin] [scrollbar-color:#0891b230_#000]">
+                    
+                    <div className="p-4 space-y-3 max-h-[250px] overflow-y-auto [scrollbar-width:none]">
                         {selectedSections.map((section, index) => (
                             <div 
                                 key={`${section.id}-${index}`}
-                                className="flex items-center justify-between gap-1 p-2 bg-cyan-950/30 border border-cyan-900/50 rounded text-[9px] hover:border-cyan-700/60 transition-colors group"
+                                className="flex border-2 border-zinc-700 bg-black hover:border-lime-400 transition-colors"
                             >
-                                <div className="flex-1 min-w-0">
-                                    <p className="text-cyan-300 truncate font-mono">{section.title}</p>
+                                {/* Index Number Block */}
+                                <div className="bg-zinc-900 px-3 py-2 flex items-center justify-center border-r-2 border-inherit font-black text-zinc-500">
+                                    {String(index + 1).padStart(2, "0")}
                                 </div>
-                                <div className="flex gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    {index > 0 && (
+
+                                {/* Title */}
+                                <div className="flex-1 p-2 flex items-center overflow-hidden">
+                                    <p className="text-xs font-bold text-white uppercase truncate">{section.title}</p>
+                                </div>
+                                
+                                {/* Controls */}
+                                <div className="flex border-l-2 border-inherit">
+                                    <div className="flex flex-col border-r-2 border-inherit">
                                         <button
                                             onClick={() => moveSection(section.id, "up")}
-                                            className="w-5 h-5 flex items-center justify-center bg-purple-950/50 border border-purple-700/50 text-purple-400 hover:bg-purple-700 hover:text-white text-[8px] font-bold"
-                                            title="Move up"
-                                        >
-                                            ↑
-                                        </button>
-                                    )}
-                                    {index < selectedSections.length - 1 && (
+                                            disabled={index === 0}
+                                            className="px-2 py-1 bg-black text-zinc-500 hover:bg-white hover:text-black disabled:opacity-30 font-black"
+                                        >↑</button>
                                         <button
                                             onClick={() => moveSection(section.id, "down")}
-                                            className="w-5 h-5 flex items-center justify-center bg-purple-950/50 border border-purple-700/50 text-purple-400 hover:bg-purple-700 hover:text-white text-[8px] font-bold"
-                                            title="Move down"
-                                        >
-                                            ↓
-                                        </button>
-                                    )}
+                                            disabled={index === selectedSections.length - 1}
+                                            className="px-2 py-1 bg-black text-zinc-500 hover:bg-white hover:text-black border-t-2 border-inherit disabled:opacity-30 font-black"
+                                        >↓</button>
+                                    </div>
                                     <button
                                         onClick={() => removeSection(section.id)}
-                                        className="w-5 h-5 flex items-center justify-center bg-red-950/50 border border-red-700/50 text-red-400 hover:bg-red-700 hover:text-white text-[8px] font-bold"
-                                        title="Remove"
-                                    >
-                                        ✕
-                                    </button>
+                                        className="px-4 flex items-center justify-center bg-black text-red-500 hover:bg-red-500 hover:text-black font-black"
+                                    >✕</button>
                                 </div>
                             </div>
                         ))}

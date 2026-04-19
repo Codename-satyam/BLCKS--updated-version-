@@ -20,7 +20,9 @@ const TEMPLATE_ACCENT_CSS = `
 
     .builder-template-surface [class*="hover:bg-cyan-"]:hover {
         background-color: var(--builder-accent) !important;
-        color: #020202 !important;
+        color: #000 !important;
+        box-shadow: 4px 4px 0px 0px var(--builder-accent) !important;
+        transform: translate(-2px, -2px) !important;
     }
 `;
 
@@ -159,9 +161,9 @@ export const SECTION_FIELDS = {
     ],
 };
 
-// ── Live preview renderer ─────────────────────────────────────────────────────
+// ── Live preview renderer (Brutalist Update) ──────────────────────────────────
 function SectionPreview({ sectionId, content, designSettings }) {
-    const accent = designSettings.accentColor || "#00e5ff";
+    const accent = designSettings.accentColor || "#a3e635"; // Default to acid green
     const textColor = designSettings.textColor || "#ffffff";
     const opacity = (designSettings.textOpacity || 100) / 100;
     const fontFamily = FONT_MAP[designSettings.fontFamily] || FONT_MAP.mono;
@@ -175,18 +177,33 @@ function SectionPreview({ sectionId, content, designSettings }) {
 
     const accentStyle = { color: accent };
     const accentBorder = { borderColor: accent, color: accent };
+    
+    // Brutalist button base
+    const btnBase = {
+        ...accentBorder,
+        fontSize: 14,
+        padding: "12px 24px",
+        border: "4px solid",
+        background: "#000",
+        fontWeight: 900,
+        cursor: "pointer",
+        letterSpacing: "0.15em",
+        fontFamily,
+        textTransform: "uppercase",
+        boxShadow: `6px 6px 0px 0px ${accent}`
+    };
 
     if (sectionId.startsWith("navbar")) {
         const links = (content.links || "About, Features, Pricing").split(",").map((l) => l.trim());
         return (
-            <div style={{ ...s(), background: "rgba(0,0,0,0.6)", padding: "12px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <span style={{ ...accentStyle, fontSize: 15, letterSpacing: "0.15em", fontWeight: "bold" }}>
+            <div style={{ ...s(), background: "#000", borderBottom: "4px solid #fff", padding: "20px 32px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <span style={{ ...accentStyle, fontSize: 24, letterSpacing: "0.15em", fontWeight: 900, textTransform: "uppercase" }}>
                     {content.brandName || "BRAND.SYS"}
                 </span>
-                <div style={{ display: "flex", gap: 20, fontSize: 11, opacity: 0.7 }}>
+                <div style={{ display: "flex", gap: 32, fontSize: 14, fontWeight: 700, textTransform: "uppercase" }}>
                     {links.slice(0, 5).map((l, i) => <span key={i}>{l}</span>)}
                 </div>
-                <button style={{ ...accentBorder, fontSize: 10, padding: "5px 14px", border: "1px solid", background: "transparent", cursor: "pointer", letterSpacing: "0.1em", fontFamily }}>
+                <button style={btnBase}>
                     {content.ctaText || "Get Started"}
                 </button>
             </div>
@@ -195,24 +212,24 @@ function SectionPreview({ sectionId, content, designSettings }) {
 
     if (sectionId.startsWith("hero")) {
         return (
-            <div style={{ ...s(), padding: "48px 24px", textAlign: "center" }}>
+            <div style={{ ...s(), padding: "80px 24px", textAlign: "center", background: "transparent" }}>
                 {content.badge && (
-                    <div style={{ ...accentStyle, fontSize: 10, letterSpacing: "0.3em", marginBottom: 16, opacity: 0.8 }}>
+                    <div style={{ ...accentStyle, fontSize: 14, fontWeight: 900, letterSpacing: "0.3em", marginBottom: 24, textTransform: "uppercase", display: "inline-block", border: `2px solid ${accent}`, padding: "8px 16px" }}>
                         {content.badge}
                     </div>
                 )}
-                <h1 style={{ fontSize: 28, lineHeight: 1.3, marginBottom: 16, whiteSpace: "pre-line" }}>
+                <h1 style={{ fontSize: 64, fontWeight: 900, textTransform: "uppercase", lineHeight: 1.1, marginBottom: 24, whiteSpace: "pre-line", letterSpacing: "-0.02em" }}>
                     {content.headline || "Build the Future"}
                 </h1>
-                <p style={{ fontSize: 13, opacity: 0.65, maxWidth: 480, margin: "0 auto 24px", lineHeight: 1.7, fontFamily: "sans-serif" }}>
+                <p style={{ fontSize: 18, fontWeight: 700, maxWidth: 600, margin: "0 auto 40px", lineHeight: 1.5, fontFamily: "monospace", textTransform: "uppercase", borderTop: "4px solid currentColor", paddingTop: 20 }}>
                     {content.subtext || "A next-generation platform."}
                 </p>
-                <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-                    <button style={{ ...accentBorder, fontSize: 11, padding: "9px 24px", border: "1px solid", background: "transparent", cursor: "pointer", letterSpacing: "0.12em", fontFamily }}>
+                <div style={{ display: "flex", gap: 24, justifyContent: "center", flexWrap: "wrap" }}>
+                    <button style={btnBase}>
                         {content.ctaPrimary || "Start Building"}
                     </button>
                     {content.ctaSecondary && (
-                        <button style={{ fontSize: 11, padding: "9px 24px", border: "1px solid rgba(255,255,255,0.25)", color: "rgba(255,255,255,0.6)", background: "transparent", cursor: "pointer", letterSpacing: "0.1em", fontFamily }}>
+                        <button style={{ ...btnBase, borderColor: "#fff", color: "#fff", boxShadow: "6px 6px 0px 0px #fff" }}>
                             {content.ctaSecondary}
                         </button>
                     )}
@@ -228,21 +245,21 @@ function SectionPreview({ sectionId, content, designSettings }) {
             { icon: "📊", title: content.feat3Title || content.feat3 || "Feature Three", desc: content.feat3Desc || "Real-time analytics and insights." },
         ];
         return (
-            <div style={{ ...s(), padding: "40px 24px" }}>
+            <div style={{ ...s(), padding: "80px 24px", background: "transparent" }}>
                 {content.sectionLabel && (
-                    <div style={{ ...accentStyle, fontSize: 9, letterSpacing: "0.3em", textAlign: "center", marginBottom: 8 }}>
-                        {content.sectionLabel}
+                    <div style={{ ...accentStyle, fontSize: 14, fontWeight: 900, letterSpacing: "0.3em", marginBottom: 16, textTransform: "uppercase" }}>
+                        // {content.sectionLabel}
                     </div>
                 )}
-                <div style={{ fontSize: 18, textAlign: "center", marginBottom: 24 }}>
+                <div style={{ fontSize: 48, fontWeight: 900, textTransform: "uppercase", marginBottom: 48, borderBottom: "4px solid #fff", paddingBottom: 16 }}>
                     {content.title || "Everything You Need"}
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 12 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 32 }}>
                     {feats.map((f, i) => (
-                        <div key={i} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)", padding: 14 }}>
-                            <div style={{ fontSize: 20, marginBottom: 8 }}>{f.icon}</div>
-                            <div style={{ ...accentStyle, fontSize: 11, marginBottom: 5 }}>{f.title}</div>
-                            <div style={{ fontSize: 10, opacity: 0.5, lineHeight: 1.5, fontFamily: "sans-serif" }}>{f.desc}</div>
+                        <div key={i} style={{ background: "#000", border: "4px solid #fff", padding: 32, boxShadow: "8px 8px 0px 0px #fff" }}>
+                            <div style={{ fontSize: 48, marginBottom: 24 }}>{f.icon}</div>
+                            <div style={{ ...accentStyle, fontSize: 24, fontWeight: 900, textTransform: "uppercase", marginBottom: 12 }}>{f.title}</div>
+                            <div style={{ fontSize: 14, fontWeight: 700, fontFamily: "monospace", textTransform: "uppercase" }}>{f.desc}</div>
                         </div>
                     ))}
                 </div>
@@ -257,16 +274,16 @@ function SectionPreview({ sectionId, content, designSettings }) {
             { name: content.tier3Name || "Scale",    price: content.tier3Price || "Custom", desc: content.tier3Desc || "For enterprises", highlight: false },
         ];
         return (
-            <div style={{ ...s(), padding: "40px 24px" }}>
-                <div style={{ ...accentStyle, fontSize: 9, letterSpacing: "0.3em", textAlign: "center", marginBottom: 8 }}>PRICING</div>
-                <div style={{ fontSize: 18, textAlign: "center", marginBottom: 24 }}>Choose Your Plan</div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 10 }}>
+            <div style={{ ...s(), padding: "80px 24px" }}>
+                <div style={{ ...accentStyle, fontSize: 14, fontWeight: 900, letterSpacing: "0.3em", textAlign: "center", marginBottom: 16 }}>// PRICING_SYS</div>
+                <div style={{ fontSize: 48, fontWeight: 900, textTransform: "uppercase", textAlign: "center", marginBottom: 48 }}>Choose Your Plan</div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 32 }}>
                     {tiers.map((t, i) => (
-                        <div key={i} style={{ border: `1px solid ${t.highlight ? accent : "rgba(255,255,255,0.1)"}`, padding: "18px 12px", textAlign: "center" }}>
-                            <div style={{ fontSize: 9, letterSpacing: "0.2em", opacity: 0.5, marginBottom: 8 }}>{t.name.toUpperCase()}</div>
-                            <div style={{ fontSize: 24, marginBottom: 6, ...(t.highlight ? accentStyle : {}) }}>{t.price}</div>
-                            <div style={{ fontSize: 10, opacity: 0.4, marginBottom: 12, fontFamily: "sans-serif" }}>{t.desc}</div>
-                            <button style={{ fontSize: 9, padding: "5px 0", width: "100%", border: `1px solid ${t.highlight ? accent : "rgba(255,255,255,0.2)"}`, background: t.highlight ? accent : "transparent", color: t.highlight ? "#000" : "inherit", cursor: "pointer", fontFamily, letterSpacing: "0.1em" }}>
+                        <div key={i} style={{ border: `4px solid ${t.highlight ? accent : "#fff"}`, background: "#000", padding: "40px 24px", textAlign: "center", boxShadow: `8px 8px 0px 0px ${t.highlight ? accent : "#fff"}`, transform: t.highlight ? "scale(1.05)" : "none" }}>
+                            <div style={{ fontSize: 18, fontWeight: 900, letterSpacing: "0.2em", marginBottom: 16 }}>{t.name.toUpperCase()}</div>
+                            <div style={{ fontSize: 56, fontWeight: 900, marginBottom: 16, ...(t.highlight ? accentStyle : {}) }}>{t.price}</div>
+                            <div style={{ fontSize: 14, fontWeight: 700, fontFamily: "monospace", textTransform: "uppercase", marginBottom: 32, borderTop: `2px dashed ${t.highlight ? accent : "#fff"}`, paddingTop: 16 }}>{t.desc}</div>
+                            <button style={{ ...btnBase, width: "100%", borderColor: t.highlight ? accent : "#fff", color: t.highlight ? accent : "#fff", boxShadow: "none", borderTopWidth: 4 }}>
                                 Select Plan
                             </button>
                         </div>
@@ -283,14 +300,14 @@ function SectionPreview({ sectionId, content, designSettings }) {
             { name: content.project3 || content.step3 || content.item3 || "Project Gamma", tag: content.tag3 || content.step3Desc || "03" },
         ].filter(Boolean);
         return (
-            <div style={{ ...s(), padding: "40px 24px" }}>
-                <div style={{ ...accentStyle, fontSize: 9, letterSpacing: "0.3em", marginBottom: 8 }}>WORK</div>
-                <div style={{ fontSize: 18, marginBottom: 20 }}>{content.title || "Selected Work"}</div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <div style={{ ...s(), padding: "80px 24px" }}>
+                <div style={{ ...accentStyle, fontSize: 14, fontWeight: 900, letterSpacing: "0.3em", marginBottom: 16 }}>// WORK_LOG</div>
+                <div style={{ fontSize: 48, fontWeight: 900, textTransform: "uppercase", marginBottom: 40, borderBottom: "4px solid #fff", paddingBottom: 16 }}>{content.title || "Selected Work"}</div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                     {items.map((item, i) => (
-                        <div key={i} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)", padding: "12px 16px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <span style={{ fontSize: 13, fontFamily: "sans-serif" }}>{item.name}</span>
-                            <span style={{ ...accentStyle, fontSize: 9, letterSpacing: "0.15em" }}>{item.tag} →</span>
+                        <div key={i} style={{ background: "#000", border: "4px solid #fff", padding: "24px 32px", display: "flex", justifyContent: "space-between", alignItems: "center", boxShadow: "6px 6px 0px 0px #fff" }}>
+                            <span style={{ fontSize: 24, fontWeight: 900, textTransform: "uppercase" }}>{item.name}</span>
+                            <span style={{ ...accentStyle, fontSize: 18, fontWeight: 900, letterSpacing: "0.15em" }}>{item.tag} →</span>
                         </div>
                     ))}
                 </div>
@@ -300,17 +317,16 @@ function SectionPreview({ sectionId, content, designSettings }) {
 
     if (sectionId.startsWith("footer")) {
         return (
-            <div style={{ ...s(), borderTop: "1px solid rgba(255,255,255,0.08)", padding: "20px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
-                <span style={{ ...accentStyle, fontSize: 13, letterSpacing: "0.1em" }}>{content.brandName || "BRAND.SYS"}</span>
-                <span style={{ fontSize: 11, opacity: 0.45, fontFamily: "sans-serif" }}>{content.tagline || content.ctaHeadline || "Building the future."}</span>
-                <span style={{ fontSize: 10, opacity: 0.3, fontFamily: "sans-serif" }}>{content.copyright || "© 2025"}</span>
+            <div style={{ ...s(), borderTop: "4px solid #fff", background: "#000", padding: "40px 32px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 24 }}>
+                <span style={{ ...accentStyle, fontSize: 24, fontWeight: 900, letterSpacing: "0.1em" }}>{content.brandName || "BRAND.SYS"}</span>
+                <span style={{ fontSize: 14, fontWeight: 700, fontFamily: "monospace", textTransform: "uppercase" }}>{content.tagline || content.ctaHeadline || "Building the future."}</span>
+                <span style={{ fontSize: 14, fontWeight: 900, fontFamily: "monospace", border: "2px solid #fff", padding: "4px 8px" }}>{content.copyright || "© 2025"}</span>
             </div>
         );
     }
 
-    return <div style={{ padding: 20, fontSize: 12, color: "#444", fontFamily: "sans-serif" }}>[{sectionId}] section</div>;
+    return <div style={{ padding: 40, fontSize: 18, fontWeight: 900, color: "#fff", background: "#000", border: "4px dashed #fff", textAlign: "center" }}>[{sectionId.toUpperCase()}] MODULE</div>;
 }
-
 
 
 // ── Main Editor ───────────────────────────────────────────────────────────────
@@ -380,7 +396,7 @@ export default function Editor() {
 
     const textOpacityScale = Math.max(0.2, Math.min(1, (designSettings.textOpacity || 100) / 100));
     const sectionContentStyle = {
-        "--builder-accent": designSettings.accentColor || "#00e5ff",
+        "--builder-accent": designSettings.accentColor || "#a3e635",
         "--builder-font": resolvedFont || FONT_MAP.mono,
         fontFamily: resolvedFont || FONT_MAP.mono,
         color: designSettings.textColor || "#ffffff",
@@ -389,15 +405,18 @@ export default function Editor() {
 
     return (
         <section
-            className="flex-1 min-h-0 flex flex-col overflow-hidden transition-all duration-500"
+            className="flex-1 min-h-0 flex flex-col overflow-hidden transition-all duration-0 relative bg-black font-mono text-white"
             style={bgStyle}
         >
             <style>{TEMPLATE_ACCENT_CSS}</style>
 
-            {/* Dot grid overlay */}
-            <div
-                className="absolute inset-0 pointer-events-none z-0 opacity-[0.03]"
-                style={{ backgroundImage: "radial-gradient(rgba(0,229,255,1) 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+            {/* Brutalist Grid Overlay */}
+            <div 
+                className="absolute inset-0 pointer-events-none z-0 opacity-20"
+                style={{ 
+                    backgroundImage: "linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px)", 
+                    backgroundSize: "40px 40px" 
+                }} 
             />
 
             {/* Scrollable canvas */}
@@ -405,22 +424,21 @@ export default function Editor() {
                 onDragOver={(e) => { e.preventDefault(); setCanvasDragOver(true); }}
                 onDragLeave={() => { setCanvasDragOver(false); }}
                 onDrop={handleCanvasDrop}
-                className={`flex-1 overflow-y-auto p-6 md:p-10 z-10 relative transition-all duration-300
-                    ${canvasDragOver ? "ring-inset ring-2 ring-cyan-500/30 bg-cyan-950/5" : ""}
+                className={`flex-1 overflow-y-auto p-6 md:p-12 z-10 relative transition-all duration-150 [scrollbar-width:none]
+                    ${canvasDragOver ? "border-8 border-dashed border-lime-400 bg-lime-400/10" : "border-8 border-transparent"}
                 `}
             >
-                <div className="max-w-4xl mx-auto flex flex-col gap-4 min-h-full">
+                <div className="max-w-5xl mx-auto flex flex-col gap-12 min-h-full pb-32">
 
                     {/* EMPTY STATE */}
                     {selectedSections.length === 0 && (
-                        <div className="flex-1 flex flex-col items-center justify-center border border-dashed border-cyan-900/30 py-32 px-6 text-center min-h-[400px]">
-                            <div className="relative w-16 h-16 border border-cyan-500/20 rounded-full flex items-center justify-center mb-8">
-                                <div className="absolute inset-0 rounded-full border border-cyan-400/10 animate-ping" />
-                                <span className="text-cyan-500 text-3xl font-mono font-light">+</span>
+                        <div className="flex-1 flex flex-col items-center justify-center border-4 border-dashed border-white py-32 px-6 text-center min-h-[500px] bg-black shadow-[12px_12px_0px_0px_#a3e635]">
+                            <div className="w-24 h-24 border-4 border-white flex items-center justify-center mb-8 bg-lime-400 text-black shadow-[6px_6px_0px_0px_white]">
+                                <span className="text-6xl font-black">+</span>
                             </div>
-                            <p className="text-[11px] font-mono tracking-[0.35em] text-cyan-600 mb-3">AWAITING_INPUT</p>
-                            <p className="text-slate-600 text-xs font-sans max-w-xs leading-relaxed">
-                                Inject modules from the library on the left, or drag sections directly onto the canvas.
+                            <p className="text-2xl font-black tracking-widest text-lime-400 mb-4 uppercase">SYS.AWAITING_INPUT</p>
+                            <p className="text-white text-sm font-bold uppercase tracking-widest max-w-md border-t-4 border-white pt-4">
+                                Inject modules from the library on the left, or drag sections directly onto the canvas payload area.
                             </p>
                         </div>
                     )}
@@ -439,45 +457,46 @@ export default function Editor() {
                                 onDragLeave={() => setDragOverSectionId(null)}
                                 onDrop={(e) => handleSectionDrop(e, section.id)}
                                 className={`
-                                    relative border transition-all duration-200 origin-top
+                                    relative border-4 transition-all duration-150 origin-top bg-black
                                     ${isActive
-                                        ? "border-cyan-500 shadow-[0_0_30px_rgba(0,229,255,0.08)]"
+                                        ? "border-lime-400 shadow-[12px_12px_0px_0px_#a3e635] -translate-y-1 -translate-x-1"
                                         : isDragTarget
-                                        ? "border-cyan-700/70 shadow-[0_0_20px_rgba(0,229,255,0.06)]"
-                                        : "border-white/[0.06] hover:border-white/10"
+                                        ? "border-fuchsia-500 border-dashed shadow-[12px_12px_0px_0px_#d946ef]"
+                                        : "border-white shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] hover:border-white hover:shadow-[12px_12px_0px_0px_white] hover:-translate-y-1 hover:-translate-x-1"
                                     }
                                 `}
                             >
                                 {/* Section control bar */}
-                                <div className="px-4 py-2 bg-[#050505]/95 border-b border-white/[0.04] flex items-center justify-between gap-3 backdrop-blur-sm">
-                                    <div className="flex items-center gap-3">
+                                <div className={`flex items-stretch justify-between border-b-4 bg-black
+                                    ${isActive ? "border-lime-400" : "border-white"}
+                                `}>
+                                    <div className="px-4 py-3 flex items-center gap-4">
                                         {/* Drag handle */}
-                                        <div className="cursor-grab text-[10px] text-slate-700 hover:text-slate-500 select-none px-1">⠿</div>
+                                        <div className="cursor-grab text-xl font-black text-white hover:text-lime-400 select-none px-2">☰</div>
 
-                                        <div className="flex items-center gap-1.5 bg-black/40 border border-cyan-900/30 px-2 py-0.5">
-                                            <span className="text-[8px] font-mono text-cyan-800">SEQ</span>
-                                            <span className="text-[9px] font-mono text-cyan-500 font-bold">{String(index + 1).padStart(2, "0")}</span>
+                                        <div className="flex items-center gap-2 bg-white px-3 py-1 border-2 border-white">
+                                            <span className="text-xs font-black text-black uppercase">SEQ</span>
+                                            <span className="text-sm font-black text-black">{String(index + 1).padStart(2, "0")}</span>
                                         </div>
 
-                                        <p className="text-[10px] font-mono tracking-widest text-slate-300">{section.title}</p>
+                                        <p className="text-sm font-black tracking-widest text-white uppercase">{section.title}</p>
 
                                         {isActive && (
-                                            <span className="flex items-center gap-1.5 text-[8px] font-mono text-cyan-400 border border-cyan-500/30 bg-cyan-950/40 px-2 py-0.5 animate-pulse">
-                                                <span className="w-1 h-1 bg-cyan-400 rounded-full" />
+                                            <span className="flex items-center gap-2 text-xs font-black text-black bg-lime-400 border-2 border-lime-400 px-3 py-1 uppercase tracking-widest">
+                                                <span className="w-2 h-2 bg-black" />
                                                 LIVE EDIT
                                             </span>
                                         )}
                                     </div>
 
-                                    <div className="flex items-center gap-1.5">
-                                        {/* Move buttons hidden - single component only */}
+                                    <div className="flex items-stretch">
                                         <button
                                             onClick={() => setActiveEditId(isActive ? null : section.id)}
                                             aria-label={isActive ? "Save changes" : "Edit component"}
-                                            className={`text-[10px] font-mono border px-3 py-1.5 transition-all duration-150 tracking-widest font-semibold
+                                            className={`text-xs font-black border-l-4 px-6 transition-all tracking-widest uppercase flex items-center
                                                 ${isActive
-                                                    ? "border-cyan-500 bg-cyan-950/50 text-cyan-300 hover:bg-cyan-900/70"
-                                                    : "border-slate-700 bg-slate-950/30 text-slate-400 hover:border-cyan-700 hover:text-cyan-500 hover:bg-slate-900/50"
+                                                    ? "border-lime-400 bg-lime-400 text-black hover:bg-white"
+                                                    : "border-white bg-black text-white hover:bg-white hover:text-black"
                                                 }`}
                                         >
                                             {isActive ? "✓ SAVE" : "✎ EDIT"}
@@ -485,7 +504,9 @@ export default function Editor() {
                                         <button
                                             onClick={() => removeSection(section.id)}
                                             aria-label="Remove component"
-                                            className="text-[10px] font-mono border border-red-900/40 px-3 py-1.5 text-red-700 hover:border-red-500 hover:bg-red-950/40 hover:text-red-400 transition-all duration-150 tracking-widest font-semibold"
+                                            className={`text-xs font-black border-l-4 px-6 text-red-500 transition-all tracking-widest uppercase flex items-center
+                                                ${isActive ? "border-lime-400 hover:bg-red-500 hover:text-black" : "border-white hover:bg-red-500 hover:text-black"}
+                                            `}
                                         >
                                             ✕ REMOVE
                                         </button>
@@ -494,11 +515,7 @@ export default function Editor() {
 
                                 {/* Live preview */}
                                 <div
-                                    className="relative overflow-hidden cursor-pointer group/preview"
-                                    style={{
-                                        background: "transparent",
-                                        opacity: isActive ? 1 : undefined,
-                                    }}
+                                    className="relative overflow-hidden cursor-pointer group/preview min-h-[100px]"
                                     onClick={() => { if (!isActive) setActiveEditId(section.id); }}
                                 >
                                     <div className={`builder-template-surface ${isActive ? "" : "pointer-events-none"}`} style={sectionContentStyle}>
@@ -520,17 +537,15 @@ export default function Editor() {
                                         )}
                                     </div>
 
-                                    {/* Click-to-edit overlay */}
+                                    {/* Click-to-edit overlay (Brutalist Block) */}
                                     {!isActive && (
-                                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/preview:opacity-100 transition-opacity duration-200">
-                                            <span className="text-[9px] font-mono tracking-widest text-cyan-400 border border-cyan-600/60 bg-black/80 px-5 py-2 backdrop-blur-sm">
-                                                CLICK TO EDIT
+                                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/preview:opacity-100 bg-black/40">
+                                            <span className="text-sm font-black tracking-widest text-black bg-white border-4 border-black shadow-[8px_8px_0px_0px_#000] px-8 py-4 uppercase">
+                                                CLICK TO EDIT MODULE
                                             </span>
                                         </div>
                                     )}
                                 </div>
-
-
                             </article>
                         );
                     })}

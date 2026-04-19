@@ -1,22 +1,54 @@
 import Navbar1 from "../Sections/Generic/Navbars/Navbar1";
 import Navbar2 from "../Sections/Generic/Navbars/Navbar2";
 import Navbar3 from "../Sections/Generic/Navbars/Navbar3";
+import Navbar4 from "../Sections/Generic/Navbars/Navbar4";
+import Navbar5 from "../Sections/Generic/Navbars/Navbar5";
+import Navbar6 from "../Sections/Generic/Navbars/Navbar6";
 import Hero1 from "../Sections/Generic/Heros/Hero1";
 import Hero2 from "../Sections/Generic/Heros/Hero2";
 import Hero3 from "../Sections/Generic/Heros/Hero3";
+import Hero4 from "../Sections/Generic/Heros/Hero4";
+import Hero5 from "../Sections/Generic/Heros/Hero5";
 import Features1 from "../Sections/Generic/Features/Features1";
 import Features2 from "../Sections/Generic/Features/Features2";
 import Features3 from "../Sections/Generic/Features/Features3";
 import Pricing1 from "../Sections/Generic/Pricing/Pricing1";
 import Pricing2 from "../Sections/Generic/Pricing/Pricing2";
 import Pricing3 from "../Sections/Generic/Pricing/Pricing3";
+import Pricing4 from "../Sections/Generic/Pricing/Pricing4";
 import WorkPage1 from "../Sections/Generic/Pages/WorkPage1";
 import WorkPage2 from "../Sections/Generic/Pages/WorkPage2";
 import WorkPage3 from "../Sections/Generic/Pages/WorkPage3";
 import WorkPage4 from "../Sections/Generic/Pages/WorkPage4";
+import WorkPage5 from "../Sections/Generic/Pages/Workpage5";
+import WorkPage6 from "../Sections/Generic/Pages/WorkPage6";
 import Footer1 from "../Sections/Generic/Footers/Footer1";
 import Footer2 from "../Sections/Generic/Footers/Footer2";
 import Footer3 from "../Sections/Generic/Footers/Footer3";
+import Testimonials1 from "../Sections/Generic/Testimonials/Testimonials1";
+import Testimonials2 from "../Sections/Generic/Testimonials/Testimonials2";
+import Testimonials3 from "../Sections/Generic/Testimonials/Testimonials3";
+import CTA1 from "../Sections/Generic/CTA/CTA1";
+import CTA2 from "../Sections/Generic/CTA/CTA2";
+import CTA3 from "../Sections/Generic/CTA/CTA3";
+import Stats1 from "../Sections/Generic/Stats/Stats1";
+import Stats2 from "../Sections/Generic/Stats/Stats2";
+import Stats3 from "../Sections/Generic/Stats/Stats3";
+import Gallery1 from "../Sections/Generic/Gallery/Gallery1";
+import Gallery2 from "../Sections/Generic/Gallery/Gallery2";
+import Gallery3 from "../Sections/Generic/Gallery/Gallery3";
+import FAQ1 from "../Sections/Generic/FAQ/FAQ1";
+import FAQ2 from "../Sections/Generic/FAQ/FAQ2";
+import FAQ3 from "../Sections/Generic/FAQ/FAQ3";
+import Newsletter1 from "../Sections/Generic/Newsletter/Newsletter1";
+import Newsletter2 from "../Sections/Generic/Newsletter/Newsletter2";
+import Newsletter3 from "../Sections/Generic/Newsletter/Newsletter3";
+import Timeline1 from "../Sections/Generic/Timeline/Timeline1";
+import Timeline2 from "../Sections/Generic/Timeline/Timeline2";
+import Timeline3 from "../Sections/Generic/Timeline/Timeline3";
+import Comparison1 from "../Sections/Generic/Comparison/Comparison1";
+import Comparison2 from "../Sections/Generic/Comparison/Comparison2";
+import Comparison3 from "../Sections/Generic/Comparison/Comparison3";
 
 // Portfolio Components
 import PortfolioNavbar1 from "../Sections/Portfolio/Navbar/Navbar1";
@@ -107,6 +139,72 @@ const sectionRegistry = [
         ],
     },
     {
+        id: "navbar4",
+        title: "Navbar 4",
+        group: "navbar",
+        Component: Navbar4,
+        defaultContent: {
+            brand: "YourBrand",
+            link1: "Home",
+            link2: "Features",
+            link3: "Pricing",
+            link4: "Contact",
+            cta: "Get Started",
+        },
+        fields: [
+            { key: "brand", label: "Brand" },
+            { key: "link1", label: "Link 1" },
+            { key: "link2", label: "Link 2" },
+            { key: "link3", label: "Link 3" },
+            { key: "link4", label: "Link 4" },
+            { key: "cta", label: "CTA Button" },
+        ],
+    },
+    {
+        id: "navbar5",
+        title: "Navbar 5",
+        group: "navbar",
+        Component: Navbar5,
+        defaultContent: {
+            brand: "YourBrand",
+            link1: "Home",
+            link2: "Features",
+            link3: "Pricing",
+            link4: "Contact",
+            cta: "Get Started",
+        },
+        fields: [
+            { key: "brand", label: "Brand" },
+            { key: "link1", label: "Link 1" },
+            { key: "link2", label: "Link 2" },
+            { key: "link3", label: "Link 3" },
+            { key: "link4", label: "Link 4" },
+            { key: "cta", label: "CTA Button" },
+        ],
+    },
+    {
+        id: "navbar6",
+        title: "Navbar 6",
+        group: "navbar",
+        Component: Navbar6,
+        defaultContent: {
+            brand: "YourBrand",
+            link1: "Home",
+            link2: "Features",
+            link3: "Pricing",
+            link4: "Contact",
+            cta: "Get Started",
+        },
+        fields: [
+            { key: "brand", label: "Brand" },
+            { key: "link1", label: "Link 1" },
+            { key: "link2", label: "Link 2" },
+            { key: "link3", label: "Link 3" },
+            { key: "link4", label: "Link 4" },
+            { key: "cta", label: "CTA Button" },
+        ],
+    },
+    {
         id: "hero1",
         title: "Hero 1",
         group: "hero",
@@ -152,6 +250,42 @@ const sectionRegistry = [
             title: "Launch Your Vision",
             description: "Transform your ideas into reality with our intuitive webpage template builder.",
             buttonLabel: "Start Building",
+        },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+            { key: "description", label: "Description", multiline: true },
+            { key: "buttonLabel", label: "Button Label" },
+        ],
+    },
+    {
+        id: "hero4",
+        title: "Hero 4",
+        group: "hero",
+        Component: Hero4,
+        defaultContent: {
+            badge: "> NEXT GENERATION",
+            title: "Build Faster Than Ever",
+            description: "Leverage cutting-edge technology to create stunning websites in minutes.",
+            buttonLabel: "Get Started Now",
+        },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+            { key: "description", label: "Description", multiline: true },
+            { key: "buttonLabel", label: "Button Label" },
+        ],
+    },
+    {
+        id: "hero5",
+        title: "Hero 5",
+        group: "hero",
+        Component: Hero5,
+        defaultContent: {
+            badge: "> UNLEASH POTENTIAL",
+            title: "Create, Design, Deploy",
+            description: "Everything you need to build professional websites, all in one platform.",
+            buttonLabel: "Explore Features",
         },
         fields: [
             { key: "badge", label: "Badge" },
@@ -341,6 +475,40 @@ const sectionRegistry = [
         ],
     },
     {
+        id: "pricing4",
+        title: "Pricing 4",
+        group: "pricing",
+        Component: Pricing4,
+        defaultContent: {
+            badge: "> SELECT YOUR PLAN",
+            title: "Pricing That Grows With You",
+            plan1Name: "Basic",
+            plan1Price: "$19",
+            plan1Desc: "Great for individuals and small teams.",
+            plan2Name: "Plus",
+            plan2Price: "$49",
+            plan2Desc: "Everything in Basic, plus premium features.",
+            plan3Name: "Premium",
+            plan3Price: "$149",
+            plan3Desc: "Full suite of features with priority support.",
+            buttonLabel: "Get Started",
+        },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+            { key: "plan1Name", label: "Plan 1 Name" },
+            { key: "plan1Price", label: "Plan 1 Price" },
+            { key: "plan1Desc", label: "Plan 1 Description", multiline: true },
+            { key: "plan2Name", label: "Plan 2 Name" },
+            { key: "plan2Price", label: "Plan 2 Price" },
+            { key: "plan2Desc", label: "Plan 2 Description", multiline: true },
+            { key: "plan3Name", label: "Plan 3 Name" },
+            { key: "plan3Price", label: "Plan 3 Price" },
+            { key: "plan3Desc", label: "Plan 3 Description", multiline: true },
+            { key: "buttonLabel", label: "Button Label" },
+        ],
+    },
+    {
         id: "workpage1",
         title: "WorkPage 1",
         group: "work",
@@ -441,6 +609,56 @@ const sectionRegistry = [
         ],
     },
     {
+        id: "workpage5",
+        title: "WorkPage 5",
+        group: "work",
+        Component: WorkPage5,
+        defaultContent: {
+            badge: "> FEATURES OVERVIEW",
+            title: "Discover Our Capabilities",
+            description:
+                "Explore the powerful features that make building websites faster and easier than ever before.",
+            item1: "Drag & Drop Editor",
+            item2: "Pre-built Components",
+            item3: "Real-time Preview",
+            item4: "One-Click Deploy",
+        },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+            { key: "description", label: "Description", multiline: true },
+            { key: "item1", label: "Item 1" },
+            { key: "item2", label: "Item 2" },
+            { key: "item3", label: "Item 3" },
+            { key: "item4", label: "Item 4" },
+        ],
+    },
+    {
+        id: "workpage6",
+        title: "WorkPage 6",
+        group: "work",
+        Component: WorkPage6,
+        defaultContent: {
+            badge: "> GET STARTED TODAY",
+            title: "Start Building Right Now",
+            description:
+                "No credit card required. Sign up in seconds and start creating your perfect website today.",
+            item1: "Sign Up Free",
+            item2: "Choose a Template",
+            item3: "Customize Your Design",
+            item4: "Publish to the Web",
+        },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+            { key: "description", label: "Description", multiline: true },
+            { key: "item1", label: "Item 1" },
+            { key: "item2", label: "Item 2" },
+            { key: "item3", label: "Item 3" },
+            { key: "item4", label: "Item 4" },
+        ],
+    },
+    {
         id: "footer1",
         title: "Footer 1",
         group: "footer",
@@ -510,6 +728,294 @@ const sectionRegistry = [
             { key: "link3", label: "Link 3" },
             { key: "link4", label: "Link 4" },
             { key: "copyrightLine", label: "Copyright" },
+        ],
+    },
+
+    // ==================== NEW SECTION TYPES ====================
+    
+    // TESTIMONIALS
+    {
+        id: "testimonials1",
+        title: "Testimonials 1",
+        group: "testimonials",
+        Component: Testimonials1,
+        defaultContent: { badge: "> CLIENT PRAISE", title: "What They Say" },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+        ],
+    },
+    {
+        id: "testimonials2",
+        title: "Testimonials 2",
+        group: "testimonials",
+        Component: Testimonials2,
+        defaultContent: { badge: "> FROM OUR CLIENTS", title: "Real Stories" },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+        ],
+    },
+    {
+        id: "testimonials3",
+        title: "Testimonials 3",
+        group: "testimonials",
+        Component: Testimonials3,
+        defaultContent: { badge: "> TESTIMONIALS", title: "Trusted By" },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+        ],
+    },
+
+    // CTA (CALL TO ACTION)
+    {
+        id: "cta1",
+        title: "CTA 1",
+        group: "cta",
+        Component: CTA1,
+        defaultContent: { badge: "> READY?", title: "Take Action", description: "Join thousands of users.", buttonText: "Start Now" },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+            { key: "description", label: "Description", multiline: true },
+            { key: "buttonText", label: "Button Text" },
+        ],
+    },
+    {
+        id: "cta2",
+        title: "CTA 2",
+        group: "cta",
+        Component: CTA2,
+        defaultContent: { badge: "> LIMITED TIME", title: "Exclusive Offer", description: "Get premium features at an incredible price.", buttonText: "Get Started" },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+            { key: "description", label: "Description", multiline: true },
+            { key: "buttonText", label: "Button Text" },
+        ],
+    },
+    {
+        id: "cta3",
+        title: "CTA 3",
+        group: "cta",
+        Component: CTA3,
+        defaultContent: { badge: "> OPTIONS", title: "Choose Your Path", description: "Pick the option that works best for you." },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+            { key: "description", label: "Description", multiline: true },
+        ],
+    },
+
+    // STATS
+    {
+        id: "stats1",
+        title: "Stats 1",
+        group: "stats",
+        Component: Stats1,
+        defaultContent: { badge: "> BY THE NUMBERS", title: "Our Impact" },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+        ],
+    },
+    {
+        id: "stats2",
+        title: "Stats 2",
+        group: "stats",
+        Component: Stats2,
+        defaultContent: { badge: "> PROVEN RESULTS", title: "Why Trust Us" },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+        ],
+    },
+    {
+        id: "stats3",
+        title: "Stats 3",
+        group: "stats",
+        Component: Stats3,
+        defaultContent: { badge: "> ACHIEVEMENTS", title: "Success Metrics" },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+        ],
+    },
+
+    // GALLERY
+    {
+        id: "gallery1",
+        title: "Gallery 1",
+        group: "gallery",
+        Component: Gallery1,
+        defaultContent: { badge: "> PORTFOLIO", title: "Our Work" },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+        ],
+    },
+    {
+        id: "gallery2",
+        title: "Gallery 2",
+        group: "gallery",
+        Component: Gallery2,
+        defaultContent: { badge: "> FEATURED", title: "Gallery" },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+        ],
+    },
+    {
+        id: "gallery3",
+        title: "Gallery 3",
+        group: "gallery",
+        Component: Gallery3,
+        defaultContent: { badge: "> COLLECTIONS", title: "Gallery" },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+        ],
+    },
+
+    // FAQ
+    {
+        id: "faq1",
+        title: "FAQ 1",
+        group: "faq",
+        Component: FAQ1,
+        defaultContent: { badge: "> QUESTIONS?", title: "FAQ" },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+        ],
+    },
+    {
+        id: "faq2",
+        title: "FAQ 2",
+        group: "faq",
+        Component: FAQ2,
+        defaultContent: { badge: "> FIND ANSWERS", title: "Frequently Asked" },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+        ],
+    },
+    {
+        id: "faq3",
+        title: "FAQ 3",
+        group: "faq",
+        Component: FAQ3,
+        defaultContent: { badge: "> GET ANSWERS", title: "FAQ" },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+        ],
+    },
+
+    // NEWSLETTER
+    {
+        id: "newsletter1",
+        title: "Newsletter 1",
+        group: "newsletter",
+        Component: Newsletter1,
+        defaultContent: { badge: "> STAY UPDATED", title: "Get the Latest", description: "Subscribe for weekly tips." },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+            { key: "description", label: "Description", multiline: true },
+        ],
+    },
+    {
+        id: "newsletter2",
+        title: "Newsletter 2",
+        group: "newsletter",
+        Component: Newsletter2,
+        defaultContent: { badge: "> WHY SUBSCRIBE?", title: "Stay In Loop" },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+        ],
+    },
+    {
+        id: "newsletter3",
+        title: "Newsletter 3",
+        group: "newsletter",
+        Component: Newsletter3,
+        defaultContent: { badge: "> KEEP IN TOUCH", title: "Subscribe" },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+        ],
+    },
+
+    // TIMELINE
+    {
+        id: "timeline1",
+        title: "Timeline 1",
+        group: "timeline",
+        Component: Timeline1,
+        defaultContent: { badge: "> OUR JOURNEY", title: "Timeline" },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+        ],
+    },
+    {
+        id: "timeline2",
+        title: "Timeline 2",
+        group: "timeline",
+        Component: Timeline2,
+        defaultContent: { badge: "> PROJECT ROADMAP", title: "Progress" },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+        ],
+    },
+    {
+        id: "timeline3",
+        title: "Timeline 3",
+        group: "timeline",
+        Component: Timeline3,
+        defaultContent: { badge: "> MILESTONES", title: "Our Story" },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+        ],
+    },
+
+    // COMPARISON
+    {
+        id: "comparison1",
+        title: "Comparison 1",
+        group: "comparison",
+        Component: Comparison1,
+        defaultContent: { badge: "> SIDE BY SIDE", title: "Compare" },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+        ],
+    },
+    {
+        id: "comparison2",
+        title: "Comparison 2",
+        group: "comparison",
+        Component: Comparison2,
+        defaultContent: { badge: "> PLANS", title: "Pricing Comparison" },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+        ],
+    },
+    {
+        id: "comparison3",
+        title: "Comparison 3",
+        group: "comparison",
+        Component: Comparison3,
+        defaultContent: { badge: "> COMPARISON", title: "Product Comparison" },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
         ],
     },
     
