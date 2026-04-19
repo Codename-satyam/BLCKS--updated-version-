@@ -22,6 +22,26 @@ const SIGNAGE = {
     footer1:   { word: "WRAP",  color: "gray" },
     footer2:   { word: "COLS",  color: "gray" },
     footer3:   { word: "CTA",   color: "gray" },
+    // Portfolio signage
+    "portfolio-navbar1":   { word: "PROF", color: "cyan" },
+    "portfolio-navbar2":   { word: "SLEEK", color: "cyan" },
+    "portfolio-navbar3":   { word: "FLOW", color: "cyan" },
+    "portfolio-hero1":     { word: "INTRO", color: "purple" },
+    "portfolio-hero2":     { word: "IMPACT", color: "purple" },
+    "portfolio-hero3":     { word: "SHINE", color: "purple" },
+    "portfolio-projects1": { word: "CASE", color: "teal" },
+    "portfolio-projects2": { word: "SHOW", color: "teal" },
+    "portfolio-projects3": { word: "WORK", color: "teal" },
+    "portfolio-skills1":   { word: "TECH", color: "orange" },
+    "portfolio-skills2":   { word: "SKILL", color: "orange" },
+    "portfolio-skills3":   { word: "EXPT", color: "orange" },
+    "portfolio-footer1":   { word: "TOUCH", color: "pink" },
+    "portfolio-footer2":   { word: "LINK", color: "pink" },
+    "portfolio-footer3":   { word: "END", color: "pink" },
+    "portfolio-template1": { word: "START", color: "gray" },
+    "portfolio-template2": { word: "BUILD", color: "gray" },
+    "portfolio-template3": { word: "MADE", color: "gray" },
+    "portfolio-template4": { word: "READY", color: "gray" },
 };
 
 const COLOR_MAP = {
@@ -34,7 +54,7 @@ const COLOR_MAP = {
 };
 
 export default function SideBar() {
-    const { sectionRegistry, selectedSections, addSection, designSettings } = useBuilder();
+    const { sectionRegistry, selectedSections, addSection, removeSection, moveSection, designSettings } = useBuilder();
     const railRefs = useRef({});
     const [searchQuery, setSearchQuery] = useState("");
 
@@ -79,15 +99,18 @@ export default function SideBar() {
                 {/* Search */}
                 <input
                     type="text"
-                    placeholder="Search sections..."
+                    placeholder="Search component..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full bg-black/60 border border-cyan-900/40 text-cyan-300 placeholder-cyan-900 text-[10px] font-mono px-2.5 py-1.5 outline-none focus:border-cyan-600 transition-colors"
+                    aria-label="Search components"
+                    className="w-full bg-black/60 border border-cyan-900/40 text-cyan-300 placeholder-cyan-900 text-[10px] font-mono px-2.5 py-1.5 outline-none focus:border-cyan-600 focus:ring-1 focus:ring-cyan-600/50 transition-colors"
                 />
                 {/* Stats */}
-                <div className="flex items-center justify-between mt-2">
-                    <span className="text-[9px] text-cyan-900 font-mono">{totalSections} AVAILABLE</span>
-                    <span className="text-[9px] font-mono" style={{ color: accent }}>{addedCount} ADDED</span>
+                <div className="flex items-center justify-between mt-2 px-1">
+                    <span className="text-[9px] text-cyan-800 font-mono">{selectedIds.length === 0 ? "NO_SELECT" : "SELECTED"}</span>
+                    <span className="text-[9px] font-mono" style={{ color: accent }}>
+                        {selectedIds.length === 0 ? "0" : selectedIds.length}
+                    </span>
                 </div>
             </div>
 
@@ -154,15 +177,16 @@ export default function SideBar() {
                                         <button
                                             onClick={() => addSection(section.id)}
                                             disabled={isAdded}
+                                            aria-label={isAdded ? `${section.title} selected` : `Select ${section.title}`}
                                             className={`
-                                                w-full text-[8px] font-mono py-1 border uppercase tracking-widest transition-all duration-200
+                                                w-full text-[8px] font-mono py-1.5 border uppercase tracking-widest font-semibold transition-all duration-200
                                                 ${isAdded
-                                                    ? "border-slate-800 text-slate-600 cursor-not-allowed"
+                                                    ? "border-green-800/50 text-green-600 bg-green-950/20 cursor-not-allowed"
                                                     : col.btn
                                                 }
                                             `}
                                         >
-                                            {isAdded ? "✓ Added" : "+ Inject"}
+                                            {isAdded ? "✓ SELECTED" : "+ SELECT"}
                                         </button>
                                     </article>
                                 );
@@ -178,6 +202,55 @@ export default function SideBar() {
                     </div>
                 )}
             </div>
+
+            {/* Selected Components Panel */}
+            {selectedSections.length > 0 && (
+                <div className="border-t border-cyan-900/40 bg-black/50 p-3 shrink-0">
+                    <div className="text-[8px] font-mono tracking-[0.25em] text-cyan-500 mb-2 flex items-center gap-2">
+                        <span className="block w-2 h-px bg-cyan-500" />
+                        SELECTED ({selectedSections.length})
+                    </div>
+                    <div className="space-y-1.5 max-h-[200px] overflow-y-auto [scrollbar-width:thin] [scrollbar-color:#0891b230_#000]">
+                        {selectedSections.map((section, index) => (
+                            <div 
+                                key={`${section.id}-${index}`}
+                                className="flex items-center justify-between gap-1 p-2 bg-cyan-950/30 border border-cyan-900/50 rounded text-[9px] hover:border-cyan-700/60 transition-colors group"
+                            >
+                                <div className="flex-1 min-w-0">
+                                    <p className="text-cyan-300 truncate font-mono">{section.title}</p>
+                                </div>
+                                <div className="flex gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    {index > 0 && (
+                                        <button
+                                            onClick={() => moveSection(section.id, "up")}
+                                            className="w-5 h-5 flex items-center justify-center bg-purple-950/50 border border-purple-700/50 text-purple-400 hover:bg-purple-700 hover:text-white text-[8px] font-bold"
+                                            title="Move up"
+                                        >
+                                            ↑
+                                        </button>
+                                    )}
+                                    {index < selectedSections.length - 1 && (
+                                        <button
+                                            onClick={() => moveSection(section.id, "down")}
+                                            className="w-5 h-5 flex items-center justify-center bg-purple-950/50 border border-purple-700/50 text-purple-400 hover:bg-purple-700 hover:text-white text-[8px] font-bold"
+                                            title="Move down"
+                                        >
+                                            ↓
+                                        </button>
+                                    )}
+                                    <button
+                                        onClick={() => removeSection(section.id)}
+                                        className="w-5 h-5 flex items-center justify-center bg-red-950/50 border border-red-700/50 text-red-400 hover:bg-red-700 hover:text-white text-[8px] font-bold"
+                                        title="Remove"
+                                    >
+                                        ✕
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
         </aside>
     );
 }

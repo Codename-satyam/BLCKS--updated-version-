@@ -32,17 +32,18 @@ export default function DesignPanel() {
     const completionPct  = Math.round((completedCount / checklistItems.length) * 100);
 
     return (
-        <aside className="hidden lg:flex lg:flex-col w-[220px] shrink-0 border-l border-cyan-900/40 bg-black/50 backdrop-blur-lg overflow-hidden">
+        <aside className="hidden lg:flex lg:flex-col w-[240px] shrink-0 border-l border-cyan-900/40 bg-black/50 backdrop-blur-lg overflow-hidden">
             {/* Header */}
             <div className="px-4 py-3 border-b border-cyan-900/30 bg-black/30 shrink-0">
-                <h2 className="text-[9px] font-mono tracking-[0.25em] text-cyan-500 flex items-center gap-2">
-                    <span className="block w-3 h-px bg-cyan-500" />
-                    DESIGN_CONTROLS
+                <h2 className="text-[9px] font-mono tracking-[0.3em] text-cyan-400 flex items-center gap-2 font-bold">
+                    <span className="block w-3 h-px bg-cyan-400" />
+                    THEME_EDITOR
                 </h2>
+                <p className="text-[8px] text-slate-600 mt-1.5">Customize component styling</p>
             </div>
 
             {/* Scrollable body */}
-            <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-5 [scrollbar-width:thin] [scrollbar-color:#0891b230_#000]">
+            <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-6 [scrollbar-width:thin] [scrollbar-color:#0891b230_#000]">
 
                 {/* ── BACKGROUND ─────────────────────────────────────── */}
                 <section className="flex flex-col gap-3 border-b border-white/[0.04] pb-5">

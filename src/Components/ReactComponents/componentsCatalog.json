@@ -5,8 +5,10 @@
     "category": "backgrounds",
     "description": "Subtle animated grid glow for hero and app shells.",
     "tags": ["grid", "ambient", "loop"],
-    "importCode": "import NeonGridBackground from '@/components/backgrounds/NeonGridBackground';",
-    "previewType": "background"
+    "import": "import NeonGridBackground from '@/components/backgrounds/NeonGridBackground';",
+    "previewType": "background",
+    "source": "// NeonGridBackground.jsx\nexport default function NeonGridBackground({ children, className = '' }) {\n  return (\n    <div className={`relative overflow-hidden bg-[#030712] ${className}`}>\n      {/* Grid lines */}\n      <div\n        className=\"absolute inset-0\"\n        style={{\n          backgroundImage:\n            'linear-gradient(rgba(0,229,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.07) 1px, transparent 1px)',\n          backgroundSize: '24px 24px',\n        }}\n      />\n      {/* Radial glow */}\n      <div className=\"absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(0,229,255,0.28),transparent_60%)]\" />\n      <div className=\"relative z-10\">{children}</div>\n    </div>\n  );\n}",
+    "usage": "<NeonGridBackground className=\"min-h-screen\">\n  <h1>Your content here</h1>\n</NeonGridBackground>"
   },
   {
     "id": "bg-rolling-window",
@@ -14,8 +16,10 @@
     "category": "backgrounds",
     "description": "Horizontally sweeping light bars with depth blur.",
     "tags": ["motion", "cinematic", "hero"],
-    "importCode": "import RollingWindowBackground from '@/components/backgrounds/RollingWindowBackground';",
-    "previewType": "rolling"
+    "import": "import RollingWindowBackground from '@/components/backgrounds/RollingWindowBackground';",
+    "previewType": "rolling",
+    "source": "// RollingWindowBackground.jsx\n// Add to your global CSS:\n// @keyframes rollX { 0% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }\n\nexport default function RollingWindowBackground({ children, className = '' }) {\n  return (\n    <div className={`relative overflow-hidden bg-[#050b1a] ${className}`}>\n      {/* Sweeping bar */}\n      <div\n        className=\"absolute inset-0\"\n        style={{\n          background: 'linear-gradient(90deg, transparent 0%, rgba(0,229,255,0.28) 35%, transparent 70%)',\n          animation: 'rollX 5s linear infinite',\n        }}\n      />\n      {/* Depth radial */}\n      <div className=\"absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(14,165,233,0.25),transparent_40%)]\" />\n      <div className=\"relative z-10\">{children}</div>\n    </div>\n  );\n}",
+    "usage": "<RollingWindowBackground className=\"h-[500px] flex items-center justify-center\">\n  <h1 className=\"text-white text-4xl\">Hero Section</h1>\n</RollingWindowBackground>"
   },
   {
     "id": "header-terminal",
@@ -23,8 +27,10 @@
     "category": "headers",
     "description": "Navigation bar styled like a futuristic command deck.",
     "tags": ["navbar", "layout", "topbar"],
-    "importCode": "import TerminalHeader from '@/components/headers/TerminalHeader';",
-    "previewType": "header"
+    "import": "import TerminalHeader from '@/components/headers/TerminalHeader';",
+    "previewType": "header",
+    "source": "// TerminalHeader.jsx\nexport default function TerminalHeader({ brand = 'SYS.NAV', links = [], cta = 'Launch' }) {\n  return (\n    <header className=\"w-full border-b border-cyan-900/60 bg-black/80 backdrop-blur-md\">\n      <div className=\"mx-auto flex max-w-7xl items-center justify-between px-6 py-3\">\n        <div className=\"flex items-center gap-3\">\n          <div className=\"h-2 w-2 animate-pulse rounded-full bg-cyan-400\" />\n          <span className=\"font-mono text-sm font-bold tracking-[0.25em] text-cyan-300\">\n            {brand}\n          </span>\n        </div>\n        <nav className=\"hidden items-center gap-6 md:flex\">\n          {links.map((link) => (\n            <a\n              key={link.label}\n              href={link.href}\n              className=\"font-mono text-xs uppercase tracking-[0.2em] text-cyan-600 transition hover:text-cyan-300\"\n            >\n              {link.label}\n            </a>\n          ))}\n        </nav>\n        <button className=\"border border-cyan-600 px-4 py-1.5 font-mono text-xs uppercase tracking-[0.2em] text-cyan-300 transition hover:bg-cyan-400 hover:text-black\">\n          {cta}\n        </button>\n      </div>\n    </header>\n  );\n}",
+    "usage": "<TerminalHeader\n  brand=\"CORP.SYS\"\n  links={[\n    { label: 'About', href: '#' },\n    { label: 'Features', href: '#' },\n    { label: 'Pricing', href: '#' },\n  ]}\n  cta=\"Get Access\"\n/>"
   },
   {
     "id": "header-glass-neon",
@@ -32,8 +38,10 @@
     "category": "headers",
     "description": "Semi-transparent neon border header for landing pages.",
     "tags": ["glass", "navigation", "neon"],
-    "importCode": "import GlassNeonHeader from '@/components/headers/GlassNeonHeader';",
-    "previewType": "header"
+    "import": "import GlassNeonHeader from '@/components/headers/GlassNeonHeader';",
+    "previewType": "header",
+    "source": "// GlassNeonHeader.jsx\nexport default function GlassNeonHeader({ brand = 'BRAND', links = [], cta = 'Sign Up' }) {\n  return (\n    <header className=\"relative z-10 px-4 pt-4\">\n      <div className=\"mx-auto flex max-w-7xl items-center justify-between rounded-xl border border-cyan-500/30 bg-black/50 px-5 py-3 shadow-[0_0_30px_rgba(0,229,255,0.06)] backdrop-blur-xl\">\n        <span className=\"text-sm font-semibold uppercase tracking-[0.25em] text-cyan-200\">\n          {brand}\n        </span>\n        <nav className=\"hidden items-center gap-8 md:flex\">\n          {links.map((link) => (\n            <a\n              key={link.label}\n              href={link.href}\n              className=\"text-xs uppercase tracking-[0.2em] text-cyan-400/80 transition hover:text-cyan-200\"\n            >\n              {link.label}\n            </a>\n          ))}\n        </nav>\n        <button className=\"rounded-lg border border-cyan-400/50 bg-cyan-400/10 px-4 py-1.5 text-xs uppercase tracking-[0.18em] text-cyan-300 transition hover:bg-cyan-400 hover:text-black\">\n          {cta}\n        </button>\n      </div>\n    </header>\n  );\n}",
+    "usage": "<GlassNeonHeader\n  brand=\"GLASS.CO\"\n  links={[\n    { label: 'Work', href: '#' },\n    { label: 'Studio', href: '#' },\n  ]}\n  cta=\"Book a Call\"\n/>"
   },
   {
     "id": "anim-typeglow",
@@ -41,8 +49,10 @@
     "category": "animations",
     "description": "Typing-style text reveal with glow pulses.",
     "tags": ["text", "typing", "cta"],
-    "importCode": "import TypeGlowText from '@/components/animations/TypeGlowText';",
-    "previewType": "type"
+    "import": "import TypeGlowText from '@/components/animations/TypeGlowText';",
+    "previewType": "type",
+    "source": "// TypeGlowText.jsx\n// Add to global CSS:\n// @keyframes typing { 0% { width: 0; } 40%, 80% { width: 22ch; } 100% { width: 0; } }\n// @keyframes blink { 0%,49% { border-color: rgba(34,211,238,1); } 50%,100% { border-color: transparent; } }\n\nexport default function TypeGlowText({ text = 'Deploying Neon Interface', className = '' }) {\n  return (\n    <p\n      className={`overflow-hidden whitespace-nowrap border-r-2 border-cyan-400 font-mono text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300 ${className}`}\n      style={{\n        width: 0,\n        animation: 'typing 3s steps(22, end) infinite, blink 0.8s step-end infinite',\n      }}\n    >\n      {text}\n    </p>\n  );\n}",
+    "usage": "<TypeGlowText text=\"System initialising...\" />"
   },
   {
     "id": "anim-scanline",
@@ -50,8 +60,10 @@
     "category": "animations",
     "description": "Vertical scan sweep for section separators and cards.",
     "tags": ["overlay", "fx", "transition"],
-    "importCode": "import ScanlineSweep from '@/components/animations/ScanlineSweep';",
-    "previewType": "scan"
+    "import": "import ScanlineSweep from '@/components/animations/ScanlineSweep';",
+    "previewType": "scan",
+    "source": "// ScanlineSweep.jsx\n// Add to global CSS:\n// @keyframes scanY { 0% { transform: translateY(-130%); } 100% { transform: translateY(130%); } }\n\nexport default function ScanlineSweep({ children, className = '' }) {\n  return (\n    <div className={`relative overflow-hidden ${className}`}>\n      {/* Scan bar */}\n      <div\n        className=\"pointer-events-none absolute inset-0 z-20\"\n        style={{\n          background: 'linear-gradient(180deg, transparent 0%, rgba(0,229,255,0.18) 50%, transparent 100%)',\n          animation: 'scanY 2.6s linear infinite',\n        }}\n      />\n      {/* Scanlines overlay */}\n      <div\n        className=\"pointer-events-none absolute inset-0 z-10 opacity-40\"\n        style={{\n          backgroundImage: 'repeating-linear-gradient(0deg, transparent 0, transparent 3px, rgba(255,255,255,0.07) 4px)',\n        }}\n      />\n      <div className=\"relative z-0\">{children}</div>\n    </div>\n  );\n}",
+    "usage": "<ScanlineSweep className=\"rounded-xl bg-gray-900 p-8\">\n  <p>Content with scanline effect</p>\n</ScanlineSweep>"
   },
   {
     "id": "text-hologram-title",
@@ -59,8 +71,10 @@
     "category": "texts",
     "description": "Split-shadow heading with neon cyan accent.",
     "tags": ["title", "hero", "branding"],
-    "importCode": "import HologramTitle from '@/components/text/HologramTitle';",
-    "previewType": "text"
+    "import": "import HologramTitle from '@/components/text/HologramTitle';",
+    "previewType": "text",
+    "source": "// HologramTitle.jsx\nexport default function HologramTitle({ children, as: Tag = 'h1', className = '' }) {\n  return (\n    <Tag\n      className={`font-black uppercase tracking-[0.18em] text-cyan-300 ${className}`}\n      style={{\n        textShadow:\n          '0 0 12px rgba(0,229,255,0.7), 0 0 40px rgba(0,229,255,0.3), 2px 2px 0 rgba(0,180,220,0.4)',\n      }}\n    >\n      {children}\n    </Tag>\n  );\n}",
+    "usage": "<HologramTitle as=\"h1\" className=\"text-5xl\">\n  System Override\n</HologramTitle>\n\n<HologramTitle as=\"h2\" className=\"text-3xl\">\n  Subsystem Active\n</HologramTitle>"
   },
   {
     "id": "text-flicker-caption",
@@ -68,7 +82,9 @@
     "category": "texts",
     "description": "Caption text with glitch flicker effect.",
     "tags": ["caption", "microcopy", "fx"],
-    "importCode": "import FlickerCaption from '@/components/text/FlickerCaption';",
-    "previewType": "text"
+    "import": "import FlickerCaption from '@/components/text/FlickerCaption';",
+    "previewType": "text",
+    "source": "// FlickerCaption.jsx\n// Add to global CSS:\n// @keyframes flicker { 0%,17%,19%,22%,63%,65%,100% { opacity: 1; } 18%,21%,64% { opacity: 0.35; } }\n\nexport default function FlickerCaption({ children, className = '' }) {\n  return (\n    <p\n      className={`font-mono text-xs uppercase tracking-[0.15em] text-cyan-500 ${className}`}\n      style={{ animation: 'flicker 2.4s linear infinite' }}\n    >\n      {children}\n    </p>\n  );\n}",
+    "usage": "<FlickerCaption>system ready — all nodes online</FlickerCaption>"
   }
 ]

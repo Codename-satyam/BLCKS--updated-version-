@@ -14,6 +14,7 @@ const About = lazy(() => import("./Pages/LandingPage/About"));
 const Login = lazy(() => import("./Pages/Login"));
 const Builder = lazy(() => import("./Components/Builder/Builder"));
 const ReactComponents = lazy(() => import("./Components/ReactComponents/ReactComponents"));
+const PlatformSelector = lazy(() => import("./Components/PlatformSelector/PlatformSelector"));
 
 import Navbar from "./Pages/LandingPage/The-homePage/Navbar"; // keep normal
 import { BuilderProvider } from "./Context/BuilderContext";
@@ -49,7 +50,9 @@ export default function App() {
   const location = useLocation();
 
   // Hide navbar on full-screen utility pages
-  const shouldShowNavbar = !["/builder", "/components", "/react-components"].includes(location.pathname);
+  const shouldShowNavbar = !["/builder", "/components", "/react-components"].some(route => 
+    location.pathname.startsWith(route)
+  );
 
   return (
     <div>
@@ -75,12 +78,29 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/components" element={<ReactComponents />} />
-          {/* Builder */}
+          
+          {/* Builder - Platform Selection */}
           <Route
             path="/builder"
+            element={<PlatformSelector />}
+          />
+
+          {/* Generic Builder */}
+          <Route
+            path="/builder/generic"
             element={
-              <BuilderProvider>
-                <Builder />
+              <BuilderProvider platform="generic">
+                <Builder platform="generic" />
+              </BuilderProvider>
+            }
+          />
+
+          {/* Portfolio Builder */}
+          <Route
+            path="/builder/portfolio"
+            element={
+              <BuilderProvider platform="portfolio">
+                <Builder platform="portfolio" />
               </BuilderProvider>
             }
           />

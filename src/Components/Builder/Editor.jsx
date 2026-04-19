@@ -470,33 +470,24 @@ export default function Editor() {
                                     </div>
 
                                     <div className="flex items-center gap-1.5">
-                                        <button
-                                            onClick={() => moveSection(section.id, -1)}
-                                            disabled={index === 0}
-                                            title="Move up"
-                                            className="text-[9px] font-mono border border-slate-800 px-2 py-1 text-slate-600 hover:border-slate-500 hover:text-slate-300 disabled:opacity-20 transition-colors"
-                                        >↑</button>
-                                        <button
-                                            onClick={() => moveSection(section.id, 1)}
-                                            disabled={index === selectedSections.length - 1}
-                                            title="Move down"
-                                            className="text-[9px] font-mono border border-slate-800 px-2 py-1 text-slate-600 hover:border-slate-500 hover:text-slate-300 disabled:opacity-20 transition-colors"
-                                        >↓</button>
+                                        {/* Move buttons hidden - single component only */}
                                         <button
                                             onClick={() => setActiveEditId(isActive ? null : section.id)}
-                                            className={`text-[9px] font-mono border px-3 py-1 transition-all duration-150 tracking-widest
+                                            aria-label={isActive ? "Save changes" : "Edit component"}
+                                            className={`text-[10px] font-mono border px-3 py-1.5 transition-all duration-150 tracking-widest font-semibold
                                                 ${isActive
-                                                    ? "border-cyan-500 bg-cyan-950/50 text-cyan-300"
-                                                    : "border-slate-700 bg-transparent text-slate-500 hover:border-cyan-700 hover:text-cyan-500"
+                                                    ? "border-cyan-500 bg-cyan-950/50 text-cyan-300 hover:bg-cyan-900/70"
+                                                    : "border-slate-700 bg-slate-950/30 text-slate-400 hover:border-cyan-700 hover:text-cyan-500 hover:bg-slate-900/50"
                                                 }`}
                                         >
-                                            {isActive ? "✓ Save" : "✎ Edit"}
+                                            {isActive ? "✓ SAVE" : "✎ EDIT"}
                                         </button>
                                         <button
                                             onClick={() => removeSection(section.id)}
-                                            className="text-[9px] font-mono border border-red-900/40 px-3 py-1 text-red-700 hover:border-red-500 hover:bg-red-950/40 hover:text-red-400 transition-all duration-150 tracking-widest"
+                                            aria-label="Remove component"
+                                            className="text-[10px] font-mono border border-red-900/40 px-3 py-1.5 text-red-700 hover:border-red-500 hover:bg-red-950/40 hover:text-red-400 transition-all duration-150 tracking-widest font-semibold"
                                         >
-                                            ✕
+                                            ✕ REMOVE
                                         </button>
                                     </div>
                                 </div>

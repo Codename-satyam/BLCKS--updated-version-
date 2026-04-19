@@ -1,60 +1,141 @@
 export default function Hero1({ content = {}, editor }) {
 	const {
-		badge = "> HERO_01",
-		title = "Build your page in blocks",
-		description = "Start with prebuilt sections and compose a complete landing page in minutes.",
-		buttonLabel = "Start Building",
+		badge = "✦ NEW",
+		title = "Build The Future",
+		description = "Create stunning websites without code. Visual builder meets production-ready output.",
+		buttonLabel = "Get Started",
+		badgeColor = "#00e5ff",
+		titleColor = "#ffffff",
+		descColor = "#a0aec0",
+		buttonBgColor = "#00e5ff",
+		buttonTextColor = "#0a0a0a",
+		bgGradient = "linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0a0a0a 100%)",
 	} = content;
 
 	const isEditing = editor?.isEditing;
 	const onFieldChange = (fieldKey, value) => editor?.onFieldChange?.(fieldKey, value);
 
 	return (
-		<section className="w-full min-h-[70vh] bg-black text-white flex items-center border-b border-cyan-900/50">
-			<div className="mx-auto w-full max-w-6xl px-6 py-20 text-center min-w-0" style={{ fontFamily: '"Bungee", cursive' }}>
+		<section 
+			className="w-full min-h-screen flex items-center justify-center relative overflow-hidden border-b"
+			style={{ 
+				background: bgGradient,
+				borderColor: `${badgeColor}20`,
+			}}
+		>
+			{/* Animated background elements */}
+			<div className="absolute top-20 right-10 w-96 h-96 rounded-full opacity-10 blur-3xl pointer-events-none" 
+				style={{ 
+					background: `radial-gradient(circle, ${badgeColor}, transparent)`,
+				}} 
+			/>
+			<div className="absolute -bottom-32 left-20 w-96 h-96 rounded-full opacity-10 blur-3xl pointer-events-none" 
+				style={{ 
+					background: `radial-gradient(circle, #a855f7, transparent)`,
+				}} 
+			/>
+
+			<div className="mx-auto w-full max-w-5xl px-6 md:px-8 py-32 text-center relative z-10">
+				{/* Badge */}
 				{isEditing ? (
 					<input
 						type="text"
 						value={badge}
-						onChange={(event) => onFieldChange("badge", event.target.value)}
-						className="text-cyan-400 text-xs tracking-widest mb-4 bg-black/50 border border-cyan-900 px-2 py-1 w-full max-w-xs mx-auto text-center"
+						onChange={(e) => onFieldChange("badge", e.target.value)}
+						className="inline-block px-4 py-2 rounded-full border mb-8 bg-black/50 outline-none focus:ring-2 text-sm font-semibold tracking-wide"
+						style={{ 
+							color: badgeColor,
+							borderColor: badgeColor,
+						}}
 					/>
 				) : (
-					<p className="text-cyan-400 text-xs tracking-widest mb-4">{badge}</p>
+					<div 
+						className="inline-block px-4 py-2 rounded-full border mb-8 text-sm font-semibold tracking-widest"
+						style={{ 
+							color: badgeColor,
+							borderColor: `${badgeColor}40`,
+							backgroundColor: `${badgeColor}05`,
+						}}
+					>
+						{badge}
+					</div>
 				)}
 
+				{/* Title */}
 				{isEditing ? (
 					<textarea
 						value={title}
-						onChange={(event) => onFieldChange("title", event.target.value)}
-						className="text-4xl md:text-6xl leading-tight mb-6 break-words bg-black/50 border border-cyan-900 p-3 w-full text-center resize-y min-h-20"
+						onChange={(e) => onFieldChange("title", e.target.value)}
+						className="w-full text-5xl md:text-7xl font-bold leading-tight tracking-tight mb-6 bg-black/50 border rounded p-4 resize-y min-h-32 outline-none focus:ring-2"
+						style={{ 
+							color: titleColor,
+							borderColor: badgeColor,
+						}}
 					/>
 				) : (
-					<h1 className="text-4xl md:text-6xl leading-tight mb-6 break-words">{title}</h1>
+					<h1 
+						className="text-5xl md:text-7xl font-bold leading-tight tracking-tight mb-6"
+						style={{ color: titleColor }}
+					>
+						{title}
+					</h1>
 				)}
 
+				{/* Description */}
 				{isEditing ? (
 					<textarea
 						value={description}
-						onChange={(event) => onFieldChange("description", event.target.value)}
-						className="text-gray-400 text-sm md:text-base max-w-2xl mx-auto font-sans break-words bg-black/50 border border-cyan-900 p-3 w-full resize-y min-h-24"
+						onChange={(e) => onFieldChange("description", e.target.value)}
+						className="w-full max-w-2xl mx-auto text-lg md:text-xl leading-relaxed mb-10 bg-black/50 border rounded p-4 resize-y min-h-24 outline-none focus:ring-2 font-sans"
+						style={{ 
+							color: descColor,
+							borderColor: badgeColor,
+						}}
 					/>
 				) : (
-					<p className="text-gray-400 text-sm md:text-base max-w-2xl mx-auto font-sans break-words">{description}</p>
+					<p 
+						className="max-w-2xl mx-auto text-lg md:text-xl leading-relaxed mb-10 font-sans"
+						style={{ color: descColor }}
+					>
+						{description}
+					</p>
 				)}
 
+				{/* CTA Button */}
 				{isEditing ? (
 					<input
 						type="text"
 						value={buttonLabel}
-						onChange={(event) => onFieldChange("buttonLabel", event.target.value)}
-						className="mt-8 border border-cyan-500 bg-black/50 px-4 py-2 text-cyan-400 text-center"
+						onChange={(e) => onFieldChange("buttonLabel", e.target.value)}
+						className="inline-block px-8 py-4 rounded font-bold text-lg tracking-wide outline-none focus:ring-2 bg-black/50 border"
+						style={{ 
+							backgroundColor: buttonBgColor,
+							color: buttonTextColor,
+							borderColor: buttonBgColor,
+						}}
 					/>
 				) : (
-				<button className="mt-8 border border-cyan-400 text-cyan-400 px-6 py-3 hover:bg-cyan-400 hover:text-black transition-colors">
+					<button 
+						className="inline-block px-8 py-4 rounded font-bold text-lg tracking-widest transition-all duration-300 hover:shadow-2xl hover:scale-105"
+						style={{ 
+							backgroundColor: buttonBgColor,
+							color: buttonTextColor,
+							boxShadow: `0 0 30px ${badgeColor}30`,
+						}}
+					>
 						{buttonLabel}
 					</button>
 				)}
+
+				{/* Scroll indicator */}
+				<div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+					<div 
+						className="w-6 h-10 border-2 rounded-full flex items-start justify-center p-2"
+						style={{ borderColor: badgeColor, color: badgeColor }}
+					>
+						<div className="w-1 h-2 bg-current rounded-full animate-pulse" />
+					</div>
+				</div>
 			</div>
 		</section>
 	);
