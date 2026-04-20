@@ -2,12 +2,12 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { Suspense, lazy } from "react";
 
 // Lazy imports
-const HomePage = lazy(() => import("./Pages/LandingPage/The-homePage/HomePage"));
-const Page2 = lazy(() => import("./Pages/LandingPage/The-homePage/page2"));
-const Page3 = lazy(() => import("./Pages/LandingPage/The-homePage/page3"));
-const Page4 = lazy(() => import("./Pages/LandingPage/The-homePage/page4"));
-const Page5 = lazy(() => import("./Pages/LandingPage/The-homePage/page5"));
-const Footer = lazy(() => import("./Pages/LandingPage/The-homePage/Footer"));
+const HomePage = lazy(() => import("./Pages/LandingPage/HomePage/HomePage"));
+const Page2 = lazy(() => import("./Pages/LandingPage/HomePage/page2"));
+const Page3 = lazy(() => import("./Pages/LandingPage/HomePage/page3"));
+const Page4 = lazy(() => import("./Pages/LandingPage/HomePage/page4"));
+const Page5 = lazy(() => import("./Pages/LandingPage/HomePage/page5"));
+const Footer = lazy(() => import("./Pages/LandingPage/HomePage/Footer"));
 
 const Contact = lazy(() => import("./Pages/Contact/Contact"));
 const About = lazy(() => import("./Pages/LandingPage/About"));
@@ -17,7 +17,7 @@ const Builder = lazy(() => import("./Components/Builder/Builder"));
 const ReactComponents = lazy(() => import("./Components/ReactComponents/ReactComponents"));
 const PlatformSelector = lazy(() => import("./Components/PlatformSelector/PlatformSelector"));
 
-import Navbar from "./Pages/LandingPage/The-homePage/Navbar"; // keep normal
+import Navbar from "./Pages/LandingPage/HomePage/Navbar"; // keep normal
 import { BuilderProvider } from "./Context/BuilderContext";
 
 // Loader component

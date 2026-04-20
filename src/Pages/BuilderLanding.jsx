@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function BuilderLanding() {
     const navigate = useNavigate();
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [userIdea, setUserIdea] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [hoveredStat, setHoveredStat] = useState(null);
 
     const categories = [
         {
@@ -13,6 +15,7 @@ export default function BuilderLanding() {
             label: "Projects / Resume / Skills",
             icon: "⊡",
             description: "Showcase your work professionally",
+            tips: ["Project galleries", "Skills showcase", "Case studies"],
         },
         {
             id: "startup",
@@ -20,6 +23,7 @@ export default function BuilderLanding() {
             label: "Landing / SaaS / Product",
             icon: "▲",
             description: "Launch your business presence",
+            tips: ["Value proposition", "Feature highlights", "CTA sections"],
         },
         {
             id: "ecommerce",
@@ -27,6 +31,7 @@ export default function BuilderLanding() {
             label: "Store / Products / Offers",
             icon: "◊",
             description: "Build your online storefront",
+            tips: ["Product galleries", "Cart integration", "Pricing tiers"],
         },
         {
             id: "creator",
@@ -34,6 +39,7 @@ export default function BuilderLanding() {
             label: "Blog / Brand / Writing",
             icon: "◆",
             description: "Express your creative vision",
+            tips: ["Blog sections", "Social links", "Newsletter signup"],
         },
         {
             id: "gaming",
@@ -41,6 +47,7 @@ export default function BuilderLanding() {
             label: "Community / Team / Streamer",
             icon: "▶",
             description: "Build gaming identity",
+            tips: ["Team profiles", "Stream schedule", "Community hub"],
         },
         {
             id: "generic",
@@ -48,34 +55,79 @@ export default function BuilderLanding() {
             label: "Blank Builder / Full Freedom",
             icon: "▢",
             description: "Start with complete freedom",
+            tips: ["Custom layouts", "All components", "Full control"],
         },
     ];
 
     const popularStarters = [
-        { name: "Developer Portfolio", icon: "▬" },
-        { name: "Fresher Resume Site", icon: "▬" },
-        { name: "AI Startup Page", icon: "▬" },
-        { name: "Minimal Business Layout", icon: "▬" },
+        { name: "Developer Portfolio", category: "portfolio", idea: "Showcase my development projects and skills", icon: "▬" },
+        { name: "Fresher Resume Site", category: "portfolio", idea: "Create a digital resume for job applications", icon: "▬" },
+        { name: "AI Startup Page", category: "startup", idea: "Launch page for AI SaaS product", icon: "▬" },
+        { name: "Minimal Business Layout", category: "startup", idea: "Simple business landing page", icon: "▬" },
     ];
 
     const systemStats = [
-        { label: "TEMPLATES READY", value: "51+" },
-        { label: "COMPONENTS LOADED", value: "24" },
-        { label: "THEMES AVAILABLE", value: "12" },
-        { label: "EXPORTS GENERATED", value: "∞" },
+        { label: "TEMPLATES READY", value: "51+", stat: "Total pre-built components" },
+        { label: "COMPONENTS LOADED", value: "24", stat: "New variants available" },
+        { label: "THEMES AVAILABLE", value: "12", stat: "Color & style options" },
+        { label: "EXPORTS GENERATED", value: "∞", stat: "Possible combinations" },
     ];
 
-    const handleLaunchBuilder = () => {
-        // Route to builder based on category
+    const exampleIdeas = [
+        "Portfolio for placements",
+        "Startup landing page",
+        "Resume website",
+        "Gaming community hub",
+    ];
+
+    // Handle keyboard shortcuts
+    useEffect(() => {
+        const handleKeyPress = (e) => {
+            if (e.ctrlKey && e.key === "Enter" && selectedCategory) {
+                handleLaunchBuilder();
+            }
+            // Number keys to select category
+            const num = parseInt(e.key);
+            if (num >= 1 && num <= 6) {
+                setSelectedCategory(categories[num - 1].id);
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyPress);
+        return () => window.removeEventListener("keydown", handleKeyPress);
+    }, [selectedCategory]);
+
+    const handleLaunchBuilder = async () => {
+        setIsLoading(true);
+        // Small delay for feedback
+        await new Promise(r => setTimeout(r, 300));
+        
         if (selectedCategory === "portfolio") {
             navigate(`/builder/portfolio?idea=${encodeURIComponent(userIdea)}`);
         } else if (selectedCategory === "generic") {
             navigate(`/builder/generic?idea=${encodeURIComponent(userIdea)}`);
         } else {
-            // For other categories, route to generic builder with category hint
             navigate(`/builder/generic?category=${selectedCategory}&idea=${encodeURIComponent(userIdea)}`);
         }
     };
+
+    const handleQuickStart = (starter) => {
+        setSelectedCategory(starter.category);
+        setUserIdea(starter.idea);
+        setTimeout(() => {
+            if (starter.category === "portfolio") {
+                navigate(`/builder/portfolio?idea=${encodeURIComponent(starter.idea)}`);
+            } else {
+                navigate(`/builder/generic?category=${starter.category}&idea=${encodeURIComponent(starter.idea)}`);
+            }
+        }, 150);
+    };
+
+    const handleExampleClick = (example) => {
+        setUserIdea(example);
+    };
+
+    const selectedCategoryData = categories.find(c => c.id === selectedCategory);
 
     return (
         <main className="min-h-screen bg-black text-white font-mono selection:bg-lime-400 selection:text-black overflow-hidden">
@@ -91,7 +143,7 @@ export default function BuilderLanding() {
             <section className="relative z-10 px-6 md:px-12 pt-20 pb-16 border-b-4 border-white">
                 <div className="max-w-7xl mx-auto">
                     {/* Decorative corner */}
-                    <div className="absolute top-12 right-12 w-12 h-12 border-t-4 border-r-4 border-lime-400" />
+                    <div className="absolute top-12 right-12 w-12 h-12 border-t-4 border-r-4 border-lime-400 animate-pulse" />
 
                     <h1 className="text-7xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter leading-none mb-8">
                         SELECT YOUR<br />
@@ -111,11 +163,17 @@ export default function BuilderLanding() {
                             onChange={(e) => setUserIdea(e.target.value)}
                             className="w-full bg-black border-4 border-white text-white placeholder:text-zinc-600 text-sm font-black px-6 py-4 outline-none focus:border-lime-400 focus:shadow-[8px_8px_0px_0px_#22c55e] transition-all uppercase tracking-widest"
                         />
-                        <div className="mt-4 text-xs uppercase tracking-widest text-zinc-500 flex flex-wrap gap-3">
-                            <span>Example:</span>
-                            <span className="text-zinc-400 cursor-pointer hover:text-lime-400">Portfolio for placements</span>
-                            <span className="text-zinc-400 cursor-pointer hover:text-lime-400">Startup landing page</span>
-                            <span className="text-zinc-400 cursor-pointer hover:text-lime-400">Resume website</span>
+                        <div className="mt-4 text-xs uppercase tracking-widest text-zinc-500 flex flex-wrap gap-2">
+                            <span>Quick ideas:</span>
+                            {exampleIdeas.map((example, idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => handleExampleClick(example)}
+                                    className="text-zinc-400 cursor-pointer hover:text-lime-400 hover:underline transition-colors"
+                                >
+                                    {example}
+                                </button>
+                            ))}
                         </div>
                     </div>
                 </div>
@@ -124,23 +182,31 @@ export default function BuilderLanding() {
             {/* ── MAIN SELECTION GRID ──────────────────────────────────────── */}
             <section className="relative z-10 px-6 md:px-12 py-16 border-b-4 border-white">
                 <div className="max-w-7xl mx-auto">
-                    <h2 className="text-3xl md:text-4xl font-black uppercase tracking-widest mb-12 text-lime-400">
-                        CHOOSE TEMPLATE SYSTEM
-                    </h2>
+                    <div className="flex items-baseline justify-between mb-12">
+                        <h2 className="text-3xl md:text-4xl font-black uppercase tracking-widest text-lime-400">
+                            CHOOSE TEMPLATE SYSTEM
+                        </h2>
+                        <span className="text-xs uppercase tracking-widest text-zinc-500">Use 1-6 keys to select</span>
+                    </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {categories.map((category) => (
+                        {categories.map((category, idx) => (
                             <button
                                 key={category.id}
                                 onClick={() => setSelectedCategory(category.id)}
-                                className={`flex flex-col items-start p-8 border-4 transition-all duration-150 ${
+                                className={`flex flex-col items-start p-8 border-4 transition-all duration-150 group relative overflow-hidden ${
                                     selectedCategory === category.id
                                         ? "border-lime-400 bg-lime-400/10 shadow-[8px_8px_0px_0px_#22c55e]"
                                         : "border-white bg-black hover:-translate-y-2 hover:-translate-x-2 shadow-[6px_6px_0px_0px_#ffffff]"
                                 }`}
                             >
+                                {/* Keyboard shortcut indicator */}
+                                <div className="absolute top-3 right-3 text-xs font-black text-zinc-600 group-hover:text-lime-400 transition-colors">
+                                    [{idx + 1}]
+                                </div>
+
                                 {/* Icon */}
-                                <div className="text-5xl font-black mb-4 text-white">
+                                <div className={`text-5xl font-black mb-4 text-white transition-transform ${selectedCategory === category.id ? "scale-110" : ""}`}>
                                     {category.icon}
                                 </div>
 
@@ -155,6 +221,20 @@ export default function BuilderLanding() {
                                     {category.description}
                                 </p>
 
+                                {/* Tips - Show when selected */}
+                                {selectedCategory === category.id && (
+                                    <div className="mb-4 pb-4 border-t-2 border-lime-400/50 w-full pt-3">
+                                        <p className="text-xs uppercase tracking-widest text-lime-400 font-black mb-2">Included:</p>
+                                        <div className="flex flex-wrap gap-2">
+                                            {category.tips.map((tip, i) => (
+                                                <span key={i} className="text-xs bg-lime-400/20 text-lime-300 px-2 py-1 border border-lime-400/50">
+                                                    {tip}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
                                 {/* Arrow indicator */}
                                 <div className="mt-auto text-lg font-black text-lime-400">
                                     {selectedCategory === category.id ? "✓ SELECTED" : "→"}
@@ -163,41 +243,58 @@ export default function BuilderLanding() {
                         ))}
                     </div>
 
-                    {/* Launch Button */}
+                    {/* Launch Button with Keyboard Hint */}
                     <button
                         onClick={handleLaunchBuilder}
-                        disabled={!selectedCategory}
-                        className={`mt-16 px-12 py-6 border-4 font-black uppercase text-lg tracking-widest transition-all ${
-                            selectedCategory
+                        disabled={!selectedCategory || isLoading}
+                        className={`mt-16 px-12 py-6 border-4 font-black uppercase text-lg tracking-widest transition-all flex items-center justify-center gap-3 ${
+                            selectedCategory && !isLoading
                                 ? "border-lime-400 bg-lime-400 text-black hover:shadow-[8px_8px_0px_0px_#22c55e] cursor-pointer"
                                 : "border-zinc-700 bg-zinc-900 text-zinc-600 cursor-not-allowed"
                         }`}
                     >
-                        {selectedCategory ? "LAUNCH BUILDER →" : "SELECT A CATEGORY FIRST"}
+                        {isLoading ? (
+                            <>
+                                <span className="inline-block animate-spin">⟳</span>
+                                INITIALIZING...
+                            </>
+                        ) : (
+                            <>
+                                {selectedCategory ? "LAUNCH BUILDER →" : "SELECT A CATEGORY FIRST"}
+                                {selectedCategory && <span className="text-xs opacity-70">(Ctrl+Enter)</span>}
+                            </>
+                        )}
                     </button>
                 </div>
             </section>
 
-            {/* ── POPULAR STARTERS ──────────────────────────────────────────── */}
+            {/* ── QUICK START SECTION ──────────────────────────────────────── */}
             <section className="relative z-10 px-6 md:px-12 py-16 border-b-4 border-white">
                 <div className="max-w-7xl mx-auto">
                     <h2 className="text-2xl md:text-3xl font-black uppercase tracking-widest mb-8">
-                        POPULAR STARTERS
+                        ⚡ QUICK START TEMPLATES
                     </h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         {popularStarters.map((starter, idx) => (
-                            <div
+                            <button
                                 key={idx}
-                                className="border-3 border-zinc-700 bg-black p-6 hover:border-magenta-500 hover:shadow-[4px_4px_0px_0px_#ec407a] transition-all cursor-pointer group"
+                                onClick={() => handleQuickStart(starter)}
+                                className="border-4 border-white bg-black hover:border-magenta-500 hover:bg-magenta-500/5 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0px_0px_#ec407a] transition-all cursor-pointer group p-6 flex flex-col"
                             >
-                                <div className="text-3xl mb-3 text-zinc-500 group-hover:text-magenta-500">
+                                <div className="text-4xl mb-4 text-zinc-400 group-hover:text-magenta-500 transition-colors">
                                     {starter.icon}
                                 </div>
-                                <p className="text-sm font-black uppercase tracking-widest">
+                                <p className="text-sm font-black uppercase tracking-widest mb-2">
                                     {starter.name}
                                 </p>
-                            </div>
+                                <p className="text-xs text-zinc-500 group-hover:text-zinc-300 transition-colors">
+                                    {starter.idea}
+                                </p>
+                                <div className="mt-auto pt-3 text-xs text-zinc-600 group-hover:text-magenta-400 font-black">
+                                    INSTANT SETUP →
+                                </div>
+                            </button>
                         ))}
                     </div>
                 </div>
@@ -212,17 +309,30 @@ export default function BuilderLanding() {
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                         {systemStats.map((stat, idx) => (
-                            <div
+                            <button
                                 key={idx}
-                                className="border-4 border-white bg-black p-8 flex flex-col items-center text-center"
+                                onMouseEnter={() => setHoveredStat(idx)}
+                                onMouseLeave={() => setHoveredStat(null)}
+                                className={`border-4 border-white bg-black p-8 flex flex-col items-center text-center transition-all ${
+                                    hoveredStat === idx
+                                        ? "border-lime-400 bg-lime-400/10 shadow-[6px_6px_0px_0px_#22c55e] -translate-y-2"
+                                        : ""
+                                }`}
                             >
-                                <div className="text-4xl md:text-5xl font-black text-lime-400 mb-4">
+                                <div className={`text-4xl md:text-5xl font-black mb-4 transition-colors ${
+                                    hoveredStat === idx ? "text-lime-400" : "text-lime-400"
+                                }`}>
                                     {stat.value}
                                 </div>
-                                <div className="text-xs font-black uppercase tracking-widest text-zinc-500">
+                                <div className="text-xs font-black uppercase tracking-widest text-zinc-500 mb-2">
                                     {stat.label}
                                 </div>
-                            </div>
+                                {hoveredStat === idx && (
+                                    <div className="text-xs text-zinc-400 mt-2 pt-2 border-t border-zinc-700">
+                                        {stat.stat}
+                                    </div>
+                                )}
+                            </button>
                         ))}
                     </div>
 
@@ -231,15 +341,17 @@ export default function BuilderLanding() {
                         <div className="text-xs uppercase tracking-widest text-zinc-500 mb-6 md:mb-0">
                             SYS.BUILDER v1.0 • CREATIVE OPERATING SYSTEM
                         </div>
-                        <div className="text-xs uppercase tracking-widest text-zinc-500">
-                            BRUTALIST DESIGN • NO COMPROMISES
+                        <div className="text-xs uppercase tracking-widest text-zinc-500 flex gap-4">
+                            <span>Keyboard: 1-6 to select | Ctrl+Enter to launch</span>
+                            <span>•</span>
+                            <span>BRUTALIST DESIGN • NO COMPROMISES</span>
                         </div>
                     </div>
                 </div>
             </section>
 
             {/* ── DECORATIVE CORNER ────────────────────────────────────────── */}
-            <div className="fixed bottom-12 left-12 w-16 h-16 border-b-4 border-l-4 border-lime-400 z-10" />
+            <div className="fixed bottom-12 left-12 w-16 h-16 border-b-4 border-l-4 border-lime-400 z-10 animate-pulse" />
         </main>
     );
 }
