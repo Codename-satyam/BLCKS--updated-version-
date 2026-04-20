@@ -86,5 +86,181 @@
     "previewType": "text",
     "source": "// FlickerCaption.jsx\n// Add to global CSS:\n// @keyframes flicker { 0%,17%,19%,22%,63%,65%,100% { opacity: 1; } 18%,21%,64% { opacity: 0.35; } }\n\nexport default function FlickerCaption({ children, className = '' }) {\n  return (\n    <p\n      className={`font-mono text-xs uppercase tracking-[0.15em] text-cyan-500 ${className}`}\n      style={{ animation: 'flicker 2.4s linear infinite' }}\n    >\n      {children}\n    </p>\n  );\n}",
     "usage": "<FlickerCaption>system ready — all nodes online</FlickerCaption>"
+  },
+  {
+    "id": "anim-jiggyasa-splash",
+    "name": "Jiggyasa Splash Loader",
+    "category": "animations",
+    "description": "Animated epic quest splash screen with chaotic letterforms and neon glow.",
+    "tags": ["loader", "splash", "animated", "epic"],
+    "import": "import JiggyasaSplash from '@/components/animations/JiggyasaSplash';",
+    "previewType": "animation",
+    "source": "// JiggyasaSplash.jsx\nexport default function JiggyasaSplash() {\n  return (\n    <div className=\"text-center mb-5 overflow-hidden\">\n      <h2 className=\"text-[10px] tracking-[2px] mb-[30px] [text-shadow:2px_2px_0_#000] text-blue-500 animate-pulse font-mono\">\n        SYSTEM BOOT SEQUENCE INITIATED...\n      </h2>\n      \n      <div className=\"flex justify-center items-center gap-[8px] mb-[30px] text-7xl font-extrabold text-white [perspective:1000px]\">\n        <span className=\"inline-block origin-center animate-bounce [animation-delay:0ms] -rotate-12 hover:rotate-180 hover:scale-125 transition-transform duration-300\">\n          J\n        </span>\n        <span className=\"inline-block origin-center -translate-y-4 rotate-12 animate-pulse hover:scale-150 transition-all\">\n          i\n        </span>\n        <span className=\"inline-block origin-center animate-bounce [animation-delay:150ms] skew-y-12 hover:skew-y-0 transition-transform\">\n          g\n        </span>\n        <span className=\"inline-block origin-center animate-[spin_4s_linear_infinite] scale-110\">\n          y\n        </span>\n        <span className=\"inline-block origin-center animate-bounce [animation-delay:300ms] -rotate-45 hover:rotate-0 transition-transform\">\n          a\n        </span>\n        <span className=\"inline-block origin-center translate-y-3 skew-x-12 animate-pulse hover:-translate-y-10 transition-transform duration-500\">\n          s\n        </span>\n        <span className=\"inline-block origin-center animate-[spin_3s_reverse_infinite] scale-125\">\n          a\n        </span>\n      </div>\n\n      <p className=\"text-sm text-[#39ff14] tracking-[1px] mt-5 [text-shadow:3px_3px_0_#000] animate-[pulse_1s_ease-in-out_infinite]\">\n        WE MAKE LEARNING AN EPIC QUEST\n      </p>\n    </div>\n  );\n}",
+    "usage": "<JiggyasaSplash />"
+  },
+  {
+    "id": "card-mission",
+    "name": "Mission Card",
+    "category": "cards",
+    "description": "Gamified mission card with gradient border, XP reward, and progress bar.",
+    "tags": ["gamification", "card", "progress", "quest"],
+    "import": "import MissionCard from '@/components/cards/MissionCard';",
+    "previewType": "card",
+    "source": "// MissionCard.jsx\nexport default function MissionCard() {\n  return (\n    <div className=\"group relative w-80 p-1 rounded-xl bg-gradient-to-br from-blue-500 via-purple-600 to-[#39ff14] hover:shadow-[0_0_30px_rgba(57,255,20,0.5)] transition-all duration-500 hover:-translate-y-2 cursor-pointer\">\n      {/* Inner dark card */}\n      <div className=\"bg-black p-6 rounded-lg h-full border border-gray-900 relative overflow-hidden\">\n        \n        {/* Scanline overlay effect */}\n        <div className=\"absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.25)_50%)] bg-[length:100%_4px] z-0 pointer-events-none opacity-50\"></div>\n\n        <div className=\"relative z-10\">\n          <div className=\"flex justify-between items-center mb-4\">\n            <span className=\"text-[10px] text-blue-400 font-mono tracking-widest uppercase animate-pulse\">\n              Mission 01\n            </span>\n            <span className=\"text-xs text-[#39ff14] border border-[#39ff14] px-2 py-1 rounded-full font-bold shadow-[0_0_5px_#39ff14]\">\n              +500 XP\n            </span>\n          </div>\n          \n          <h3 className=\"text-2xl font-black text-white mb-2 uppercase tracking-wide\">\n            Mastering React Hooks\n          </h3>\n          \n          <p className=\"text-gray-400 text-sm mb-6 font-mono leading-relaxed\">\n            Infiltrate the state management facility and extract the useEffect protocols.\n          </p>\n          \n          {/* Progress Bar */}\n          <div className=\"w-full bg-gray-900 rounded-full h-2 mb-4 overflow-hidden border border-gray-800\">\n            <div className=\"bg-[#39ff14] h-full rounded-full w-[45%] shadow-[0_0_10px_#39ff14] relative\">\n                <div className=\"absolute top-0 right-0 bottom-0 w-4 bg-white/50 animate-pulse\"></div>\n            </div>\n          </div>\n          \n          <button className=\"w-full py-3 bg-transparent border-2 border-blue-500 text-blue-500 font-bold tracking-widest uppercase hover:bg-blue-500 hover:text-black transition-colors duration-300\">\n            Initialize\n          </button>\n        </div>\n      </div>\n    </div>\n  );\n}",
+    "usage": "<MissionCard />"
+  },
+  {
+    "id": "card-user-profile",
+    "name": "User Profile Card",
+    "category": "cards",
+    "description": "User stats display with level, rank, and achievement streak.",
+    "tags": ["profile", "stats", "level", "user"],
+    "import": "import UserProfileCard from '@/components/cards/UserProfileCard';",
+    "previewType": "card",
+    "source": "// UserProfileCard.jsx\nexport default function UserProfileCard() {\n  return (\n    <div className=\"w-80 bg-black border-l-4 border-[#39ff14] p-5 font-mono relative overflow-hidden group shadow-[0_0_15px_rgba(0,0,0,0.8)]\">\n      \n      {/* Decorative background geometry */}\n      <div className=\"absolute -top-10 -right-10 w-32 h-32 bg-blue-500/10 rounded-full blur-xl group-hover:bg-[#39ff14]/10 group-hover:scale-150 transition-all duration-700\"></div>\n      <div className=\"absolute bottom-2 right-2 text-gray-800 text-5xl font-black opacity-20 pointer-events-none select-none\">\n        //\n      </div>\n\n      <h4 className=\"text-gray-500 text-[10px] tracking-widest mb-2 flex items-center gap-2\">\n        <span className=\"w-2 h-2 bg-red-500 rounded-full animate-ping\"></span>\n        USER_DATA_STREAM\n      </h4>\n      \n      <div className=\"flex items-end gap-3 mb-4\">\n        <span className=\"text-5xl font-black text-white tracking-tighter\">LVL.42</span>\n        <span className=\"text-blue-400 text-xs mb-2 tracking-widest uppercase\">\\\"The Architect\\\"</span>\n      </div>\n      \n      <ul className=\"space-y-3 text-xs text-gray-400 mt-6\">\n        <li className=\"flex justify-between items-center border-b border-gray-800/50 pb-2 hover:text-[#39ff14] transition-colors\">\n          <span>INTEL_RATING:</span>\n          <span className=\"text-white font-bold\">S-Tier</span>\n        </li>\n        <li className=\"flex justify-between items-center border-b border-gray-800/50 pb-2 hover:text-[#39ff14] transition-colors\">\n          <span>QUESTS_CLEARED:</span>\n          <span className=\"text-white font-bold\">108</span>\n        </li>\n        <li className=\"flex justify-between items-center border-b border-gray-800/50 pb-2 hover:text-[#39ff14] transition-colors\">\n          <span>CURRENT_STREAK:</span>\n          <span className=\"text-[#39ff14] font-bold drop-shadow-[0_0_5px_#39ff14]\">14 DAYS</span>\n        </li>\n      </ul>\n    </div>\n  );\n}",
+    "usage": "<UserProfileCard />"
+  },
+  {
+    "id": "bg-sandbox-grid",
+    "name": "Sandbox Grid Environment",
+    "category": "backgrounds",
+    "description": "Perspective grid with scanning beam and vignette for sandbox UI containers.",
+    "tags": ["grid", "perspective", "vignette", "sandbox"],
+    "import": "import SandboxGrid from '@/components/backgrounds/SandboxGrid';",
+    "previewType": "background",
+    "source": "// SandboxGrid.jsx\nexport default function SandboxGrid({ children }) {\n  return (\n    <div className=\"relative w-full h-96 bg-black overflow-hidden flex items-center justify-center border-y-4 border-blue-500 shadow-[0_0_30px_rgba(59,130,246,0.3)]\">\n      \n      {/* Perspective Grid Layer */}\n      <div className=\"absolute inset-0 bg-[linear-gradient(rgba(57,255,20,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(57,255,20,0.15)_1px,transparent_1px)] bg-[size:40px_40px] [transform:perspective(500px)_rotateX(60deg)_translateY(-10px)_scale(2)] opacity-70\"></div>\n      \n      {/* Scanning Beam / Ambient Glow */}\n      <div className=\"absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/10 to-transparent animate-[pulse_4s_ease-in-out_infinite]\"></div>\n      \n      {/* Vignette to blend edges */}\n      <div className=\"absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,black_80%)]\"></div>\n\n      {/* Content Container */}\n      <div className=\"relative z-10\">\n        {children}\n      </div>\n    </div>\n  );\n}",
+    "usage": "<SandboxGrid>\n  <div className=\"text-white text-3xl font-black font-mono tracking-widest bg-black/50 px-6 py-2 border border-blue-500/50 backdrop-blur-sm\">\n    CONTENT_HERE\n  </div>\n</SandboxGrid>"
+  },
+  {
+    "id": "text-glitch-effect",
+    "name": "Glitch Text Effect",
+    "category": "animations",
+    "description": "Triple-layer glitch text with red/cyan offset and hover interaction.",
+    "tags": ["glitch", "text", "animation", "interactive"],
+    "import": "import GlitchText from '@/components/animations/GlitchText';",
+    "previewType": "animation",
+    "source": "// GlitchText.jsx\nexport default function GlitchText({ text = 'System Override', className = '' }) {\n  return (\n    <div className={`flex justify-center items-center p-10 bg-black ${className}`}>\n      <div className=\"group relative inline-block cursor-crosshair font-black text-6xl uppercase tracking-tighter\">\n        \n        {/* Base Text */}\n        <span className=\"relative z-10 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]\">\n          {text}\n        </span>\n        \n        {/* Red Glitch Layer */}\n        <span className=\"absolute top-0 left-[3px] -z-10 text-red-500 opacity-80 mix-blend-screen animate-[pulse_100ms_infinite] group-hover:animate-none group-hover:-translate-x-1 group-hover:translate-y-1 transition-transform\">\n          {text}\n        </span>\n        \n        {/* Cyan Glitch Layer */}\n        <span className=\"absolute -top-[2px] -left-[3px] -z-10 text-cyan-500 opacity-80 mix-blend-screen animate-[pulse_150ms_infinite] group-hover:animate-none group-hover:translate-x-2 group-hover:-translate-y-1 transition-transform\">\n          {text}\n        </span>\n        \n        {/* Interactivity strike-through line */}\n        <div className=\"absolute top-1/2 left-0 w-full h-[2px] bg-white mix-blend-difference opacity-0 group-hover:opacity-100 group-hover:animate-[bounce_50ms_infinite] pointer-events-none\"></div>\n      </div>\n    </div>\n  );\n}",
+    "usage": "<GlitchText text=\"System Override\" />"
+  },
+  {
+    "id": "btn-plasma-fill",
+    "name": "Plasma Fill Button",
+    "category": "buttons",
+    "description": "Button with rising plasma fill effect, glare sweep, and corner accents.",
+    "tags": ["button", "interactive", "plasma", "glare"],
+    "import": "import PlasmaButton from '@/components/buttons/PlasmaButton';",
+    "previewType": "button",
+    "source": "// PlasmaButton.jsx\nexport default function PlasmaButton({ children = 'Engage Warp', onClick }) {\n  return (\n    <button onClick={onClick} className=\"group relative px-8 py-4 bg-black text-[#39ff14] font-mono font-bold uppercase tracking-[0.3em] overflow-hidden border border-[#39ff14]/40 transition-all duration-300 hover:border-[#39ff14] hover:shadow-[0_0_20px_rgba(57,255,20,0.4)] hover:text-black\">\n      \n      {/* Rising Plasma Fill */}\n      <span className=\"absolute inset-0 bg-[#39ff14] translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300 ease-in-out z-0\"></span>\n      \n      {/* Sweeping Light Glare */}\n      <span className=\"absolute top-0 left-[-100%] w-[50%] h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-45deg] group-hover:left-[200%] transition-all duration-700 ease-in-out z-10\"></span>\n      \n      {/* Corner decorative accents */}\n      <span className=\"absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-[#39ff14] z-20\"></span>\n      <span className=\"absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-[#39ff14] z-20\"></span>\n\n      <span className=\"relative z-20\">{children}</span>\n    </button>\n  );\n}",
+    "usage": "<PlasmaButton>Engage Warp</PlasmaButton>\n\n<PlasmaButton onClick={() => alert('Warped!')}>Custom Action</PlasmaButton>"
+  },
+  {
+    "id": "input-terminal",
+    "name": "Terminal Input",
+    "category": "forms",
+    "description": "Sci-fi styled text input with HUD label, animated prompt, and blinking cursor.",
+    "tags": ["input", "form", "terminal", "retro"],
+    "import": "import TerminalInput from '@/components/forms/TerminalInput';",
+    "previewType": "form",
+    "source": "// TerminalInput.jsx\nimport React from \\\"react\\\";\n\nexport default function TerminalInput({ label, placeholder, ...props }) {\n  return (\n    <div className=\\\"flex flex-col gap-2 font-mono w-full max-w-sm\\\">\n      {/* HUD Label */}\n      {label && (\n        <label className=\\\"text-[10px] text-blue-500 tracking-[0.2em] uppercase flex items-center gap-2\\\">\n          <span className=\\\"w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse\\\"></span>\n          [ {label} ]\n        </label>\n      )}\n      \n      <div className=\\\"relative group\\\">\n        {/* Decorative Sci-Fi Brackets */}\n        <div className=\\\"absolute -inset-1 border-x-2 border-[#39ff14]/30 group-focus-within:border-[#39ff14] group-focus-within:scale-105 transition-all duration-300 pointer-events-none opacity-50\\\"></div>\n\n        {/* Input Wrapper */}\n        <div className=\\\"relative flex items-center bg-black border border-gray-800 px-4 py-3 focus-within:border-blue-500 focus-within:shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-all overflow-hidden z-10\\\">\n          \n          {/* Animated Prompt Arrow */}\n          <span className=\\\"mr-3 text-blue-500 font-bold animate-[pulse_1s_ease-in-out_infinite]\\\">\n            &gt;\n          </span>\n          \n          {/* Actual Input */}\n          <input\n            type=\\\"text\\\"\n            className=\\\"bg-transparent border-none outline-none w-full text-[#39ff14] font-bold tracking-wider placeholder-gray-700 focus:ring-0\\\"\n            placeholder={placeholder || \\\"AWAITING_INPUT...\\\"}\n            {...props}\n          />\n          \n          {/* Retro Blinking Cursor (Only visible on focus) */}\n          <div className=\\\"w-2 h-5 bg-[#39ff14] animate-[pulse_1s_step-end_infinite] ml-1 opacity-0 group-focus-within:opacity-100 transition-opacity\\\"></div>\n        </div>\n      </div>\n    </div>\n  );\n}",
+    "usage": "<TerminalInput\n  label=\"COMMAND_INPUT\"\n  placeholder=\"ENTER_COMMAND_HERE\"\n  onSubmit={(e) => console.log(e.target.value)}\n/>"
+  },
+  {
+    "id": "card-bounty-board",
+    "name": "Bounty Board",
+    "category": "cards",
+    "description": "Leaderboard card displaying top operatives with ranks and scores.",
+    "tags": ["leaderboard", "ranking", "stats"],
+    "import": "import BountyBoard from '@/components/cards/BountyBoard';",
+    "previewType": "card",
+    "source": "// BountyBoard.jsx\nexport default function BountyBoard() {\n  const players = [\n    { rank: \\\"01\\\", name: \\\"NullPointer\\\", score: \\\"94,020\\\" },\n    { rank: \\\"02\\\", name: \\\"ByteMe\\\", score: \\\"88,110\\\" },\n    { rank: \\\"03\\\", name: \\\"CrashOverride\\\", score: \\\"76,900\\\" },\n  ];\n  return (\n    <div className=\\\"w-full max-w-md bg-black border-4 border-[#39ff14] p-6 shadow-[12px_12px_0_#39ff14] font-mono\\\">\n      <div className=\\\"border-b-4 border-[#39ff14] pb-4 mb-4\\\">\n        <h2 className=\\\"text-3xl font-black text-white uppercase tracking-tighter\\\">\n          Top Operatives\n        </h2>\n        <p className=\\\"text-[#39ff14] text-[10px] tracking-widest mt-1\\\">\n          // GLOBAL_RANKING_DATA\n        </p>\n      </div>\n      <div className=\\\"flex flex-col gap-2\\\">\n        {players.map((player) => (\n          <div key={player.rank} className=\\\"flex justify-between items-center p-3 border-2 border-gray-800 bg-gray-950 text-white cursor-pointer hover:bg-[#39ff14] hover:text-black transition-none group\\\">\n            <div className=\\\"flex items-center gap-4\\\">\n              <span className=\\\"text-lg font-black\\\">{player.rank}</span>\n              <span className=\\\"text-sm font-bold tracking-wide uppercase\\\">{player.name}</span>\n            </div>\n            <span className=\\\"font-black text-xl\\\">{player.score}</span>\n          </div>\n        ))}\n      </div>\n    </div>\n  );\n}",
+    "usage": "<BountyBoard />"
+  },
+  {
+    "id": "card-stat-grid",
+    "name": "Brutalist Stat Grid",
+    "category": "cards",
+    "description": "2x2 grid displaying stats with brutalist styling and hover effects.",
+    "tags": ["stats", "grid", "brutalist"],
+    "import": "import BrutalistStatGrid from '@/components/cards/BrutalistStatGrid';",
+    "previewType": "card",
+    "source": "// BrutalistStatGrid.jsx\nexport default function BrutalistStatGrid() {\n  return (\n    <div className=\\\"grid grid-cols-2 w-full max-w-sm border-4 border-blue-500 bg-black font-mono shadow-[-10px_10px_0_theme(colors.blue.500)] text-white\\\">\n      <div className=\\\"border-r-4 border-b-4 border-blue-500 p-5 hover:bg-blue-500 hover:text-black transition-colors\\\">\n        <span className=\\\"text-[10px] font-bold tracking-widest mb-4 block\\\">QUESTS</span>\n        <span className=\\\"text-4xl font-black tracking-tighter\\\">142</span>\n      </div>\n      <div className=\\\"border-b-4 border-blue-500 p-5 hover:bg-blue-500 hover:text-black transition-colors\\\">\n        <span className=\\\"text-[10px] font-bold tracking-widest mb-4 block\\\">STREAK</span>\n        <span className=\\\"text-4xl font-black tracking-tighter\\\">12<span className=\\\"text-xl\\\">d</span></span>\n      </div>\n      <div className=\\\"border-r-4 border-blue-500 p-5 hover:bg-blue-500 hover:text-black transition-colors\\\">\n        <span className=\\\"text-[10px] font-bold tracking-widest mb-4 block\\\">CLASS</span>\n        <span className=\\\"text-xl font-black uppercase\\\">Vanguard</span>\n      </div>\n      <div className=\\\"p-5 hover:bg-blue-500 hover:text-black transition-colors bg-blue-950/30\\\">\n        <span className=\\\"text-[10px] font-bold tracking-widest mb-4 block text-blue-300\\\">XP RATE</span>\n        <span className=\\\"text-2xl font-black tracking-tighter\\\">+2.5x</span>\n      </div>\n    </div>\n  );\n}",
+    "usage": "<BrutalistStatGrid />"
+  },
+  {
+    "id": "toggle-kill-switch",
+    "name": "Kill Switch Toggle",
+    "category": "forms",
+    "description": "Mechanical toggle switch with hardcore mode styling.",
+    "tags": ["toggle", "switch", "form", "interactive"],
+    "import": "import KillSwitch from '@/components/forms/KillSwitch';",
+    "previewType": "form",
+    "source": "// KillSwitch.jsx\nimport React, { useState } from \\\"react\\\";\nexport default function KillSwitch({ label = \\\"HARDCORE MODE\\\" }) {\n  const [isActive, setIsActive] = useState(false);\n  return (\n    <div className=\\\"flex items-center gap-6 font-mono\\\">\n      <span className={`text-sm font-black tracking-widest uppercase ${isActive ? 'text-red-500' : 'text-gray-500'}`}>\n        {label}\n      </span>\n      <label className=\\\"relative flex items-center cursor-pointer group\\\">\n        <input type=\\\"checkbox\\\" className=\\\"sr-only peer\\\" checked={isActive} onChange={() => setIsActive(!isActive)} />\n        <div className={`w-20 h-10 border-4 transition-colors shadow-[6px_6px_0_#27272a] ${isActive ? 'bg-red-600 border-red-500 shadow-[6px_6px_0_#ef4444]' : 'bg-black border-gray-600'}`}></div>\n        <div className={`absolute left-1 top-1 w-8 h-8 border-2 transition-all flex items-center justify-center ${isActive ? 'translate-x-10 bg-white border-black' : 'bg-gray-600 border-black'}`}>\n          <div className={`w-1 h-4 ${isActive ? 'bg-red-600' : 'bg-black'}`}></div>\n        </div>\n      </label>\n    </div>\n  );\n}",
+    "usage": "<KillSwitch label=\"HARDCORE MODE\" />"
+  },
+  {
+    "id": "btn-brutalist",
+    "name": "Brutalist Button",
+    "category": "buttons",
+    "description": "Solid button with aggressive shadow and corner decorations.",
+    "tags": ["button", "brutalist", "action"],
+    "import": "import BrutalistButton from '@/components/buttons/BrutalistButton';",
+    "previewType": "button",
+    "source": "// BrutalistButton.jsx\nexport default function BrutalistButton({ children = \\\"EXECUTE SCRIPT\\\", onClick, ...props }) {\n  return (\n    <button onClick={onClick} className=\\\"relative px-8 py-4 bg-[#39ff14] text-black font-black text-xl font-mono uppercase tracking-widest border-4 border-black shadow-[6px_6px_0_#000] hover:-translate-y-1 hover:shadow-[10px_10px_0_#000] active:translate-x-[6px] active:translate-y-[6px] active:shadow-none transition-all duration-75\\\" {...props}>\n      <span className=\\\"absolute top-1 left-1 w-2 h-2 bg-black/20\\\"></span>\n      <span className=\\\"absolute bottom-1 right-1 w-2 h-2 bg-black/20\\\"></span>\n      {children}\n    </button>\n  );\n}",
+    "usage": "<BrutalistButton>Execute</BrutalistButton>"
+  },
+  {
+    "id": "btn-ghost-protocol",
+    "name": "Ghost Protocol Button",
+    "category": "buttons",
+    "description": "Button with expanding corner borders and glow on hover.",
+    "tags": ["button", "ghost", "protocol"],
+    "import": "import GhostProtocolButton from '@/components/buttons/GhostProtocolButton';",
+    "previewType": "button",
+    "source": "// GhostProtocolButton.jsx\nexport default function GhostProtocolButton({ children = \\\"ACCESS GRANTED\\\", onClick, ...props }) {\n  return (\n    <button onClick={onClick} className=\\\"relative px-8 py-4 bg-transparent text-blue-500 font-mono font-bold uppercase tracking-[0.2em] group\\\" {...props}>\n      <span className=\\\"absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-blue-500 group-hover:w-full group-hover:h-full transition-all duration-300 ease-out -z-10\\\"></span>\n      <span className=\\\"absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-blue-500 group-hover:w-full group-hover:h-full transition-all duration-300 ease-out -z-10\\\"></span>\n      <span className=\\\"absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity -z-20\\\"></span>\n      <span className=\\\"absolute -left-4 top-1/2 -translate-y-1/2 text-[8px] text-blue-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all\\\">&gt;</span>\n      {children}\n    </button>\n  );\n}",
+    "usage": "<GhostProtocolButton>Access</GhostProtocolButton>"
+  },
+  {
+    "id": "btn-glitch",
+    "name": "Glitch Button",
+    "category": "buttons",
+    "description": "Button with red/cyan glitch effect layers and scanlines.",
+    "tags": ["button", "glitch", "effect"],
+    "import": "import GlitchButton from '@/components/buttons/GlitchButton';",
+    "previewType": "button",
+    "source": "// GlitchButton.jsx\nexport default function GlitchButton({ children = \\\"INITIATE WIPE\\\", onClick, ...props }) {\n  return (\n    <button onClick={onClick} className=\\\"group relative px-8 py-4 bg-black text-white font-mono font-black text-lg tracking-widest uppercase overflow-hidden border border-red-500/30 hover:border-red-500 transition-colors\\\" {...props}>\n      <span className=\\\"relative z-10 block group-hover:opacity-0 transition-opacity duration-75\\\">{children}</span>\n      <span className=\\\"absolute inset-0 flex items-center justify-center text-red-500 opacity-0 group-hover:opacity-100 group-hover:animate-[pulse_100ms_infinite] translate-x-[3px] z-20\\\">{children}</span>\n      <span className=\\\"absolute inset-0 flex items-center justify-center text-cyan-500 opacity-0 group-hover:opacity-100 group-hover:animate-[pulse_150ms_infinite] -translate-x-[3px] z-20\\\">{children}</span>\n      <div className=\\\"absolute top-0 left-0 w-full h-[2px] bg-white opacity-0 group-hover:opacity-100 group-hover:animate-ping z-30\\\"></div>\n      <div className=\\\"absolute bottom-0 left-0 w-full h-[2px] bg-white opacity-0 group-hover:opacity-100 group-hover:animate-ping z-30\\\"></div>\n    </button>\n  );\n}",
+    "usage": "<GlitchButton>Glitch</GlitchButton>"
+  },
+  {
+    "id": "bg-hacker-grid",
+    "name": "Hacker Grid",
+    "category": "backgrounds",
+    "description": "Canvas-based particle system with mouse interaction.",
+    "tags": ["canvas", "particles", "animation", "interactive"],
+    "import": "import HackerGrid from '@/components/backgrounds/HackerGrid';",
+    "previewType": "background",
+    "source": "// HackerGrid.jsx\nimport { useRef, useEffect } from \\\"react\\\";\nexport default function HackerGrid() {\n  const canvasRef = useRef(null);\n  useEffect(() => {\n    const canvas = canvasRef.current;\n    const ctx = canvas.getContext(\\\"2d\\\");\n    let animationFrameId;\n    const PARTICLE_COUNT = 100;\n    const CONNECTION_DISTANCE = 100;\n    const MOUSE_RADIUS = 150;\n    const COLOR_PARTICLE = \\\"#39ff14\\\";\n    const COLOR_LINE = \\\"rgba(57, 255, 20, 0.15)\\\";\n    let particles = [];\n    const mouse = { x: null, y: null };\n    const resizeCanvas = () => {\n      canvas.width = window.innerWidth;\n      canvas.height = window.innerHeight;\n      particles = Array(PARTICLE_COUNT).fill().map(() => ({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5, size: 1.5 }));\n    };\n    const animate = () => {\n      ctx.clearRect(0, 0, canvas.width, canvas.height);\n      particles.forEach((p) => {\n        p.x += p.vx; p.y += p.vy;\n        if (mouse.x) { const dx = mouse.x - p.x, dy = mouse.y - p.y, d = Math.hypot(dx, dy); if (d < MOUSE_RADIUS) { p.x += dx * 0.01; p.y += dy * 0.01; } }\n        if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0;\n        if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0;\n        ctx.fillStyle = COLOR_PARTICLE; ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();\n      });\n      for (let i = 0; i < particles.length; i++) { for (let j = i + 1; j < particles.length; j++) { const d = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y); if (d < CONNECTION_DISTANCE) { ctx.strokeStyle = COLOR_LINE; ctx.lineWidth = 0.5; ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke(); } } }\n      animationFrameId = requestAnimationFrame(animate);\n    };\n    window.addEventListener(\\\"mousemove\\\", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });\n    window.addEventListener(\\\"mouseout\\\", () => { mouse.x = null; mouse.y = null; });\n    resizeCanvas(); animate();\n    return () => { cancelAnimationFrame(animationFrameId); window.removeEventListener(\\\"mousemove\\\", () => {}); };\n  }, []);\n  return <canvas ref={canvasRef} className=\\\"absolute inset-0 -z-10 bg-black\\\" />;\n}",
+    "usage": "<HackerGrid />"
+  },
+  {
+    "id": "bg-void-pulse",
+    "name": "Void Pulse",
+    "category": "backgrounds",
+    "description": "Canvas-based ripple effect triggered by click.",
+    "tags": ["canvas", "ripple", "effect", "interactive"],
+    "import": "import VoidPulse from '@/components/backgrounds/VoidPulse';",
+    "previewType": "background",
+    "source": "// VoidPulse.jsx\nimport { useRef, useEffect } from \\\"react\\\";\nexport default function VoidPulse() {\n  const canvasRef = useRef(null);\n  useEffect(() => {\n    const canvas = canvasRef.current;\n    const ctx = canvas.getContext(\\\"2d\\\");\n    let animationFrameId;\n    const RIPPLE_COLOR = \\\"rgba(59, 130, 246, 0.4)\\\";\n    const RIPPLE_SPEED = 4;\n    const DECAY_RATE = 0.98;\n    const ripples = [];\n    const resizeCanvas = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };\n    const animate = () => {\n      ctx.clearRect(0, 0, canvas.width, canvas.height);\n      for (let i = ripples.length - 1; i >= 0; i--) {\n        const r = ripples[i];\n        r.radius += RIPPLE_SPEED; r.opacity *= DECAY_RATE;\n        ctx.strokeStyle = RIPPLE_COLOR; ctx.lineWidth = 2 * r.opacity; ctx.beginPath(); ctx.ellipse(r.x, r.y, r.radius, r.radius * 0.5, 0, 0, Math.PI * 2); ctx.stroke();\n        if (r.opacity < 0.01) ripples.splice(i, 1);\n      }\n      animationFrameId = requestAnimationFrame(animate);\n    };\n    window.addEventListener(\\\"click\\\", (e) => { ripples.push({ x: e.clientX, y: e.clientY, radius: 1, opacity: 1 }); });\n    resizeCanvas(); animate();\n    return () => { cancelAnimationFrame(animationFrameId); };\n  }, []);\n  return <canvas ref={canvasRef} className=\\\"absolute inset-0 -z-10 bg-black\\\" />;\n}",
+    "usage": "<VoidPulse />"
+  },
+  {
+    "id": "bg-glitch-noise",
+    "name": "Glitch Noise",
+    "category": "backgrounds",
+    "description": "Canvas-based noise effect with mouse interaction zones.",
+    "tags": ["canvas", "noise", "glitch", "interactive"],
+    "import": "import GlitchNoise from '@/components/backgrounds/GlitchNoise';",
+    "previewType": "background",
+    "source": "// GlitchNoise.jsx\nimport { useRef, useEffect } from \\\"react\\\";\nexport default function GlitchNoise() {\n  const canvasRef = useRef(null);\n  useEffect(() => {\n    const canvas = canvasRef.current;\n    const ctx = canvas.getContext(\\\"2d\\\");\n    let animationFrameId;\n    const BLOCK_SIZE = 5;\n    const IDLE_SPEED = 0.1;\n    const INTERACTION_SPEED = 0.9;\n    const INTENSITY_RADIUS = 200;\n    const mouse = { x: null, y: null };\n    const resizeCanvas = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };\n    const animate = () => {\n      ctx.fillStyle = \\\"rgba(0, 0, 0, 0.1)\\\"; ctx.fillRect(0, 0, canvas.width, canvas.height);\n      for (let x = 0; x < canvas.width; x += BLOCK_SIZE) {\n        for (let y = 0; y < canvas.height; y += BLOCK_SIZE) {\n          let speed = IDLE_SPEED;\n          if (mouse.x) { const d = Math.hypot(mouse.x - x, mouse.y - y); if (d < INTENSITY_RADIUS) speed = INTERACTION_SPEED * (1 - d / INTENSITY_RADIUS); }\n          if (Math.random() < speed) { ctx.fillStyle = Math.random() < 0.95 ? \\\"#111\\\" : \\\"#fff\\\"; ctx.fillRect(x, y, BLOCK_SIZE, BLOCK_SIZE); }\n        }\n      }\n      animationFrameId = requestAnimationFrame(animate);\n    };\n    window.addEventListener(\\\"mousemove\\\", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });\n    window.addEventListener(\\\"mouseout\\\", () => { mouse.x = null; mouse.y = null; });\n    resizeCanvas(); animate();\n    return () => { cancelAnimationFrame(animationFrameId); };\n  }, []);\n  return <canvas ref={canvasRef} className=\\\"absolute inset-0 -z-10 bg-black\\\" />;\n}",
+    "usage": "<GlitchNoise />"
   }
 ]

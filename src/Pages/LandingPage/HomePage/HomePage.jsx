@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import SplashCursor from "../../../assets/SplashCursor/SplashCursor";
+import { useAuth } from "../../../Context/AuthContext";
 
 function Homepage() {
   const [visible, setVisible] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     setTimeout(() => setVisible(true), 200);
@@ -74,12 +76,15 @@ function Homepage() {
         }}
       >
         <p className="text-xs md:text-sm text-cyan-400 mb-6 tracking-widest " style={{ animation: "blink 1.5s infinite" }}>
-          &gt; INITIALIZING...
+          {user ? `> WELCOME_BACK, ${user.username?.toUpperCase() || user.email?.split('@')[0].toUpperCase()}...` : "> INITIALIZING..."}
         </p>
         <h1 className="text-5xl md:text-5xl lg:text-8xl leading-relaxed mb-8" style={{
           textShadow: "0 0 10px rgba(0,255,255,0.5), 0 0 40px rgba(0,255,255,0.2)",
         }}>
-          Welcome To <span className="text-indigo-600 
+          <div className="mb-4 text-2xl md:text-4xl font-bold text-cyan-400">
+            {user ? `Welcome, ${user.username || user.email.split('@')[0]}` : "Welcome To"}
+          </div>
+          <span className="text-indigo-600 
     drop-shadow-[2px_2px_0px_#000] 
     [text-shadow:4px_4px_0px_#4338ca,8px_8px_0px_#000]">
             B
@@ -113,7 +118,7 @@ function Homepage() {
           </span>
         </h1>
         <p className="text-xs md:text-sm text-gray-400 max-w-md leading-loose">
-          Build. Launch. Create. Knowledge. Share.
+          {user ? `Ready to create something amazing? Head to the builder or explore components.` : `Build. Launch. Create. Knowledge. Share.`}
         </p>
 
         {/* SCROLL DOWN */}

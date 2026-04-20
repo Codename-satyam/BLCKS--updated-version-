@@ -1,0 +1,520 @@
+import React from "react";
+
+export const BountyBoard = () => {
+  const players = [
+    { rank: "01", name: "NullPointer", score: "94,020" },
+    { rank: "02", name: "ByteMe", score: "88,110" },
+    { rank: "03", name: "CrashOverride", score: "76,900" },
+  ];
+
+  return (
+    <div className="w-full max-w-md bg-black border-4 border-[#39ff14] p-6 shadow-[12px_12px_0_#39ff14] font-mono">
+      
+      <div className="border-b-4 border-[#39ff14] pb-4 mb-4">
+        <h2 className="text-3xl font-black text-white uppercase tracking-tighter">
+          Top Operatives
+        </h2>
+        <p className="text-[#39ff14] text-[10px] tracking-widest mt-1">
+          // GLOBAL_RANKING_DATA
+        </p>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        {players.map((player) => (
+          <div 
+            key={player.rank}
+            className="flex justify-between items-center p-3 border-2 border-gray-800 bg-gray-950 text-white cursor-pointer hover:bg-[#39ff14] hover:text-black hover:border-black transition-none group"
+          >
+            <div className="flex items-center gap-4">
+              <span className="text-lg font-black">{player.rank}</span>
+              <span className="text-sm font-bold tracking-wide uppercase group-hover:underline decoration-4 underline-offset-4">
+                {player.name}
+              </span>
+            </div>
+            <span className="font-black text-xl">{player.score}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+
+
+import React from "react";
+
+export const BrutalistStatGrid = () => {
+  return (
+    <div className="grid grid-cols-2 w-full max-w-sm border-4 border-blue-500 bg-black font-mono shadow-[-10px_10px_0_theme(colors.blue.500)] text-white select-none">
+      
+      {/* Stat Block 1 */}
+      <div className="border-r-4 border-b-4 border-blue-500 p-5 hover:bg-blue-500 hover:text-black transition-colors duration-75 flex flex-col justify-between">
+        <span className="text-[10px] font-bold tracking-widest mb-4 block">QUESTS</span>
+        <span className="text-4xl font-black tracking-tighter">142</span>
+      </div>
+
+      {/* Stat Block 2 */}
+      <div className="border-b-4 border-blue-500 p-5 hover:bg-blue-500 hover:text-black transition-colors duration-75 flex flex-col justify-between">
+        <span className="text-[10px] font-bold tracking-widest mb-4 block">STREAK</span>
+        <span className="text-4xl font-black tracking-tighter">12<span className="text-xl">d</span></span>
+      </div>
+
+      {/* Stat Block 3 */}
+      <div className="border-r-4 border-blue-500 p-5 hover:bg-blue-500 hover:text-black transition-colors duration-75 col-span-2 sm:col-span-1 flex flex-col justify-between">
+        <span className="text-[10px] font-bold tracking-widest mb-4 block">CLASS</span>
+        <span className="text-xl font-black uppercase overflow-hidden text-ellipsis whitespace-nowrap">
+          Vanguard
+        </span>
+      </div>
+
+      {/* Stat Block 4 */}
+      <div className="p-5 hover:bg-blue-500 hover:text-black transition-colors duration-75 flex flex-col justify-between bg-blue-950/30">
+        <span className="text-[10px] font-bold tracking-widest mb-4 block text-blue-300">XP RATE</span>
+        <span className="text-2xl font-black tracking-tighter">+2.5x</span>
+      </div>
+
+    </div>
+  );
+};
+
+
+import React, { useState } from "react";
+
+export const KillSwitch = ({ label = "HARDCORE MODE" }) => {
+  const [isActive, setIsActive] = useState(false);
+
+  return (
+    <div className="flex items-center gap-6 font-mono">
+      <span className={`text-sm font-black tracking-widest uppercase ${isActive ? 'text-red-500' : 'text-gray-500'}`}>
+        {label}
+      </span>
+      
+      <label className="relative flex items-center cursor-pointer group">
+        <input 
+          type="checkbox" 
+          className="sr-only peer"
+          checked={isActive}
+          onChange={() => setIsActive(!isActive)}
+        />
+        
+        {/* Switch Track */}
+        <div className={`w-20 h-10 border-4 transition-colors duration-75 shadow-[6px_6px_0_#27272a] ${isActive ? 'bg-red-600 border-red-500 shadow-[6px_6px_0_#ef4444]' : 'bg-black border-gray-600'}`}></div>
+        
+        {/* Mechanical Switch Handle */}
+        <div className={`absolute left-1 top-1 w-8 h-8 border-2 transition-all duration-100 ease-linear flex items-center justify-center ${isActive ? 'translate-x-10 bg-white border-black' : 'bg-gray-600 border-black'}`}>
+          {/* Inner mechanical detail */}
+          <div className={`w-1 h-4 ${isActive ? 'bg-red-600' : 'bg-black'}`}></div>
+        </div>
+      </label>
+    </div>
+  );
+};
+
+
+import React, { useRef, useEffect } from "react";
+
+export const HackerGrid = () => {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.getcurrent;
+    const ctx = canvas.getContext("2d");
+    let animationFrameId;
+
+    // Configuration
+    const PARTICLE_COUNT = 100;
+    const CONNECTION_DISTANCE = 100;
+    const MOUSE_RADIUS = 150;
+    const COLOR_PARTICLE = "#39ff14"; // Neon Green
+    const COLOR_LINE = "rgba(57, 255, 20, 0.15)"; // Faint Green
+
+    // State
+    let particles = [];
+    const mouse = { x: null, y: null };
+
+    // Resize handler
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initParticles();
+    };
+
+    // Particle Class
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.5; // Velocity X
+        this.vy = (Math.random() - 0.5) * 0.5; // Velocity Y
+        this.size = 1.5;
+      }
+
+      draw() {
+        ctx.fillStyle = COLOR_PARTICLE;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      update() {
+        // Move
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Mouse Interaction
+        if (mouse.x && mouse.y) {
+          const dx = mouse.x - this.x;
+          const dy = mouse.y - this.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < MOUSE_RADIUS) {
+            // Forceful pull toward cursor
+            this.x += dx * 0.01; 
+            this.y += dy * 0.01;
+          }
+        }
+
+        // Boundary Check (wrap around)
+        if (this.x < 0) this.x = canvas.width;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.y < 0) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = 0;
+
+        this.draw();
+      }
+    }
+
+    // Initialize
+    const initParticles = () => {
+      particles = [];
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push(new Particle());
+      }
+    };
+
+    // Connection drawing
+    const drawLines = () => {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < CONNECTION_DISTANCE) {
+            ctx.strokeStyle = COLOR_LINE;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+    };
+
+    // Animation Loop
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p) => p.update());
+      drawLines();
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    // Setup Event Listeners
+    window.addEventListener("resize", resizeCanvas);
+    window.addEventListener("mousemove", (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+    window.addEventListener("mouseout", () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
+
+    resizeCanvas(); // Initialize and start
+    animate();
+
+    // Cleanup
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("resize", resizeCanvas);
+    };
+  }, []);
+
+  return (
+    <canvas 
+      ref={canvasRef} 
+      className="absolute inset-0 -z-10 bg-black"
+    />
+  );
+};
+
+
+
+import React, { useRef, useEffect } from "react";
+
+export const VoidPulse = () => {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    let animationFrameId;
+
+    // Configuration
+    const RIPPLE_COLOR = "rgba(59, 130, 246, 0.4)"; // Faint Blue
+    const RIPPLE_SPEED = 4;
+    const DECAY_RATE = 0.98;
+
+    // State
+    const ripples = [];
+
+    // Resize handler
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    // Ripple Class
+    class Ripple {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.radius = 1;
+        this.opacity = 1;
+      }
+
+      update() {
+        this.radius += RIPPLE_SPEED;
+        this.opacity *= DECAY_RATE;
+      }
+
+      draw() {
+        ctx.strokeStyle = RIPPLE_COLOR;
+        ctx.lineWidth = 2 * this.opacity;
+        ctx.beginPath();
+        // The * 0.5 is the mathematical trick to skew the circle, making it look 3D
+        ctx.ellipse(this.x, this.y, this.radius, this.radius * 0.5, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      isDead() {
+        return this.opacity < 0.01;
+      }
+    }
+
+    // Animation Loop
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Update and Draw ripples, filter out dead ones
+      for (let i = ripples.length - 1; i >= 0; i--) {
+        const ripple = ripples[i];
+        ripple.update();
+        ripple.draw();
+        if (ripple.isDead()) {
+          ripples.splice(i, 1);
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    // Setup Event Listeners
+    window.addEventListener("resize", resizeCanvas);
+    window.addEventListener("click", (e) => {
+      ripples.push(new Ripple(e.clientX, e.clientY));
+    });
+
+    resizeCanvas(); // Initialize and start
+    animate();
+
+    // Cleanup
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("resize", resizeCanvas);
+    };
+  }, []);
+
+  return (
+    <canvas 
+      ref={canvasRef} 
+      className="absolute inset-0 -z-10 bg-black"
+    />
+  );
+};
+
+
+
+import React, { useRef, useEffect } from "react";
+
+export const GlitchNoise = () => {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.getcurrent;
+    const ctx = canvas.getContext("2d");
+    let animationFrameId;
+
+    // Configuration
+    const BLOCK_SIZE = 5; // Size of noise particles (brutalist resolution)
+    const IDLE_SPEED = 0.1;
+    const INTERACTION_SPEED = 0.9;
+    const INTENSITY_RADIUS = 200;
+
+    // State
+    const mouse = { x: null, y: null };
+
+    // Resize handler
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    // Noise Generator
+    const generateNoiseBlock = (x, y, speed) => {
+      if (Math.random() < speed) {
+        // Brutalist contrast shift
+        ctx.fillStyle = Math.random() < 0.95 ? "#111" : "#fff"; 
+        ctx.fillRect(x, y, BLOCK_SIZE, BLOCK_SIZE);
+      }
+    };
+
+    // Animation Loop
+    const animate = () => {
+      // Clear with slight trailing opacity for motion blur
+      ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; 
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (let x = 0; x < canvas.width; x += BLOCK_SIZE) {
+        for (let y = 0; y < canvas.height; y += BLOCK_SIZE) {
+          let speed = IDLE_SPEED;
+
+          // Localized intense interaction speed
+          if (mouse.x && mouse.y) {
+            const dx = mouse.x - x;
+            const dy = mouse.y - y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < INTENSITY_RADIUS) {
+              speed = INTERACTION_SPEED * (1 - distance / INTENSITY_RADIUS);
+            }
+          }
+
+          generateNoiseBlock(x, y, speed);
+        }
+      }
+      
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    // Setup Event Listeners
+    window.addEventListener("resize", resizeCanvas);
+    window.addEventListener("mousemove", (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+    window.addEventListener("mouseout", () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
+
+    resizeCanvas(); // Initialize and start
+    animate();
+
+    // Cleanup
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("resize", resizeCanvas);
+    };
+  }, []);
+
+  return (
+    <canvas 
+      ref={canvasRef} 
+      className="absolute inset-0 -z-10 bg-black"
+    />
+  );
+};
+
+
+
+import React from "react";
+
+export const BrutalistButton = ({ children = "EXECUTE SCRIPT", onClick, ...props }) => {
+  return (
+    <button 
+      onClick={onClick}
+      className="relative px-8 py-4 bg-[#39ff14] text-black font-black text-xl font-mono uppercase tracking-widest border-4 border-black shadow-[6px_6px_0_#000] hover:-translate-y-1 hover:shadow-[10px_10px_0_#000] active:translate-x-[6px] active:translate-y-[6px] active:shadow-none transition-all duration-75 outline-none"
+      {...props}
+    >
+      {/* Decorative inner corner blocks */}
+      <span className="absolute top-1 left-1 w-2 h-2 bg-black/20"></span>
+      <span className="absolute bottom-1 right-1 w-2 h-2 bg-black/20"></span>
+      
+      {children}
+    </button>
+  );
+};
+
+
+
+import React from "react";
+
+export const GhostProtocolButton = ({ children = "ACCESS GRANTED", onClick, ...props }) => {
+  return (
+    <button 
+      onClick={onClick}
+      className="relative px-8 py-4 bg-transparent text-blue-500 font-mono font-bold uppercase tracking-[0.2em] group outline-none"
+      {...props}
+    >
+      {/* Expanding Corners */}
+      <span className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-blue-500 group-hover:w-full group-hover:h-full transition-all duration-300 ease-out -z-10"></span>
+      <span className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-blue-500 group-hover:w-full group-hover:h-full transition-all duration-300 ease-out -z-10"></span>
+      
+      {/* Background glow on hover */}
+      <span className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-20"></span>
+
+      {/* Target Crosshair */}
+      <span className="absolute -left-4 top-1/2 -translate-y-1/2 text-[8px] text-blue-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all">
+        &gt;
+      </span>
+
+      {children}
+    </button>
+  );
+};
+
+
+
+
+import React from "react";
+
+export const GlitchButton = ({ children = "INITIATE WIPE", onClick, ...props }) => {
+  return (
+    <button 
+      onClick={onClick}
+      className="group relative px-8 py-4 bg-black text-white font-mono font-black text-lg tracking-widest uppercase overflow-hidden border border-red-500/30 hover:border-red-500 transition-colors"
+      {...props}
+    >
+      {/* Base text */}
+      <span className="relative z-10 block group-hover:opacity-0 transition-opacity duration-75">
+        {children}
+      </span>
+      
+      {/* Red Glitch Layer */}
+      <span className="absolute inset-0 flex items-center justify-center text-red-500 opacity-0 group-hover:opacity-100 group-hover:animate-[pulse_100ms_infinite] translate-x-[3px] z-20 mix-blend-screen pointer-events-none">
+        {children}
+      </span>
+      
+      {/* Cyan Glitch Layer */}
+      <span className="absolute inset-0 flex items-center justify-center text-cyan-500 opacity-0 group-hover:opacity-100 group-hover:animate-[pulse_150ms_infinite] -translate-x-[3px] z-20 mix-blend-screen pointer-events-none">
+        {children}
+      </span>
+
+      {/* Aggressive Scanlines */}
+      <div className="absolute top-0 left-0 w-full h-[2px] bg-white opacity-0 group-hover:opacity-100 group-hover:animate-ping z-30 pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 w-full h-[2px] bg-white opacity-0 group-hover:opacity-100 group-hover:animate-ping z-30 pointer-events-none"></div>
+    </button>
+  );
+};

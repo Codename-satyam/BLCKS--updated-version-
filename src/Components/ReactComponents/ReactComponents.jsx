@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from "react";
 import componentsCatalog from "./componentsCatalog.json";
-import { NeonGridBackground, RollingWindowBackground } from "./components/backgrounds";
+import { NeonGridBackground, RollingWindowBackground, HackerGrid, VoidPulse, GlitchNoise } from "./components/backgrounds";
 import { TerminalHeader, GlassNeonHeader } from "./components/headers";
-import { TypeGlowText, ScanlineSweep, HologramTitle, FlickerCaption } from "./components/text-and-animations";
+import { TypeGlowText, ScanlineSweep, HologramTitle, FlickerCaption, ChaoticHeader, MissionCard, UserProfileCard, GlitchText, PlasmaButton, SandboxGrid, TerminalInput, BountyBoard, BrutalistStatGrid, KillSwitch, BrutalistButton, GhostProtocolButton, GlitchButton } from "./components/text-and-animations";
 import "./components/animations.css";
 
 // ─── Copy to Clipboard Hook ──────────────────────────────────────────────────
@@ -20,22 +20,26 @@ function useCopyToClipboard() {
 function PreviewRenderer({ componentId }) {
     const componentMap = {
         "bg-grid-neon": () => (
-            <NeonGridBackground className="min-h-[400px] w-full h-full absolute inset-0">
-                <div className="flex items-center justify-center h-full relative z-10">
-                    <h2 className="text-5xl md:text-7xl font-black text-lime-400 uppercase tracking-widest bg-black/80 border-4 border-lime-400 p-8 shadow-[8px_8px_0px_0px_#a3e635]">
-                        GRID_ACTIVE
-                    </h2>
-                </div>
-            </NeonGridBackground>
+            <div className="relative w-full min-h-[400px] bg-black border-4 border-cyan-400 shadow-[8px_8px_0px_0px_#22d3ee] overflow-hidden">
+                <NeonGridBackground className="absolute inset-0">
+                    <div className="flex items-center justify-center h-full relative z-10">
+                        <h2 className="text-5xl md:text-7xl font-black text-lime-400 uppercase tracking-widest bg-black/80 border-4 border-lime-400 p-8 shadow-[8px_8px_0px_0px_#a3e635]">
+                            GRID_ACTIVE
+                        </h2>
+                    </div>
+                </NeonGridBackground>
+            </div>
         ),
         "bg-rolling-window": () => (
-            <RollingWindowBackground className="min-h-[400px] w-full h-full absolute inset-0">
-                <div className="flex items-center justify-center h-full relative z-10">
-                    <h2 className="text-5xl md:text-7xl font-black text-fuchsia-500 uppercase tracking-widest bg-black/80 border-4 border-fuchsia-500 p-8 shadow-[8px_8px_0px_0px_#d946ef]">
-                        SWEEP_SEQ
-                    </h2>
-                </div>
-            </RollingWindowBackground>
+            <div className="relative w-full min-h-[400px] bg-black border-4 border-fuchsia-500 shadow-[8px_8px_0px_0px_#d946ef] overflow-hidden">
+                <RollingWindowBackground className="absolute inset-0">
+                    <div className="flex items-center justify-center h-full relative z-10">
+                        <h2 className="text-5xl md:text-7xl font-black text-fuchsia-500 uppercase tracking-widest bg-black/80 border-4 border-fuchsia-500 p-8 shadow-[8px_8px_0px_0px_#d946ef]">
+                            SWEEP_SEQ
+                        </h2>
+                    </div>
+                </RollingWindowBackground>
+            </div>
         ),
         "header-terminal": () => (
             <div className="w-full">
@@ -85,6 +89,106 @@ function PreviewRenderer({ componentId }) {
                 <FlickerCaption className="text-orange-500 font-black text-3xl uppercase tracking-widest">
                     [NODES_ONLINE]
                 </FlickerCaption>
+            </div>
+        ),
+        "anim-jiggyasa-splash": () => (
+            <div className="flex items-center justify-center min-h-[400px] w-full bg-black border-4 border-cyan-400 shadow-[8px_8px_0px_0px_#22d3ee]">
+                <ChaoticHeader />
+            </div>
+        ),
+        "card-mission": () => (
+            <div className="flex items-center justify-center min-h-[500px] w-full bg-black border-4 border-purple-500 shadow-[8px_8px_0px_0px_#a855f7] p-4">
+                <MissionCard />
+            </div>
+        ),
+        "card-user-profile": () => (
+            <div className="flex items-center justify-center min-h-[400px] w-full bg-black border-4 border-lime-500 shadow-[8px_8px_0px_0px_#84cc16] p-4">
+                <UserProfileCard />
+            </div>
+        ),
+        "bg-sandbox-grid": () => (
+            <SandboxGrid>
+                <div className="text-white text-3xl font-black font-mono tracking-widest bg-black/50 px-6 py-2 border border-blue-500/50 backdrop-blur-sm">
+                    SANDBOX_ENVIRONMENT
+                </div>
+            </SandboxGrid>
+        ),
+        "text-glitch-effect": () => (
+            <div className="flex items-center justify-center min-h-[400px] w-full bg-black border-4 border-red-500 shadow-[8px_8px_0px_0px_#ef4444]">
+                <GlitchText text="System Override" />
+            </div>
+        ),
+        "btn-plasma-fill": () => (
+            <div className="flex items-center justify-center min-h-[300px] w-full bg-black border-4 border-lime-400 shadow-[8px_8px_0px_0px_#addc30] p-4">
+                <PlasmaButton>Engage Warp</PlasmaButton>
+            </div>
+        ),
+        "input-terminal": () => (
+            <div className="flex items-center justify-center min-h-[300px] w-full bg-black border-4 border-cyan-500 shadow-[8px_8px_0px_0px_#06b6d4] p-8">
+                <TerminalInput label="COMMAND_INPUT" placeholder="ENTER_COMMAND_HERE" />
+            </div>
+        ),
+        "card-bounty-board": () => (
+            <div className="flex items-center justify-center min-h-[400px] w-full bg-black border-4 border-lime-400 shadow-[8px_8px_0px_0px_#addc30] p-4">
+                <BountyBoard />
+            </div>
+        ),
+        "card-stat-grid": () => (
+            <div className="flex items-center justify-center min-h-[400px] w-full bg-black border-4 border-blue-500 shadow-[8px_8px_0px_0px_#3b82f6] p-4">
+                <BrutalistStatGrid />
+            </div>
+        ),
+        "toggle-kill-switch": () => (
+            <div className="flex items-center justify-center min-h-[300px] w-full bg-black border-4 border-red-500 shadow-[8px_8px_0px_0px_#ef4444] p-8">
+                <KillSwitch />
+            </div>
+        ),
+        "btn-brutalist": () => (
+            <div className="flex items-center justify-center min-h-[300px] w-full bg-black border-4 border-lime-400 shadow-[8px_8px_0px_0px_#addc30] p-4">
+                <BrutalistButton>ACTIVATE_PROTOCOL</BrutalistButton>
+            </div>
+        ),
+        "btn-ghost-protocol": () => (
+            <div className="flex items-center justify-center min-h-[300px] w-full bg-black border-4 border-blue-500 shadow-[8px_8px_0px_0px_#3b82f6] p-4">
+                <GhostProtocolButton>INFILTRATE_SYSTEM</GhostProtocolButton>
+            </div>
+        ),
+        "btn-glitch": () => (
+            <div className="flex items-center justify-center min-h-[300px] w-full bg-black border-4 border-red-500 shadow-[8px_8px_0px_0px_#ef4444] p-4">
+                <GlitchButton>SYSTEM_WIPE</GlitchButton>
+            </div>
+        ),
+        "bg-hacker-grid": () => (
+            <div className="relative w-full h-[500px] bg-black border-4 border-lime-400 shadow-[8px_8px_0px_0px_#addc30] overflow-hidden">
+                <HackerGrid />
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="text-center text-lime-400 font-mono text-sm opacity-80">
+                        <p>[SCANNING_NETWORK...]</p>
+                        <p className="text-xs mt-2">MOVE_CURSOR_TO_INTERACT</p>
+                    </div>
+                </div>
+            </div>
+        ),
+        "bg-void-pulse": () => (
+            <div className="relative w-full h-[500px] bg-black border-4 border-blue-500 shadow-[8px_8px_0px_0px_#3b82f6] overflow-hidden">
+                <VoidPulse />
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="text-center text-blue-400 font-mono text-sm opacity-80">
+                        <p>[VOID_INTERFACE_ACTIVE]</p>
+                        <p className="text-xs mt-2">CLICK_TO_RIPPLE</p>
+                    </div>
+                </div>
+            </div>
+        ),
+        "bg-glitch-noise": () => (
+            <div className="relative w-full h-[500px] bg-black border-4 border-red-500 shadow-[8px_8px_0px_0px_#ef4444] overflow-hidden">
+                <GlitchNoise />
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="text-center text-red-400 font-mono text-sm opacity-80">
+                        <p>[SIGNAL_DISTORTION]</p>
+                        <p className="text-xs mt-2">MOVE_TO_INTENSIFY</p>
+                    </div>
+                </div>
             </div>
         ),
     };
@@ -215,7 +319,7 @@ function MinimalCard({ item, onClick }) {
 }
 
 // ─── Component Detail View ───────────────────────────────────────────────────
-function DetailView({ item }) {
+function DetailView({ item, onBack }) {
     const [tab, setTab] = useState("preview");
     const { copied, copy } = useCopyToClipboard();
 
@@ -227,8 +331,21 @@ function DetailView({ item }) {
                 
                 {/* Component Title */}
                 <div className="mb-8 border-b-4 border-zinc-800 pb-6">
-                    <h1 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter mb-4">{item.name}</h1>
-                    <p className="text-zinc-400 font-bold uppercase text-sm md:text-base leading-relaxed">{item.description}</p>
+                    <div className="flex items-start gap-4 mb-4">
+                        <button
+                            onClick={onBack}
+                            className="p-2 border-4 border-zinc-800 text-zinc-500 hover:border-white hover:text-white hover:shadow-[4px_4px_0px_0px_#fff] hover:-translate-y-1 transition-all flex-shrink-0 mt-1"
+                            title="Back to library"
+                        >
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="square" strokeLinejoin="miter">
+                                <path d="M15 18l-6-6 6-6"></path>
+                            </svg>
+                        </button>
+                        <div className="flex-1">
+                            <h1 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter mb-4">{item.name}</h1>
+                            <p className="text-zinc-400 font-bold uppercase text-sm md:text-base leading-relaxed">{item.description}</p>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Toolbar (Preview/Code toggles & Copy actions) */}
@@ -263,7 +380,7 @@ function DetailView({ item }) {
                             </svg>
                         </button>
                         <button 
-                            onClick={() => copy(item.import)}
+                            onClick={() => copy(`${item.import}\n\n${item.source}\n\n// Usage:\n${item.usage}`)}
                             className="px-4 py-2 border-4 border-zinc-800 text-white font-black uppercase tracking-widest hover:border-lime-400 hover:bg-lime-400 hover:text-black hover:shadow-[4px_4px_0px_0px_#a3e635] hover:-translate-y-1 transition-all flex items-center gap-2"
                         >
                             {copied ? "COPIED ✓" : "COPY PROMPT"}

@@ -1,20 +1,85 @@
 import React, { useState, useEffect, Suspense } from "react";
-const FloatingLines = React.lazy(() => import("../assets/LightBackground/LightBackground"));
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../Context/AuthContext";
+const FloatingLines = React.lazy(() => import("../../assets/LightBackground/LightBackground"));
 
 const AuthPage = () => {
+    // Auth hooks
+    const { register, login, isAuthenticated, loading: authLoading, error: authError } = useAuth();
+    const navigate = useNavigate();
+
+    // Redirect if already authenticated
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate('/');
+        }
+    }, [isAuthenticated, navigate]);
+
     // State to toggle between Login and Register views
-    const [isLogin, setIsLogin] = useState(true);
+    const [isLoginMode, setIsLoginMode] = useState(true);
     const [visible, setVisible] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    // Form state
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+        username: ''
+    });
 
     // Fade in on mount
     useEffect(() => {
         setTimeout(() => setVisible(true), 100);
     }, []);
 
-    const handleSubmit = (e) => {
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+        setError(null);
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Add your authentication logic here
-        console.log(isLogin ? "Executing Login..." : "Executing Registration...");
+        setLoading(true);
+        setError(null);
+
+        try {
+            let result;
+            if (isLoginMode) {
+                // Login
+                if (!formData.email || !formData.password) {
+                    throw new Error('Email and password are required');
+                }
+                result = await login(formData.email, formData.password);
+            } else {
+                // Register
+                if (!formData.email || !formData.password || !formData.username) {
+                    throw new Error('All fields are required');
+                }
+                result = await register(formData.email, formData.password, formData.username);
+            }
+
+            if (result.success) {
+                // Navigate to homepage after successful auth
+                setTimeout(() => navigate('/'), 500);
+            } else {
+                setError(result.error);
+            }
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const toggleMode = () => {
+        setIsLoginMode(!isLoginMode);
+        setError(null);
+        setFormData({ email: '', password: '', username: '' });
     };
 
     return (
@@ -66,7 +131,7 @@ const AuthPage = () => {
                     <div className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
                         <span className="text-[10px] text-cyan-400 tracking-widest uppercase">
-                            {isLogin ? "SECURE_LOGIN" : "NEW_NODE_REGISTRATION"}
+                            {isLoginMode ? "SECURE_LOGIN" : "NEW_NODE_REGISTRATION"}
                         </span>
                     </div>
                     <span className="text-[10px] text-gray-500 tracking-widest">v2.0.4</span>
@@ -76,22 +141,34 @@ const AuthPage = () => {
                     className="text-3xl md:text-4xl mb-6 tracking-wide"
                     style={{ textShadow: "0 0 10px rgba(0,255,255,0.4)" }}
                 >
-                    {isLogin ? "Authenticate" : "Initialize"}
+                    {isLoginMode ? "Authenticate" : "Initialize"}
                 </h2>
+
+                {/* Error Message Display */}
+                {(error || authError) && (
+                    <div className="mb-5 p-4 bg-red-950/30 border border-red-500/50 text-red-400 text-sm rounded">
+                        <span className="font-bold">❌ </span>
+                        {error || authError}
+                    </div>
+                )}
 
                 <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                     
                     {/* Username field (Only shows on Register) */}
-                    {!isLogin && (
+                    {!isLoginMode && (
                         <div className="relative group animate-fade-in">
                             <span className="absolute left-0 top-1/2 -translate-y-1/2 text-cyan-500 text-sm pl-3 pointer-events-none group-focus-within:text-white transition-colors">
                                 &gt;
                             </span>
                             <input 
                                 type="text" 
+                                name="username"
                                 placeholder="USERNAME_IDENTIFIER"
-                                required={!isLogin}
-                                className="w-full bg-black/50 border border-gray-800 text-cyan-300 text-sm font-sans pl-8 pr-4 py-3.5 focus:outline-none focus:border-cyan-500 focus:bg-cyan-950/20 transition-all placeholder:text-gray-600 placeholder:font-['Bungee']"
+                                value={formData.username}
+                                onChange={handleInputChange}
+                                required={!isLoginMode}
+                                disabled={loading || authLoading}
+                                className="w-full bg-black/50 border border-gray-800 text-cyan-300 text-sm font-sans pl-8 pr-4 py-3.5 focus:outline-none focus:border-cyan-500 focus:bg-cyan-950/20 transition-all placeholder:text-gray-600 placeholder:font-['Bungee'] disabled:opacity-50"
                             />
                         </div>
                     )}
@@ -103,9 +180,13 @@ const AuthPage = () => {
                         </span>
                         <input 
                             type="email" 
+                            name="email"
                             placeholder="EMAIL_ADDRESS"
+                            value={formData.email}
+                            onChange={handleInputChange}
                             required
-                            className="w-full bg-black/50 border border-gray-800 text-cyan-300 text-sm font-sans pl-8 pr-4 py-3.5 focus:outline-none focus:border-cyan-500 focus:bg-cyan-950/20 transition-all placeholder:text-gray-600 placeholder:font-['Bungee']"
+                            disabled={loading || authLoading}
+                            className="w-full bg-black/50 border border-gray-800 text-cyan-300 text-sm font-sans pl-8 pr-4 py-3.5 focus:outline-none focus:border-cyan-500 focus:bg-cyan-950/20 transition-all placeholder:text-gray-600 placeholder:font-['Bungee'] disabled:opacity-50"
                         />
                     </div>
 
@@ -116,18 +197,27 @@ const AuthPage = () => {
                         </span>
                         <input 
                             type="password" 
+                            name="password"
                             placeholder="ACCESS_KEY (PASSWORD)"
+                            value={formData.password}
+                            onChange={handleInputChange}
                             required
-                            className="w-full bg-black/50 border border-gray-800 text-purple-300 text-sm font-sans pl-8 pr-4 py-3.5 focus:outline-none focus:border-purple-500 focus:bg-purple-950/20 transition-all placeholder:text-gray-600 placeholder:font-['Bungee']"
+                            disabled={loading || authLoading}
+                            className="w-full bg-black/50 border border-gray-800 text-purple-300 text-sm font-sans pl-8 pr-4 py-3.5 focus:outline-none focus:border-purple-500 focus:bg-purple-950/20 transition-all placeholder:text-gray-600 placeholder:font-['Bungee'] disabled:opacity-50"
                         />
                     </div>
 
                     {/* Submit Button */}
                     <button 
                         type="submit"
-                        className="mt-4 w-full bg-transparent border-2 border-cyan-500 text-cyan-400 uppercase tracking-[0.2em] text-sm py-4 hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_rgba(0,255,255,0.4)] transition-all duration-300 relative overflow-hidden group/btn"
+                        disabled={loading || authLoading}
+                        className="mt-4 w-full bg-transparent border-2 border-cyan-500 text-cyan-400 uppercase tracking-[0.2em] text-sm py-4 hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_rgba(0,255,255,0.4)] transition-all duration-300 relative overflow-hidden group/btn disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        <span className="relative z-10">{isLogin ? "Establish Connection _" : "Generate Node _"}</span>
+                        <span className="relative z-10">
+                            {loading || authLoading 
+                                ? "PROCESSING_..." 
+                                : (isLoginMode ? "Establish Connection _" : "Generate Node _")}
+                        </span>
                         {/* Hover scanline effect */}
                         <div className="absolute top-1/2 left-[-100%] w-[200%] h-[2px] bg-white opacity-0 group-hover/btn:opacity-50 group-hover/btn:animate-[scan_1s_linear_infinite] pointer-events-none"></div>
                     </button>
@@ -136,13 +226,14 @@ const AuthPage = () => {
                 {/* Toggle Login/Register Footer */}
                 <div className="mt-8 pt-6 border-t border-gray-800 text-center flex flex-col gap-3">
                     <p className="text-xs text-gray-500 font-sans tracking-widest">
-                        {isLogin ? "AWAITING CREDENTIALS..." : "SYSTEM READY FOR NEW DATA..."}
+                        {isLoginMode ? "AWAITING CREDENTIALS..." : "SYSTEM READY FOR NEW DATA..."}
                     </p>
                     <button 
-                        onClick={() => setIsLogin(!isLogin)}
-                        className="text-[10px] md:text-xs text-cyan-500 hover:text-white tracking-[0.1em] transition-colors"
+                        onClick={toggleMode}
+                        disabled={loading || authLoading}
+                        className="text-[10px] md:text-xs text-cyan-500 hover:text-white tracking-[0.1em] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        {isLogin ? "[ CREATE_NEW_ACCOUNT ]" : "[ RETRIEVE_EXISTING_ACCOUNT ]"}
+                        {isLoginMode ? "[ CREATE_NEW_ACCOUNT ]" : "[ RETRIEVE_EXISTING_ACCOUNT ]"}
                     </button>
                 </div>
             </div>
