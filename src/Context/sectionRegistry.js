@@ -54,22 +54,32 @@ import Comparison3 from "../Sections/Generic/Comparison/Comparison3";
 import PortfolioNavbar1 from "../Sections/Portfolio/Navbar/Navbar1";
 import PortfolioNavbar2 from "../Sections/Portfolio/Navbar/Navbar2";
 import PortfolioNavbar3 from "../Sections/Portfolio/Navbar/Navbar3";
+import PortfolioNavbar4 from "../Sections/Portfolio/Navbar/Navbar4";
 import PortfolioHero1 from "../Sections/Portfolio/Hero/Hero1";
 import PortfolioHero2 from "../Sections/Portfolio/Hero/Hero2";
 import PortfolioHero3 from "../Sections/Portfolio/Hero/Hero3";
+import PortfolioHero4 from "../Sections/Portfolio/Hero/Hero4";
 import PortfolioProjects1 from "../Sections/Portfolio/Projects/Projects1";
 import PortfolioProjects2 from "../Sections/Portfolio/Projects/Projects2";
 import PortfolioProjects3 from "../Sections/Portfolio/Projects/Projects3";
+import PortfolioProjects4 from "../Sections/Portfolio/Projects/Projects4";
+import PortfolioAboutUs1 from "../Sections/Portfolio/AboutUs/AboutUs1";
+import PortfolioAboutUs2 from "../Sections/Portfolio/AboutUs/AboutUs2";
+import PortfolioAboutUs3 from "../Sections/Portfolio/AboutUs/AboutUs3";
+import PortfolioAboutUs4 from "../Sections/Portfolio/AboutUs/AboutUs4";
 import PortfolioSkills1 from "../Sections/Portfolio/Skills/Skills1";
 import PortfolioSkills2 from "../Sections/Portfolio/Skills/Skills2";
 import PortfolioSkills3 from "../Sections/Portfolio/Skills/Skills3";
+import PortfolioSkills4 from "../Sections/Portfolio/Skills/Skills4";
 import PortfolioFooter1 from "../Sections/Portfolio/Footer/Footer1";
 import PortfolioFooter2 from "../Sections/Portfolio/Footer/Footer2";
 import PortfolioFooter3 from "../Sections/Portfolio/Footer/Footer3";
+import PortfolioFooter4 from "../Sections/Portfolio/Footer/Footer4";
 import PortfolioTemplate1 from "../Sections/Portfolio/Pages/PortfolioTemplate1";
 import PortfolioTemplate2 from "../Sections/Portfolio/Pages/PortfolioTemplate2";
 import PortfolioTemplate3 from "../Sections/Portfolio/Pages/PortfolioTemplate3";
 import PortfolioTemplate4 from "../Sections/Portfolio/Pages/PortfolioTemplate4";
+import PortfolioTemplate5 from "../Sections/Portfolio/Pages/PortfolioTemplate5";
 
 // Gaming Components
 import GamingNavbar from "../Sections/Generic/Navbars/GamingNavbar";
@@ -295,12 +305,14 @@ const sectionRegistry = [
             title: "Create, Design, Deploy",
             description: "Everything you need to build professional websites, all in one platform.",
             buttonLabel: "Explore Features",
+            imageUrl: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
         },
         fields: [
             { key: "badge", label: "Badge" },
             { key: "title", label: "Title" },
             { key: "description", label: "Description", multiline: true },
             { key: "buttonLabel", label: "Button Label" },
+            { key: "imageUrl", label: "Hero Image URL" },
         ],
     },
     {
@@ -674,21 +686,21 @@ const sectionRegistry = [
         Component: Footer1,
         defaultContent: {
             brand: "YourBrand",
-            subtitle: "Professional Templates Made Simple",
+            tagline: "Professional Templates Made Simple",
             link1: "Home",
             link2: "Features",
             link3: "Pricing",
             link4: "Support",
-            copyrightLine: "© 2024 YourBrand. All rights reserved.",
+            copyright: "© 2024 YourBrand. All rights reserved.",
         },
         fields: [
             { key: "brand", label: "Brand" },
-            { key: "subtitle", label: "Subtitle" },
+            { key: "tagline", label: "Tagline" },
             { key: "link1", label: "Link 1" },
             { key: "link2", label: "Link 2" },
             { key: "link3", label: "Link 3" },
             { key: "link4", label: "Link 4" },
-            { key: "copyrightLine", label: "Copyright" },
+            { key: "copyright", label: "Copyright" },
         ],
     },
     {
@@ -1099,6 +1111,28 @@ const sectionRegistry = [
         ],
     },
     {
+        id: "portfolio-navbar4",
+        title: "Portfolio Navbar 4",
+        group: "portfolio-navbar",
+        Component: PortfolioNavbar4,
+        defaultContent: {
+            logo: "Portfolio",
+            link1: "Home",
+            link2: "Projects",
+            link3: "Experience",
+            link4: "Contact",
+            resumeLabel: "Resume",
+        },
+        fields: [
+            { key: "logo", label: "Logo" },
+            { key: "link1", label: "Link 1" },
+            { key: "link2", label: "Link 2" },
+            { key: "link3", label: "Link 3" },
+            { key: "link4", label: "Link 4" },
+            { key: "resumeLabel", label: "Resume Label" },
+        ],
+    },
+    {
         id: "portfolio-hero1",
         title: "Portfolio Hero 1",
         group: "portfolio-hero",
@@ -1173,10 +1207,66 @@ const sectionRegistry = [
         ],
     },
     {
+        id: "portfolio-hero4",
+        title: "Portfolio Hero 4",
+        group: "portfolio-hero",
+        Component: PortfolioHero4,
+        defaultContent: {
+            pretitle: "HELLO, I'M",
+            name: "Alex Johnson",
+            tagline: "Full-Stack Developer & Creative Technologist",
+            subtitle: "Crafting digital experiences that matter.",
+            cta1Label: "Explore My Work",
+            cta2Label: "Let's Talk",
+            scrollIndicator: "↓ Scroll to explore",
+        },
+        fields: [
+            { key: "pretitle", label: "Pretitle" },
+            { key: "name", label: "Name" },
+            { key: "tagline", label: "Tagline" },
+            { key: "subtitle", label: "Subtitle", multiline: true },
+            { key: "cta1Label", label: "CTA 1 Label" },
+            { key: "cta2Label", label: "CTA 2 Label" },
+            { key: "scrollIndicator", label: "Scroll Indicator" },
+        ],
+    },
+    {
         id: "portfolio-projects1",
         title: "Portfolio Projects 1",
         group: "portfolio-projects",
         Component: PortfolioProjects1,
+        defaultContent: {
+            sectionTitle: "Featured Projects",
+            sectionSubtitle: "A selection of work I'm proud of",
+            project1Title: "E-Commerce Platform",
+            project1Description: "Modern shopping experience with real-time inventory",
+            project1Tag: "React • Node.js • MongoDB",
+            project2Title: "Analytics Dashboard",
+            project2Description: "Real-time data visualization and reporting",
+            project2Tag: "Vue.js • D3.js • Python",
+            project3Title: "Social App",
+            project3Description: "Community-driven platform with messaging",
+            project3Tag: "React • Firebase • GraphQL",
+        },
+        fields: [
+            { key: "sectionTitle", label: "Section Title" },
+            { key: "sectionSubtitle", label: "Section Subtitle" },
+            { key: "project1Title", label: "Project 1 Title" },
+            { key: "project1Description", label: "Project 1 Description" },
+            { key: "project1Tag", label: "Project 1 Tag" },
+            { key: "project2Title", label: "Project 2 Title" },
+            { key: "project2Description", label: "Project 2 Description" },
+            { key: "project2Tag", label: "Project 2 Tag" },
+            { key: "project3Title", label: "Project 3 Title" },
+            { key: "project3Description", label: "Project 3 Description" },
+            { key: "project3Tag", label: "Project 3 Tag" },
+        ],
+    },
+    {
+        id: "portfolio-projects4",
+        title: "Portfolio Projects 4",
+        group: "portfolio-projects",
+        Component: PortfolioProjects4,
         defaultContent: {
             sectionTitle: "Featured Projects",
             sectionSubtitle: "A selection of work I'm proud of",
@@ -1268,6 +1358,158 @@ const sectionRegistry = [
             { key: "project5", label: "Project 5" },
             { key: "project6", label: "Project 6" },
             { key: "viewLabel", label: "View Label" },
+        ],
+    },
+    {
+        id: "portfolio-aboutus1",
+        title: "Portfolio AboutUs 1",
+        group: "portfolio-aboutus",
+        Component: PortfolioAboutUs1,
+        defaultContent: {
+            sectionLabel: "ABOUT_THE_CREATOR",
+            title: "Designing systems that feel precise and human.",
+            description: "I build portfolio experiences that combine product thinking, motion, and strong content hierarchy so the work feels credible at first glance.",
+            stat1Value: "08+",
+            stat1Label: "YEARS BUILDING",
+            stat2Value: "40+",
+            stat2Label: "PROJECTS SHIPPED",
+            stat3Value: "12",
+            stat3Label: "TECH STACKS",
+            ctaLabel: "View Resume",
+        },
+        fields: [
+            { key: "sectionLabel", label: "Section Label" },
+            { key: "title", label: "Title" },
+            { key: "description", label: "Description", multiline: true },
+            { key: "stat1Value", label: "Stat 1 Value" },
+            { key: "stat1Label", label: "Stat 1 Label" },
+            { key: "stat2Value", label: "Stat 2 Value" },
+            { key: "stat2Label", label: "Stat 2 Label" },
+            { key: "stat3Value", label: "Stat 3 Value" },
+            { key: "stat3Label", label: "Stat 3 Label" },
+            { key: "ctaLabel", label: "CTA Label" },
+        ],
+    },
+    {
+        id: "portfolio-aboutus2",
+        title: "Portfolio AboutUs 2",
+        group: "portfolio-aboutus",
+        Component: PortfolioAboutUs2,
+        defaultContent: {
+            sectionLabel: "ABOUT_WORKFLOW",
+            title: "The portfolio is built like a product system.",
+            description: "Each section is designed to be composable, reusable, and visually distinct while still fitting into one coherent personal brand.",
+            item1Title: "DISCOVERY",
+            item1Desc: "Define the audience and the type of work that should be highlighted.",
+            item2Title: "STRUCTURE",
+            item2Desc: "Arrange the story with clear hierarchy, proof, and action points.",
+            item3Title: "PRESENTATION",
+            item3Desc: "Use motion and contrast to make the portfolio feel deliberate.",
+            item4Title: "ITERATION",
+            item4Desc: "Refine based on feedback, performance, and project outcomes.",
+        },
+        fields: [
+            { key: "sectionLabel", label: "Section Label" },
+            { key: "title", label: "Title" },
+            { key: "description", label: "Description", multiline: true },
+            { key: "item1Title", label: "Item 1 Title" },
+            { key: "item1Desc", label: "Item 1 Description" },
+            { key: "item2Title", label: "Item 2 Title" },
+            { key: "item2Desc", label: "Item 2 Description" },
+            { key: "item3Title", label: "Item 3 Title" },
+            { key: "item3Desc", label: "Item 3 Description" },
+            { key: "item4Title", label: "Item 4 Title" },
+            { key: "item4Desc", label: "Item 4 Description" },
+        ],
+    },
+    {
+        id: "portfolio-aboutus3",
+        title: "Portfolio AboutUs 3",
+        group: "portfolio-aboutus",
+        Component: PortfolioAboutUs3,
+        defaultContent: {
+            sectionLabel: "ABOUT_IMPACT",
+            title: "Proof of work matters more than claims.",
+            description: "This layout foregrounds measurable outcomes, making it easy to understand the scale and quality of the work at a glance.",
+            metric1Value: "18",
+            metric1Label: "CLIENTS",
+            metric2Value: "96%",
+            metric2Label: "SATISFACTION",
+            metric3Value: "24K",
+            metric3Label: "LINES DELIVERED",
+            metric4Value: "07",
+            metric4Label: "PRODUCTS",
+        },
+        fields: [
+            { key: "sectionLabel", label: "Section Label" },
+            { key: "title", label: "Title" },
+            { key: "description", label: "Description", multiline: true },
+            { key: "metric1Value", label: "Metric 1 Value" },
+            { key: "metric1Label", label: "Metric 1 Label" },
+            { key: "metric2Value", label: "Metric 2 Value" },
+            { key: "metric2Label", label: "Metric 2 Label" },
+            { key: "metric3Value", label: "Metric 3 Value" },
+            { key: "metric3Label", label: "Metric 3 Label" },
+            { key: "metric4Value", label: "Metric 4 Value" },
+            { key: "metric4Label", label: "Metric 4 Label" },
+        ],
+    },
+    {
+        id: "portfolio-aboutus4",
+        title: "Portfolio AboutUs 4",
+        group: "portfolio-aboutus",
+        Component: PortfolioAboutUs4,
+        defaultContent: {
+            sectionLabel: "ABOUT_CONTACT",
+            title: "Let’s build the next portfolio together.",
+            description: "The final AboutUs variation focuses on contact, positioning, and a clear next step for visitors who want to work with you.",
+            name: "Satyam Anand",
+            role: "React Developer & QA Engineer",
+            email: "hello@example.com",
+            location: "India",
+            availability: "Open to freelance and full-time roles",
+            ctaLabel: "Start a Conversation",
+        },
+        fields: [
+            { key: "sectionLabel", label: "Section Label" },
+            { key: "title", label: "Title" },
+            { key: "description", label: "Description", multiline: true },
+            { key: "name", label: "Name" },
+            { key: "role", label: "Role" },
+            { key: "email", label: "Email" },
+            { key: "location", label: "Location" },
+            { key: "availability", label: "Availability" },
+            { key: "ctaLabel", label: "CTA Label" },
+        ],
+    },
+    {
+        id: "portfolio-skills4",
+        title: "Portfolio Skills 4",
+        group: "portfolio-skills",
+        Component: PortfolioSkills4,
+        defaultContent: {
+            title: "Core Competencies",
+            description: "Areas where I excel and create value",
+            competency1: "Web Development",
+            competency1Desc: "Full-stack development with modern frameworks and best practices",
+            competency2: "UI/UX Design",
+            competency2Desc: "Creating beautiful, intuitive, and accessible user interfaces",
+            competency3: "Problem Solving",
+            competency3Desc: "Analytical approach to complex technical challenges",
+            competency4: "Team Collaboration",
+            competency4Desc: "Effective communication and agile methodology experience",
+        },
+        fields: [
+            { key: "title", label: "Title" },
+            { key: "description", label: "Description" },
+            { key: "competency1", label: "Competency 1" },
+            { key: "competency1Desc", label: "Competency 1 Description" },
+            { key: "competency2", label: "Competency 2" },
+            { key: "competency2Desc", label: "Competency 2 Description" },
+            { key: "competency3", label: "Competency 3" },
+            { key: "competency3Desc", label: "Competency 3 Description" },
+            { key: "competency4", label: "Competency 4" },
+            { key: "competency4Desc", label: "Competency 4 Description" },
         ],
     },
     {
@@ -1377,6 +1619,30 @@ const sectionRegistry = [
         title: "Portfolio Footer 1",
         group: "portfolio-footer",
         Component: PortfolioFooter1,
+        defaultContent: {
+            copyright: "© 2025 Your Name. All rights reserved.",
+            social1Link: "#",
+            social1Label: "LinkedIn",
+            social2Link: "#",
+            social2Label: "GitHub",
+            social3Link: "#",
+            social3Label: "Twitter",
+            social4Link: "#",
+            social4Label: "Email",
+        },
+        fields: [
+            { key: "copyright", label: "Copyright" },
+            { key: "social1Label", label: "Social 1" },
+            { key: "social2Label", label: "Social 2" },
+            { key: "social3Label", label: "Social 3" },
+            { key: "social4Label", label: "Social 4" },
+        ],
+    },
+    {
+        id: "portfolio-footer4",
+        title: "Portfolio Footer 4",
+        group: "portfolio-footer",
+        Component: PortfolioFooter4,
         defaultContent: {
             copyright: "© 2025 Your Name. All rights reserved.",
             social1Link: "#",
@@ -1518,6 +1784,26 @@ const sectionRegistry = [
         fields: [
             { key: "navbarContent.logo", label: "Navbar: Logo" },
             { key: "heroContent.badge", label: "Hero: Badge" },
+            { key: "projectsContent.sectionTitle", label: "Projects: Title" },
+            { key: "skillsContent.title", label: "Skills: Title" },
+            { key: "footerContent.copyright", label: "Footer: Copyright" },
+        ],
+    },
+    {
+        id: "portfolio-template5",
+        title: "Portfolio Template 5",
+        group: "portfolio-template",
+        Component: PortfolioTemplate5,
+        defaultContent: {
+            navbarContent: {},
+            heroContent: {},
+            projectsContent: {},
+            skillsContent: {},
+            footerContent: {},
+        },
+        fields: [
+            { key: "navbarContent.logo", label: "Navbar: Logo" },
+            { key: "heroContent.pretitle", label: "Hero: Pretitle" },
             { key: "projectsContent.sectionTitle", label: "Projects: Title" },
             { key: "skillsContent.title", label: "Skills: Title" },
             { key: "footerContent.copyright", label: "Footer: Copyright" },

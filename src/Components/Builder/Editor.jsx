@@ -184,6 +184,14 @@ export const SECTION_FIELDS = {
         { key: "link4", label: "Link 4" },
         { key: "resumeLabel", label: "Resume Label" },
     ],
+    "portfolio-navbar4": [
+        { key: "logo", label: "Logo" },
+        { key: "link1", label: "Link 1" },
+        { key: "link2", label: "Link 2" },
+        { key: "link3", label: "Link 3" },
+        { key: "link4", label: "Link 4" },
+        { key: "resumeLabel", label: "Resume Label" },
+    ],
     "portfolio-hero1": [
         { key: "badge", label: "Badge" },
         { key: "title", label: "Title" },
@@ -211,6 +219,15 @@ export const SECTION_FIELDS = {
         { key: "stat3Value", label: "Stat 3 Value" },
         { key: "primaryButtonLabel", label: "Primary Button" },
         { key: "secondaryButtonLabel", label: "Secondary Button" },
+    ],
+    "portfolio-hero4": [
+        { key: "pretitle", label: "Pretitle" },
+        { key: "name", label: "Name" },
+        { key: "tagline", label: "Tagline" },
+        { key: "subtitle", label: "Subtitle", multiline: true },
+        { key: "cta1Label", label: "CTA 1 Label" },
+        { key: "cta2Label", label: "CTA 2 Label" },
+        { key: "scrollIndicator", label: "Scroll Indicator" },
     ],
     "portfolio-projects1": [
         { key: "sectionTitle", label: "Section Title" },
@@ -251,6 +268,68 @@ export const SECTION_FIELDS = {
         { key: "project5", label: "Project 5" },
         { key: "project6", label: "Project 6" },
         { key: "viewLabel", label: "View Label" },
+    ],
+    "portfolio-projects4": [
+        { key: "sectionTitle", label: "Section Title" },
+        { key: "sectionSubtitle", label: "Section Subtitle" },
+        { key: "project1Title", label: "Project 1 Title" },
+        { key: "project1Description", label: "Project 1 Description" },
+        { key: "project1Tag", label: "Project 1 Tag" },
+        { key: "project2Title", label: "Project 2 Title" },
+        { key: "project2Description", label: "Project 2 Description" },
+        { key: "project2Tag", label: "Project 2 Tag" },
+        { key: "project3Title", label: "Project 3 Title" },
+        { key: "project3Description", label: "Project 3 Description" },
+        { key: "project3Tag", label: "Project 3 Tag" },
+    ],
+    "portfolio-aboutus1": [
+        { key: "sectionLabel", label: "Section Label" },
+        { key: "title", label: "Title" },
+        { key: "description", label: "Description", multiline: true },
+        { key: "stat1Value", label: "Stat 1 Value" },
+        { key: "stat1Label", label: "Stat 1 Label" },
+        { key: "stat2Value", label: "Stat 2 Value" },
+        { key: "stat2Label", label: "Stat 2 Label" },
+        { key: "stat3Value", label: "Stat 3 Value" },
+        { key: "stat3Label", label: "Stat 3 Label" },
+        { key: "ctaLabel", label: "CTA Label" },
+    ],
+    "portfolio-aboutus2": [
+        { key: "sectionLabel", label: "Section Label" },
+        { key: "title", label: "Title" },
+        { key: "description", label: "Description", multiline: true },
+        { key: "item1Title", label: "Item 1 Title" },
+        { key: "item1Desc", label: "Item 1 Description" },
+        { key: "item2Title", label: "Item 2 Title" },
+        { key: "item2Desc", label: "Item 2 Description" },
+        { key: "item3Title", label: "Item 3 Title" },
+        { key: "item3Desc", label: "Item 3 Description" },
+        { key: "item4Title", label: "Item 4 Title" },
+        { key: "item4Desc", label: "Item 4 Description" },
+    ],
+    "portfolio-aboutus3": [
+        { key: "sectionLabel", label: "Section Label" },
+        { key: "title", label: "Title" },
+        { key: "description", label: "Description", multiline: true },
+        { key: "metric1Value", label: "Metric 1 Value" },
+        { key: "metric1Label", label: "Metric 1 Label" },
+        { key: "metric2Value", label: "Metric 2 Value" },
+        { key: "metric2Label", label: "Metric 2 Label" },
+        { key: "metric3Value", label: "Metric 3 Value" },
+        { key: "metric3Label", label: "Metric 3 Label" },
+        { key: "metric4Value", label: "Metric 4 Value" },
+        { key: "metric4Label", label: "Metric 4 Label" },
+    ],
+    "portfolio-aboutus4": [
+        { key: "sectionLabel", label: "Section Label" },
+        { key: "title", label: "Title" },
+        { key: "description", label: "Description", multiline: true },
+        { key: "name", label: "Name" },
+        { key: "role", label: "Role" },
+        { key: "email", label: "Email" },
+        { key: "location", label: "Location" },
+        { key: "availability", label: "Availability" },
+        { key: "ctaLabel", label: "CTA Label" },
     ],
     "portfolio-skills1": [
         { key: "title", label: "Title" },
@@ -294,6 +373,18 @@ export const SECTION_FIELDS = {
         { key: "competency4", label: "Competency 4" },
         { key: "competency4Desc", label: "Competency 4 Description" },
     ],
+    "portfolio-skills4": [
+        { key: "title", label: "Title" },
+        { key: "description", label: "Description" },
+        { key: "competency1", label: "Competency 1" },
+        { key: "competency1Desc", label: "Competency 1 Description" },
+        { key: "competency2", label: "Competency 2" },
+        { key: "competency2Desc", label: "Competency 2 Description" },
+        { key: "competency3", label: "Competency 3" },
+        { key: "competency3Desc", label: "Competency 3 Description" },
+        { key: "competency4", label: "Competency 4" },
+        { key: "competency4Desc", label: "Competency 4 Description" },
+    ],
     "portfolio-footer1": [
         { key: "copyright", label: "Copyright" },
         { key: "social1Label", label: "Social 1" },
@@ -317,6 +408,13 @@ export const SECTION_FIELDS = {
         { key: "navLink3", label: "Nav Link 3" },
         { key: "navLink4", label: "Nav Link 4" },
         { key: "copyright", label: "Copyright" },
+    ],
+    "portfolio-footer4": [
+        { key: "copyright", label: "Copyright" },
+        { key: "social1Label", label: "Social 1" },
+        { key: "social2Label", label: "Social 2" },
+        { key: "social3Label", label: "Social 3" },
+        { key: "social4Label", label: "Social 4" },
     ],
     "portfolio-template1": [
         { key: "navbarContent.logo", label: "Navbar: Logo" },
@@ -342,6 +440,13 @@ export const SECTION_FIELDS = {
     "portfolio-template4": [
         { key: "navbarContent.logo", label: "Navbar: Logo" },
         { key: "heroContent.badge", label: "Hero: Badge" },
+        { key: "projectsContent.sectionTitle", label: "Projects: Title" },
+        { key: "skillsContent.title", label: "Skills: Title" },
+        { key: "footerContent.copyright", label: "Footer: Copyright" },
+    ],
+    "portfolio-template5": [
+        { key: "navbarContent.logo", label: "Navbar: Logo" },
+        { key: "heroContent.pretitle", label: "Hero: Pretitle" },
         { key: "projectsContent.sectionTitle", label: "Projects: Title" },
         { key: "skillsContent.title", label: "Skills: Title" },
         { key: "footerContent.copyright", label: "Footer: Copyright" },
@@ -524,6 +629,7 @@ export default function Editor() {
         moveSection,
         reorderSection,
         updateSectionField,
+        updateSectionContent,
         designSettings,
         resolvedBackground,
         resolvedFont,
@@ -536,6 +642,54 @@ export default function Editor() {
     const draggedSectionIdRef = useRef(null);
 
     const { addSection } = useBuilder();
+
+    const IMAGE_FIELD_REGEX = /(image|imageurl|avatar|photo|thumbnail|banner|logo)/i;
+
+    const getNestedValue = (obj, key) => {
+        if (!obj || !key) return "";
+        if (!key.includes(".")) return obj[key] ?? "";
+        return key.split(".").reduce((acc, part) => {
+            if (acc == null || typeof acc !== "object") return "";
+            return acc[part];
+        }, obj) ?? "";
+    };
+
+    const setNestedValue = (obj, key, value) => {
+        const next = { ...(obj || {}) };
+        const parts = key.split(".");
+        let cursor = next;
+
+        for (let i = 0; i < parts.length - 1; i += 1) {
+            const part = parts[i];
+            cursor[part] = (cursor[part] && typeof cursor[part] === "object")
+                ? { ...cursor[part] }
+                : {};
+            cursor = cursor[part];
+        }
+
+        cursor[parts[parts.length - 1]] = value;
+        return next;
+    };
+
+    const updateFieldValue = (section, fieldKey, value) => {
+        if (!fieldKey.includes(".")) {
+            updateSectionField(section.id, fieldKey, value);
+            return;
+        }
+
+        const nextContent = setNestedValue(section.content || {}, fieldKey, value);
+        updateSectionContent(section.id, nextContent);
+    };
+
+    const handleImageUpload = (section, fieldKey, file) => {
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+            const imageDataUrl = typeof reader.result === "string" ? reader.result : "";
+            updateFieldValue(section, fieldKey, imageDataUrl);
+        };
+        reader.readAsDataURL(file);
+    };
 
     // ── Drag from sidebar ───────────────────────────────────────────────
     const handleCanvasDrop = (e) => {
@@ -710,6 +864,7 @@ export default function Editor() {
                                         {section.Component ? (
                                             <section.Component
                                                 content={section.content}
+                                                {...(section.content || {})}
                                                 editor={{
                                                     isEditing: isActive,
                                                     onFieldChange: (key, val) => updateSectionField(section.id, key, val),
@@ -733,6 +888,68 @@ export default function Editor() {
                                         </div>
                                     )}
                                 </div>
+
+                                {isActive && Array.isArray(section.fields) && section.fields.length > 0 && (
+                                    <div className="border-t-4 border-lime-400 bg-black p-4 md:p-5">
+                                        <div className="mb-4 flex items-center justify-between">
+                                            <p className="text-xs font-black uppercase tracking-widest text-lime-400">Field Controls</p>
+                                            <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500">{section.fields.length} fields</p>
+                                        </div>
+
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            {section.fields.map((field) => {
+                                                const fieldKey = field.key;
+                                                const currentValue = getNestedValue(section.content || {}, fieldKey);
+                                                const isImageField = IMAGE_FIELD_REGEX.test(fieldKey) || IMAGE_FIELD_REGEX.test(field.label || "");
+                                                const inputId = `${section.id}-${fieldKey}`;
+
+                                                return (
+                                                    <div key={fieldKey} className="flex flex-col gap-2">
+                                                        <label htmlFor={inputId} className="text-[10px] font-black uppercase tracking-widest text-zinc-300">
+                                                            {field.label || fieldKey}
+                                                        </label>
+
+                                                        {field.multiline ? (
+                                                            <textarea
+                                                                id={inputId}
+                                                                value={currentValue}
+                                                                onChange={(e) => updateFieldValue(section, fieldKey, e.target.value)}
+                                                                className="w-full min-h-[90px] bg-black border-2 border-white px-3 py-2 text-sm text-white outline-none focus:border-lime-400"
+                                                            />
+                                                        ) : (
+                                                            <input
+                                                                id={inputId}
+                                                                type="text"
+                                                                value={currentValue}
+                                                                onChange={(e) => updateFieldValue(section, fieldKey, e.target.value)}
+                                                                className="w-full bg-black border-2 border-white px-3 py-2 text-sm text-white outline-none focus:border-lime-400"
+                                                            />
+                                                        )}
+
+                                                        {isImageField && (
+                                                            <div className="flex items-center gap-2">
+                                                                <label
+                                                                    htmlFor={`${inputId}-upload`}
+                                                                    className="inline-flex cursor-pointer items-center border-2 border-white px-3 py-1 text-[10px] font-black uppercase tracking-widest text-white transition-colors hover:border-lime-400 hover:text-lime-400"
+                                                                >
+                                                                    Upload Image
+                                                                </label>
+                                                                <input
+                                                                    id={`${inputId}-upload`}
+                                                                    type="file"
+                                                                    accept="image/*"
+                                                                    className="hidden"
+                                                                    onChange={(e) => handleImageUpload(section, fieldKey, e.target.files?.[0])}
+                                                                />
+                                                                <span className="text-[10px] font-black uppercase tracking-widest text-zinc-600">PNG/JPG/WebP</span>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                )}
                             </article>
                         );
                     })}

@@ -2,7 +2,8 @@ import React, { useState, useMemo } from "react";
 import componentsCatalog from "./componentsCatalog.json";
 import { NeonGridBackground, RollingWindowBackground, HackerGrid, VoidPulse, GlitchNoise } from "./components/backgrounds";
 import { TerminalHeader, GlassNeonHeader } from "./components/headers";
-import { TypeGlowText, ScanlineSweep, HologramTitle, FlickerCaption, ChaoticHeader, MissionCard, UserProfileCard, GlitchText, PlasmaButton, SandboxGrid, TerminalInput, BountyBoard, BrutalistStatGrid, KillSwitch, BrutalistButton, GhostProtocolButton, GlitchButton } from "./components/text-and-animations";
+import { TypeGlowText, ScanlineSweep, HologramTitle, FlickerCaption, ChaoticHeader, MissionCard, UserProfileCard, GlitchText, PlasmaButton, SandboxGrid, TerminalInput, BountyBoard, BrutalistStatGrid, KillSwitch, BrutalistButton, GhostProtocolButton, GlitchButton, AlgorithmTerminal, RetroAchievement, HexNodeBadge } from "./components/text-and-animations";
+import { CipherText, MechEnergyBar, OverrideModal } from "./components/cyberpunk-effects";
 import "./components/animations.css";
 
 // ─── Copy to Clipboard Hook ──────────────────────────────────────────────────
@@ -189,6 +190,56 @@ function PreviewRenderer({ componentId }) {
                         <p className="text-xs mt-2">MOVE_TO_INTENSIFY</p>
                     </div>
                 </div>
+            </div>
+        ),
+        "anim-cipher-text": () => (
+            <div className="flex items-center justify-center min-h-[300px] w-full bg-black border-4 border-green-500 shadow-[8px_8px_0px_0px_#22c55e] p-8">
+                <div className="text-center">
+                    <CipherText text="ENCRYPTION_COMPLETE" delay={200} />
+                    <p className="text-xs text-zinc-500 mt-8 font-mono">Character reveal glitch effect</p>
+                </div>
+            </div>
+        ),
+        "ui-mech-energy-bar": () => (
+            <div className="flex items-center justify-center min-h-[300px] w-full bg-black border-4 border-blue-500 shadow-[8px_8px_0px_0px_#3b82f6] p-8">
+                <MechEnergyBar value={72} max={100} label="REACTOR_CORE" />
+            </div>
+        ),
+        "modal-override": () => {
+            const [isOpen, setIsOpen] = React.useState(true);
+            return (
+                <div className="flex items-center justify-center min-h-[300px] w-full bg-black border-4 border-white shadow-[8px_8px_0px_0px_#fff] p-8">
+                    <OverrideModal 
+                        isOpen={isOpen} 
+                        onClose={() => setIsOpen(false)}
+                        title="CRITICAL WARNING"
+                    >
+                        This action cannot be undone. All data will be permanently deleted from the system. Proceed with caution.
+                    </OverrideModal>
+                    {!isOpen && (
+                        <button 
+                            onClick={() => setIsOpen(true)}
+                            className="px-8 py-4 bg-red-500 text-black font-black uppercase tracking-widest border-4 border-red-500 hover:bg-black hover:text-red-500 transition-colors"
+                        >
+                            Reopen Modal
+                        </button>
+                    )}
+                </div>
+            );
+        },
+        "anim-algorithm-terminal": () => (
+            <div className="flex items-center justify-center min-h-[300px] w-full bg-black border-4 border-blue-500 shadow-[8px_8px_0px_0px_#3b82f6] p-4">
+                <AlgorithmTerminal />
+            </div>
+        ),
+        "badge-retro-achievement": () => (
+            <div className="flex items-center justify-center min-h-[300px] w-full bg-black border-4 border-yellow-500 shadow-[8px_8px_0px_0px_#eab308] p-4">
+                <RetroAchievement />
+            </div>
+        ),
+        "ui-hex-node-badge": () => (
+            <div className="flex items-center justify-center min-h-[300px] w-full bg-black border-4 border-cyan-500 shadow-[8px_8px_0px_0px_#06b6d4] p-4">
+                <HexNodeBadge />
             </div>
         ),
     };

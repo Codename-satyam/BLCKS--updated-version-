@@ -78,22 +78,32 @@ import comparison3Source from "../../Sections/Generic/Comparison/Comparison3.jsx
 import portfolioNavbar1Source from "../../Sections/Portfolio/Navbar/Navbar1.jsx?raw";
 import portfolioNavbar2Source from "../../Sections/Portfolio/Navbar/Navbar2.jsx?raw";
 import portfolioNavbar3Source from "../../Sections/Portfolio/Navbar/Navbar3.jsx?raw";
+import portfolioNavbar4Source from "../../Sections/Portfolio/Navbar/Navbar4.jsx?raw";
 import portfolioHero1Source from "../../Sections/Portfolio/Hero/Hero1.jsx?raw";
 import portfolioHero2Source from "../../Sections/Portfolio/Hero/Hero2.jsx?raw";
 import portfolioHero3Source from "../../Sections/Portfolio/Hero/Hero3.jsx?raw";
+import portfolioHero4Source from "../../Sections/Portfolio/Hero/Hero4.jsx?raw";
 import portfolioProjects1Source from "../../Sections/Portfolio/Projects/Projects1.jsx?raw";
 import portfolioProjects2Source from "../../Sections/Portfolio/Projects/Projects2.jsx?raw";
 import portfolioProjects3Source from "../../Sections/Portfolio/Projects/Projects3.jsx?raw";
+import portfolioProjects4Source from "../../Sections/Portfolio/Projects/Projects4.jsx?raw";
+import portfolioAboutUs1Source from "../../Sections/Portfolio/AboutUs/AboutUs1.jsx?raw";
+import portfolioAboutUs2Source from "../../Sections/Portfolio/AboutUs/AboutUs2.jsx?raw";
+import portfolioAboutUs3Source from "../../Sections/Portfolio/AboutUs/AboutUs3.jsx?raw";
+import portfolioAboutUs4Source from "../../Sections/Portfolio/AboutUs/AboutUs4.jsx?raw";
 import portfolioSkills1Source from "../../Sections/Portfolio/Skills/Skills1.jsx?raw";
 import portfolioSkills2Source from "../../Sections/Portfolio/Skills/Skills2.jsx?raw";
 import portfolioSkills3Source from "../../Sections/Portfolio/Skills/Skills3.jsx?raw";
+import portfolioSkills4Source from "../../Sections/Portfolio/Skills/Skills4.jsx?raw";
 import portfolioFooter1Source from "../../Sections/Portfolio/Footer/Footer1.jsx?raw";
 import portfolioFooter2Source from "../../Sections/Portfolio/Footer/Footer2.jsx?raw";
 import portfolioFooter3Source from "../../Sections/Portfolio/Footer/Footer3.jsx?raw";
+import portfolioFooter4Source from "../../Sections/Portfolio/Footer/Footer4.jsx?raw";
 import portfolioTemplate1Source from "../../Sections/Portfolio/Pages/PortfolioTemplate1.jsx?raw";
 import portfolioTemplate2Source from "../../Sections/Portfolio/Pages/PortfolioTemplate2.jsx?raw";
 import portfolioTemplate3Source from "../../Sections/Portfolio/Pages/PortfolioTemplate3.jsx?raw";
 import portfolioTemplate4Source from "../../Sections/Portfolio/Pages/PortfolioTemplate4.jsx?raw";
+import portfolioTemplate5Source from "../../Sections/Portfolio/Pages/PortfolioTemplate5.jsx?raw";
 
 // Gaming imports
 import gamingNavbarSource from "../../Sections/Generic/Navbars/GamingNavbar.jsx?raw";
@@ -164,22 +174,32 @@ const SOURCE_MAP = {
     "portfolio-navbar1": { filePath: "src/Sections/Portfolio/Navbar/Navbar1.jsx", source: portfolioNavbar1Source, title: "Portfolio Navbar 1" },
     "portfolio-navbar2": { filePath: "src/Sections/Portfolio/Navbar/Navbar2.jsx", source: portfolioNavbar2Source, title: "Portfolio Navbar 2" },
     "portfolio-navbar3": { filePath: "src/Sections/Portfolio/Navbar/Navbar3.jsx", source: portfolioNavbar3Source, title: "Portfolio Navbar 3" },
+    "portfolio-navbar4": { filePath: "src/Sections/Portfolio/Navbar/Navbar4.jsx", source: portfolioNavbar4Source, title: "Portfolio Navbar 4" },
     "portfolio-hero1":   { filePath: "src/Sections/Portfolio/Hero/Hero1.jsx", source: portfolioHero1Source, title: "Portfolio Hero 1" },
     "portfolio-hero2":   { filePath: "src/Sections/Portfolio/Hero/Hero2.jsx", source: portfolioHero2Source, title: "Portfolio Hero 2" },
     "portfolio-hero3":   { filePath: "src/Sections/Portfolio/Hero/Hero3.jsx", source: portfolioHero3Source, title: "Portfolio Hero 3" },
+    "portfolio-hero4":   { filePath: "src/Sections/Portfolio/Hero/Hero4.jsx", source: portfolioHero4Source, title: "Portfolio Hero 4" },
     "portfolio-projects1": { filePath: "src/Sections/Portfolio/Projects/Projects1.jsx", source: portfolioProjects1Source, title: "Portfolio Projects 1" },
     "portfolio-projects2": { filePath: "src/Sections/Portfolio/Projects/Projects2.jsx", source: portfolioProjects2Source, title: "Portfolio Projects 2" },
     "portfolio-projects3": { filePath: "src/Sections/Portfolio/Projects/Projects3.jsx", source: portfolioProjects3Source, title: "Portfolio Projects 3" },
+    "portfolio-projects4": { filePath: "src/Sections/Portfolio/Projects/Projects4.jsx", source: portfolioProjects4Source, title: "Portfolio Projects 4" },
+    "portfolio-aboutus1": { filePath: "src/Sections/Portfolio/AboutUs/AboutUs1.jsx", source: portfolioAboutUs1Source, title: "Portfolio AboutUs 1" },
+    "portfolio-aboutus2": { filePath: "src/Sections/Portfolio/AboutUs/AboutUs2.jsx", source: portfolioAboutUs2Source, title: "Portfolio AboutUs 2" },
+    "portfolio-aboutus3": { filePath: "src/Sections/Portfolio/AboutUs/AboutUs3.jsx", source: portfolioAboutUs3Source, title: "Portfolio AboutUs 3" },
+    "portfolio-aboutus4": { filePath: "src/Sections/Portfolio/AboutUs/AboutUs4.jsx", source: portfolioAboutUs4Source, title: "Portfolio AboutUs 4" },
     "portfolio-skills1": { filePath: "src/Sections/Portfolio/Skills/Skills1.jsx", source: portfolioSkills1Source, title: "Portfolio Skills 1" },
     "portfolio-skills2": { filePath: "src/Sections/Portfolio/Skills/Skills2.jsx", source: portfolioSkills2Source, title: "Portfolio Skills 2" },
     "portfolio-skills3": { filePath: "src/Sections/Portfolio/Skills/Skills3.jsx", source: portfolioSkills3Source, title: "Portfolio Skills 3" },
+    "portfolio-skills4": { filePath: "src/Sections/Portfolio/Skills/Skills4.jsx", source: portfolioSkills4Source, title: "Portfolio Skills 4" },
     "portfolio-footer1": { filePath: "src/Sections/Portfolio/Footer/Footer1.jsx", source: portfolioFooter1Source, title: "Portfolio Footer 1" },
     "portfolio-footer2": { filePath: "src/Sections/Portfolio/Footer/Footer2.jsx", source: portfolioFooter2Source, title: "Portfolio Footer 2" },
     "portfolio-footer3": { filePath: "src/Sections/Portfolio/Footer/Footer3.jsx", source: portfolioFooter3Source, title: "Portfolio Footer 3" },
+    "portfolio-footer4": { filePath: "src/Sections/Portfolio/Footer/Footer4.jsx", source: portfolioFooter4Source, title: "Portfolio Footer 4" },
     "portfolio-template1": { filePath: "src/Sections/Portfolio/Pages/PortfolioTemplate1.jsx", source: portfolioTemplate1Source, title: "Portfolio Template 1" },
     "portfolio-template2": { filePath: "src/Sections/Portfolio/Pages/PortfolioTemplate2.jsx", source: portfolioTemplate2Source, title: "Portfolio Template 2" },
     "portfolio-template3": { filePath: "src/Sections/Portfolio/Pages/PortfolioTemplate3.jsx", source: portfolioTemplate3Source, title: "Portfolio Template 3" },
     "portfolio-template4": { filePath: "src/Sections/Portfolio/Pages/PortfolioTemplate4.jsx", source: portfolioTemplate4Source, title: "Portfolio Template 4" },
+    "portfolio-template5": { filePath: "src/Sections/Portfolio/Pages/PortfolioTemplate5.jsx", source: portfolioTemplate5Source, title: "Portfolio Template 5" },
     
     // Gaming sections
     "gaming-navbar": { filePath: "src/Sections/Generic/Navbars/GamingNavbar.jsx", source: gamingNavbarSource, title: "Gaming Navbar" },

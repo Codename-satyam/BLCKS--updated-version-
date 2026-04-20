@@ -475,3 +475,145 @@ export function GlitchButton({ children = "INITIATE WIPE", onClick, ...props }) 
     </button>
   );
 }
+
+// Algorithm Terminal Component
+export function AlgorithmTerminal({ title = "KADANES_ALGO.EXE", codeSnippet }) {
+  const [stage, setStage] = useState(0);
+
+  useEffect(() => {
+    const timer1 = setTimeout(() => setStage(1), 800);
+    const timer2 = setTimeout(() => setStage(2), 2000);
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+  }, []);
+
+  return (
+    <div className="w-full max-w-2xl bg-black border border-gray-800 font-mono text-sm shadow-[0_0_20px_rgba(0,0,0,0.9)] overflow-hidden">
+      <div className="bg-gray-950 border-b border-gray-800 px-4 py-2 flex justify-between items-center">
+        <span className="text-gray-500 text-xs font-bold tracking-widest">{title}</span>
+        <div className="flex gap-1.5">
+          <div className="w-2.5 h-2.5 bg-red-500/20 border border-red-500"></div>
+          <div className="w-2.5 h-2.5 bg-yellow-500/20 border border-yellow-500"></div>
+          <div className="w-2.5 h-2.5 bg-[#39ff14]/20 border border-[#39ff14]"></div>
+        </div>
+      </div>
+
+      <div className="p-5 min-h-[200px] text-gray-300">
+        {stage === 0 && (
+          <div className="flex flex-col gap-1 text-[#39ff14] animate-pulse">
+            <span>&gt; INITIALIZING SECURE ENVIRONMENT...</span>
+            <span>&gt; ALLOCATING MEMORY...</span>
+          </div>
+        )}
+
+        {stage === 1 && (
+          <div className="flex flex-col gap-1 text-yellow-500">
+            <span>&gt; DECRYPTING LOGIC SEQUENCE...</span>
+            <span className="break-all mt-2 text-xs opacity-50">
+              0x8A 0x2B 0xFF 0x00 0x1C 0x8A 0x2B 0xFF 0x00 0x1C...
+            </span>
+          </div>
+        )}
+
+        {stage === 2 && (
+          <div className="animate-[fadeIn_0.5s_ease-in]">
+            <span className="text-[#39ff14] mb-4 block">&gt; EXECUTION READY.</span>
+            <pre className="text-blue-400 font-mono text-xs overflow-x-auto border-l-2 border-blue-500 pl-4 py-2 bg-blue-950/10">
+              <code>
+                {codeSnippet || `function maxSubArraySum(a, size) {
+  let max_so_far = Number.NEGATIVE_INFINITY;
+  let max_ending_here = 0;
+
+  for (let i = 0; i < size; i++) {
+    max_ending_here = max_ending_here + a[i];
+    if (max_so_far < max_ending_here)
+      max_so_far = max_ending_here;
+    if (max_ending_here < 0)
+      max_ending_here = 0;
+  }
+  return max_so_far;
+}`}
+              </code>
+            </pre>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Retro Achievement Component
+export function RetroAchievement({ title = "QUEST CLEARED", xp = "+500" }) {
+  const [visible, setVisible] = useState(true);
+
+  if (!visible) return null;
+
+  return (
+    <div
+      className="relative inline-block bg-black p-4 font-mono select-none cursor-pointer group hover:-translate-y-1 transition-transform"
+      onClick={() => setVisible(false)}
+      style={{
+        boxShadow: `
+          4px 0 0 0 #39ff14,
+          -4px 0 0 0 #39ff14,
+          0 -4px 0 0 #39ff14,
+          0 4px 0 0 #39ff14,
+          8px 0 0 0 #000,
+          -8px 0 0 0 #000,
+          0 -8px 0 0 #000,
+          0 8px 0 0 #000,
+          0 0 0 4px #000 inset
+        `,
+      }}
+    >
+      <div className="flex items-center gap-4 px-2">
+        <div className="w-8 h-8 grid grid-cols-4 grid-rows-4 gap-[2px] opacity-80 group-hover:opacity-100 group-hover:animate-bounce">
+          <div className="col-start-2 col-span-2 bg-yellow-400"></div>
+          <div className="col-start-1 col-span-4 bg-yellow-400"></div>
+          <div className="col-start-2 col-span-2 bg-yellow-500"></div>
+          <div className="col-start-2 col-span-2 bg-yellow-600 w-1/2 mx-auto"></div>
+        </div>
+
+        <div>
+          <h3 className="text-[#39ff14] font-black tracking-widest uppercase text-sm drop-shadow-[2px_2px_0_rgba(0,0,0,1)]">
+            {title}
+          </h3>
+          <p className="text-white font-bold text-xs mt-1 drop-shadow-[1px_1px_0_rgba(0,0,0,1)]">
+            XP GAINED: <span className="text-yellow-400">{xp}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Hex Node Badge Component
+export function HexNodeBadge({ rank = "S", label = "MASTER" }) {
+  return (
+    <div className="flex flex-col items-center justify-center gap-4 group">
+      <div className="relative w-24 h-24 flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
+        <div
+          className="absolute inset-0 bg-blue-500/20 border-2 border-blue-500 animate-[spin_10s_linear_infinite]"
+          style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}
+        ></div>
+
+        <div
+          className="relative w-20 h-20 bg-black flex items-center justify-center z-10 border border-blue-400 group-hover:bg-blue-950/50 transition-colors"
+          style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}
+        >
+          <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(59,130,246,0.1)_50%)] bg-[length:100%_4px]"></div>
+
+          <span className="relative z-20 text-4xl font-black text-white group-hover:text-[#39ff14] group-hover:drop-shadow-[0_0_10px_#39ff14] transition-all">
+            {rank}
+          </span>
+        </div>
+      </div>
+
+      <span className="text-[10px] text-blue-500 font-mono tracking-[0.3em] uppercase group-hover:text-white transition-colors">
+        [{label}]
+      </span>
+    </div>
+  );
+}
