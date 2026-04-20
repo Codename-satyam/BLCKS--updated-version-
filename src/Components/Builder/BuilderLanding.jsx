@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { getTemplate, getSavedTemplate, getAllSavedTemplates } from "../../services/templateService";
 
 export default function BuilderLanding() {
     const navigate = useNavigate();
@@ -102,23 +103,60 @@ export default function BuilderLanding() {
         // Small delay for feedback
         await new Promise(r => setTimeout(r, 300));
         
+        const template = getTemplate(selectedCategory);
+        const templateState = {
+            templateId: selectedCategory,
+            template: template,
+            idea: userIdea
+        };
+        
         if (selectedCategory === "portfolio") {
-            navigate(`/builder/portfolio?idea=${encodeURIComponent(userIdea)}`);
+            navigate(`/builder/portfolio?idea=${encodeURIComponent(userIdea)}`, { state: templateState });
         } else if (selectedCategory === "generic") {
-            navigate(`/builder/generic?idea=${encodeURIComponent(userIdea)}`);
+            navigate(`/builder/generic?idea=${encodeURIComponent(userIdea)}`, { state: templateState });
         } else {
-            navigate(`/builder/generic?category=${selectedCategory}&idea=${encodeURIComponent(userIdea)}`);
+            navigate(`/builder/generic?category=${selectedCategory}&idea=${encodeURIComponent(userIdea)}`, { state: templateState });
         }
+    };
+
+    const handleLoadSavedTemplate = async (templateId) => {
+        setIsLoading(true);
+        await new Promise(r => setTimeout(r, 300));
+        
+        const savedTemplate = getSavedTemplate(templateId);
+        if (!savedTemplate) {
+            setIsLoading(false);
+            return;
+        }
+
+        const templateState = {
+            templateId: templateId,
+            template: savedTemplate,
+            savedContent: savedTemplate.sectionContent,
+            designSettings: savedTemplate.designSettings,
+            isSavedTemplate: true,
+            idea: `Using template: ${savedTemplate.name}`
+        };
+        
+        navigate(`/builder/generic?template=${templateId}`, { state: templateState });
     };
 
     const handleQuickStart = (starter) => {
         setSelectedCategory(starter.category);
         setUserIdea(starter.idea);
+        
+        const template = getTemplate(starter.category);
+        const templateState = {
+            templateId: starter.category,
+            template: template,
+            idea: starter.idea
+        };
+        
         setTimeout(() => {
             if (starter.category === "portfolio") {
-                navigate(`/builder/portfolio?idea=${encodeURIComponent(starter.idea)}`);
+                navigate(`/builder/portfolio?idea=${encodeURIComponent(starter.idea)}`, { state: templateState });
             } else {
-                navigate(`/builder/generic?category=${starter.category}&idea=${encodeURIComponent(starter.idea)}`);
+                navigate(`/builder/generic?category=${starter.category}&idea=${encodeURIComponent(starter.idea)}`, { state: templateState });
             }
         }, 150);
     };
@@ -293,6 +331,77 @@ export default function BuilderLanding() {
                                 </p>
                                 <div className="mt-auto pt-3 text-xs text-zinc-600 group-hover:text-magenta-400 font-black">
                                     INSTANT SETUP →
+                                </div>
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* ── PRE-SAVED COMPLETE TEMPLATES ──────────────────────────────── */}
+            <section className="relative z-10 px-6 md:px-12 py-16 border-b-4 border-white bg-zinc-950/50">
+                <div className="max-w-7xl mx-auto">
+                    <div className="flex items-center justify-between mb-12">
+                        <div>
+                            <h2 className="text-2xl md:text-3xl font-black uppercase tracking-widest mb-2">
+                                📦 PRE-SAVED TEMPLATES
+                            </h2>
+                            <p className="text-xs uppercase tracking-widest text-zinc-500">Complete projects with all content pre-populated - ready to customize</p>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {getAllSavedTemplates().map((savedTemplate) => (
+                            <button
+                                key={savedTemplate.id}
+                                onClick={() => handleLoadSavedTemplate(savedTemplate.id)}
+                                className="border-4 border-cyan-400 bg-black hover:bg-cyan-400/10 hover:-translate-y-2 hover:-translate-x-2 hover:shadow-[6px_6px_0px_0px_#06b6d4] transition-all cursor-pointer group p-6 flex flex-col relative overflow-hidden"
+                            >
+                                {/* Category badge */}
+                                <div className="absolute top-3 right-3 bg-cyan-400/20 border border-cyan-400/50 px-2 py-1 text-xs font-black uppercase tracking-widest text-cyan-300 rounded">
+                                    {savedTemplate.category}
+                                </div>
+
+                                {/* Icon - Category based */}
+                                <div className="text-5xl mb-4 text-cyan-400 transition-transform group-hover:scale-110">
+                                    {savedTemplate.category === "portfolio" && "⊡"}
+                                    {savedTemplate.category === "startup" && "▲"}
+                                    {savedTemplate.category === "gaming" && "▶"}
+                                    {savedTemplate.category === "ecommerce" && "◊"}
+                                </div>
+
+                                {/* Title */}
+                                <h3 className="text-lg font-black uppercase tracking-wider mb-2">
+                                    {savedTemplate.name}
+                                </h3>
+
+                                {/* Description */}
+                                <p className="text-sm text-zinc-400 group-hover:text-zinc-300 mb-4 flex-grow">
+                                    {savedTemplate.description}
+                                </p>
+
+                                {/* Sections info */}
+                                <div className="border-t border-cyan-400/30 pt-3 mb-4">
+                                    <p className="text-xs uppercase tracking-widest text-cyan-300/70 mb-2">
+                                        {savedTemplate.sections.length} sections included:
+                                    </p>
+                                    <div className="flex flex-wrap gap-1">
+                                        {savedTemplate.sections.slice(0, 3).map((section, idx) => (
+                                            <span key={idx} className="text-xs bg-cyan-400/10 text-cyan-300 px-2 py-1 border border-cyan-400/30 rounded">
+                                                {section.replace(/[-_]/g, ' ')}
+                                            </span>
+                                        ))}
+                                        {savedTemplate.sections.length > 3 && (
+                                            <span className="text-xs bg-cyan-400/10 text-cyan-300 px-2 py-1 border border-cyan-400/30 rounded">
+                                                +{savedTemplate.sections.length - 3} more
+                                            </span>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* Load button */}
+                                <div className="text-xs font-black text-cyan-400 group-hover:text-cyan-300 transition-colors">
+                                    LOAD TEMPLATE →
                                 </div>
                             </button>
                         ))}

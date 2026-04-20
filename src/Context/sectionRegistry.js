@@ -71,6 +71,15 @@ import PortfolioTemplate2 from "../Sections/Portfolio/Pages/PortfolioTemplate2";
 import PortfolioTemplate3 from "../Sections/Portfolio/Pages/PortfolioTemplate3";
 import PortfolioTemplate4 from "../Sections/Portfolio/Pages/PortfolioTemplate4";
 
+// Gaming Components
+import GamingNavbar from "../Sections/Generic/Navbars/GamingNavbar";
+import GamingHero from "../Sections/Generic/Heros/GamingHero";
+import GamingFeatures from "../Sections/Generic/Features/GamingFeatures";
+import GamingPricing from "../Sections/Generic/Pricing/GamingPricing";
+import GamingStats from "../Sections/Generic/Stats/GamingStats";
+import GamingCTA from "../Sections/Generic/CTA/GamingCTA";
+import GamingFooter from "../Sections/Generic/Footers/GamingFooter";
+
 const sectionRegistry = [
     {
         id: "navbar1",
@@ -1512,6 +1521,222 @@ const sectionRegistry = [
             { key: "projectsContent.sectionTitle", label: "Projects: Title" },
             { key: "skillsContent.title", label: "Skills: Title" },
             { key: "footerContent.copyright", label: "Footer: Copyright" },
+        ],
+    },
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // GAMING COMPONENTS
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    {
+        id: "gaming-navbar",
+        title: "Gaming Navbar",
+        group: "gaming",
+        Component: GamingNavbar,
+        defaultContent: {
+            brand: "⚔️ BATTLE ARENA",
+            link1: "Tournaments",
+            link2: "Leaderboard",
+            link3: "Teams",
+            link4: "Community",
+            ctaLabel: "Join Now",
+            brandColor: "#00ff88",
+            linkColor: "#ffffff",
+            ctaBgColor: "#ff2288",
+            ctaTextColor: "#ffffff",
+            bgColor: "#0a0a0a",
+        },
+        fields: [
+            { key: "brand", label: "Brand" },
+            { key: "link1", label: "Link 1" },
+            { key: "link2", label: "Link 2" },
+            { key: "link3", label: "Link 3" },
+            { key: "link4", label: "Link 4" },
+            { key: "ctaLabel", label: "CTA Button" },
+        ],
+    },
+
+    {
+        id: "gaming-hero",
+        title: "Gaming Hero",
+        group: "gaming",
+        Component: GamingHero,
+        defaultContent: {
+            badge: "🎮 JOIN THE ARENA",
+            title: "Level Up Your Gaming",
+            description: "Compete. Connect. Conquer. Join thousands of players in epic tournaments.",
+            buttonLabel: "Play Now",
+            badgeColor: "#ff2288",
+            titleColor: "#ffffff",
+            descColor: "#a0aec0",
+            buttonBgColor: "#ff2288",
+            buttonTextColor: "#0a0a0a",
+            bgGradient: "linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0a0a0a 100%)",
+        },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+            { key: "description", label: "Description" },
+            { key: "buttonLabel", label: "Button Label" },
+            { key: "badgeColor", label: "Badge Color" },
+            { key: "titleColor", label: "Title Color" },
+        ],
+    },
+
+    {
+        id: "gaming-features",
+        title: "Gaming Features",
+        group: "gaming",
+        Component: GamingFeatures,
+        defaultContent: {
+            badge: "🏆 FEATURES",
+            title: "Everything You Need to Compete",
+            feature1Title: "Live Tournaments",
+            feature1Desc: "Join daily competitive tournaments with real-time rankings.",
+            feature2Title: "Team Management",
+            feature2Desc: "Create squads, manage rosters, and dominate together.",
+            feature3Title: "Streaming Integration",
+            feature3Desc: "Built-in Twitch & YouTube streaming capabilities.",
+            badgeColor: "#00ff88",
+            titleColor: "#ffffff",
+            cardBgColor: "#0f0f1e",
+            cardBorderColor: "#00ff88",
+            featureTitleColor: "#00ff88",
+            featureDescColor: "#a0aec0",
+        },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+            { key: "feature1Title", label: "Feature 1 Title" },
+            { key: "feature1Desc", label: "Feature 1 Description" },
+        ],
+    },
+
+    {
+        id: "gaming-pricing",
+        title: "Gaming Pricing",
+        group: "gaming",
+        Component: GamingPricing,
+        defaultContent: {
+            badge: "💎 MEMBERSHIP",
+            title: "Choose Your Tier",
+            plan1Title: "Bronze",
+            plan1Price: "$0",
+            plan1Desc: "For casual players",
+            plan1Features: "Basic tournaments\nCommunity access\nMonthly rewards",
+            plan2Title: "Silver",
+            plan2Price: "$9.99",
+            plan2Desc: "For serious competitors",
+            plan2Features: "Premium tournaments\nPriority support\nWeekly rewards",
+            plan3Title: "Platinum",
+            plan3Price: "$29.99",
+            plan3Desc: "For esports pros",
+            plan3Features: "All tournaments\n24/7 support\nDaily rewards",
+            badgeColor: "#ff2288",
+            titleColor: "#ffffff",
+            cardBgColor: "#0f0f1e",
+            highlightColor: "#ff2288",
+            featureTextColor: "#a0aec0",
+            buttonBgColor: "#00ff88",
+        },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+            { key: "plan1Title", label: "Plan 1 Title" },
+            { key: "plan1Price", label: "Plan 1 Price" },
+        ],
+    },
+
+    {
+        id: "gaming-stats",
+        title: "Gaming Leaderboard",
+        group: "gaming",
+        Component: GamingStats,
+        defaultContent: {
+            badge: "🏅 LEADERBOARD",
+            title: "Top Players This Month",
+            player1Name: "ShadowNinja",
+            player1Rank: "Rank #1",
+            player1Score: "12,840 Points",
+            player2Name: "PhoenixFire",
+            player2Rank: "Rank #2",
+            player2Score: "11,920 Points",
+            player3Name: "StormBringer",
+            player3Rank: "Rank #3",
+            player3Score: "10,755 Points",
+            badgeColor: "#00ff88",
+            titleColor: "#ffffff",
+            cardBgColor: "#0f0f1e",
+            cardBorderColor: "#00ff88",
+            rankColor: "#ff2288",
+            scoreColor: "#00e5ff",
+        },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+            { key: "player1Name", label: "Player 1 Name" },
+            { key: "player1Rank", label: "Player 1 Rank" },
+            { key: "player1Score", label: "Player 1 Score" },
+        ],
+    },
+
+    {
+        id: "gaming-cta",
+        title: "Gaming CTA",
+        group: "gaming",
+        Component: GamingCTA,
+        defaultContent: {
+            badge: "⚡ READY?",
+            title: "Start Your Gaming Journey",
+            description: "Join the fastest-growing gaming community. Create an account and start competing in minutes.",
+            primaryCTA: "Create Account",
+            secondaryCTA: "Watch Demo",
+            badgeColor: "#00ff88",
+            titleColor: "#ffffff",
+            descColor: "#a0aec0",
+            primaryBgColor: "#00ff88",
+            primaryTextColor: "#0a0a0a",
+            secondaryBorderColor: "#ff2288",
+            bgGradient: "linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0a0a0a 100%)",
+        },
+        fields: [
+            { key: "badge", label: "Badge" },
+            { key: "title", label: "Title" },
+            { key: "description", label: "Description" },
+            { key: "primaryCTA", label: "Primary CTA" },
+            { key: "secondaryCTA", label: "Secondary CTA" },
+        ],
+    },
+
+    {
+        id: "gaming-footer",
+        title: "Gaming Footer",
+        group: "gaming",
+        Component: GamingFooter,
+        defaultContent: {
+            brand: "BATTLE ARENA",
+            tagline: "Where Champions Rise",
+            link1: "Tournaments",
+            link2: "Leaderboard",
+            link3: "Teams",
+            link4: "FAQ",
+            link5: "Privacy",
+            link6: "Terms",
+            social1: "Discord",
+            social2: "Twitch",
+            social3: "Twitter",
+            social4: "YouTube",
+            copyright: "© 2024 Battle Arena. All rights reserved.",
+            brandColor: "#00ff88",
+            textColor: "#a0aec0",
+            linkColor: "#ffffff",
+        },
+        fields: [
+            { key: "brand", label: "Brand" },
+            { key: "tagline", label: "Tagline" },
+            { key: "link1", label: "Link 1" },
+            { key: "link2", label: "Link 2" },
+            { key: "copyright", label: "Copyright" },
         ],
     },
 ];

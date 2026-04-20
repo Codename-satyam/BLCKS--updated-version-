@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useMemo, useState, useCallback } from "react";
+import { createContext, useContext, useMemo, useState, useCallback, useEffect } from "react";
 import sectionRegistry from "./sectionRegistry";
 
 const BuilderContext = createContext(null);
@@ -61,18 +61,48 @@ export const ACCENT_PRESETS = [
     { name: "White",  value: "#ffffff" },
 ];
 
-export function BuilderProvider({ children, initialSetup, platform = "generic" }) {
+export function BuilderProvider({ children, initialSetup, platform = "generic", initialTemplate = null }) {
     const filteredRegistry = useMemo(() => getFilteredRegistry(platform), [platform]);
     
+    // Initialize with template design settings if provided
+    const getInitialDesignSettings = () => {
+        if (initialTemplate?.designSettings) {
+            return {
+                ...defaultDesignSettings,
+                ...initialTemplate.designSettings
+            };
+        }
+        return defaultDesignSettings;
+    };
+    
     const [selectedSectionIds, setSelectedSectionIds] = useState(
-        initialSetup?.preloadSections || []
+        initialSetup?.preloadSections || initialTemplate?.sections || []
     );
     const [sectionContent, setSectionContent]     = useState(initialSectionContent);
-    const [designSettings, setDesignSettings]     = useState(defaultDesignSettings);
+    const [designSettings, setDesignSettings]     = useState(getInitialDesignSettings());
     const [activeEditId, setActiveEditId]         = useState(null);
     const [isPreviewOpen, setIsPreviewOpen]       = useState(false);
     const [previewViewport, setPreviewViewport]   = useState("desktop"); // "desktop" | "tablet" | "mobile"
     const [currentPlatform, setCurrentPlatform]   = useState(platform);
+    
+    // ── Apply template content on mount ────────────────────────────────────
+    useEffect(() => {
+        // Handle pre-saved template with sectionContent
+        if (initialTemplate?.sectionContent) {
+            setSectionContent(prev => ({
+                ...prev,
+                ...initialTemplate.sectionContent
+            }));
+        }
+        // Fallback to legacy template.content for backward compatibility
+        else if (initialTemplate?.content) {
+            const newContent = { ...initialSectionContent };
+            Object.entries(initialTemplate.content).forEach(([sectionId, content]) => {
+                newContent[sectionId] = { ...content };
+            });
+            setSectionContent(newContent);
+        }
+    }, [initialTemplate?.sectionContent, initialTemplate?.content]);
     
     // ── Undo/Redo History ──────────────────────────────────────────────────
     const [history, setHistory] = useState([{

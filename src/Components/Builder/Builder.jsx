@@ -95,6 +95,15 @@ import portfolioTemplate2Source from "../../Sections/Portfolio/Pages/PortfolioTe
 import portfolioTemplate3Source from "../../Sections/Portfolio/Pages/PortfolioTemplate3.jsx?raw";
 import portfolioTemplate4Source from "../../Sections/Portfolio/Pages/PortfolioTemplate4.jsx?raw";
 
+// Gaming imports
+import gamingNavbarSource from "../../Sections/Generic/Navbars/GamingNavbar.jsx?raw";
+import gamingHeroSource from "../../Sections/Generic/Heros/GamingHero.jsx?raw";
+import gamingFeaturesSource from "../../Sections/Generic/Features/GamingFeatures.jsx?raw";
+import gamingPricingSource from "../../Sections/Generic/Pricing/GamingPricing.jsx?raw";
+import gamingStatsSource from "../../Sections/Generic/Stats/GamingStats.jsx?raw";
+import gamingCtaSource from "../../Sections/Generic/CTA/GamingCTA.jsx?raw";
+import gamingFooterSource from "../../Sections/Generic/Footers/GamingFooter.jsx?raw";
+
 const SOURCE_MAP = {
     // Generic sections
     navbar1:   { filePath: "src/Sections/Generic/Navbars/Navbar1.jsx",    source: navbar1Source, title: "Navbar 1" },
@@ -171,6 +180,15 @@ const SOURCE_MAP = {
     "portfolio-template2": { filePath: "src/Sections/Portfolio/Pages/PortfolioTemplate2.jsx", source: portfolioTemplate2Source, title: "Portfolio Template 2" },
     "portfolio-template3": { filePath: "src/Sections/Portfolio/Pages/PortfolioTemplate3.jsx", source: portfolioTemplate3Source, title: "Portfolio Template 3" },
     "portfolio-template4": { filePath: "src/Sections/Portfolio/Pages/PortfolioTemplate4.jsx", source: portfolioTemplate4Source, title: "Portfolio Template 4" },
+    
+    // Gaming sections
+    "gaming-navbar": { filePath: "src/Sections/Generic/Navbars/GamingNavbar.jsx", source: gamingNavbarSource, title: "Gaming Navbar" },
+    "gaming-hero": { filePath: "src/Sections/Generic/Heros/GamingHero.jsx", source: gamingHeroSource, title: "Gaming Hero" },
+    "gaming-features": { filePath: "src/Sections/Generic/Features/GamingFeatures.jsx", source: gamingFeaturesSource, title: "Gaming Features" },
+    "gaming-pricing": { filePath: "src/Sections/Generic/Pricing/GamingPricing.jsx", source: gamingPricingSource, title: "Gaming Pricing" },
+    "gaming-stats": { filePath: "src/Sections/Generic/Stats/GamingStats.jsx", source: gamingStatsSource, title: "Gaming Leaderboard" },
+    "gaming-cta": { filePath: "src/Sections/Generic/CTA/GamingCTA.jsx", source: gamingCtaSource, title: "Gaming CTA" },
+    "gaming-footer": { filePath: "src/Sections/Generic/Footers/GamingFooter.jsx", source: gamingFooterSource, title: "Gaming Footer" },
 };
 
 export default function Builder({ platform = "generic" }) {
